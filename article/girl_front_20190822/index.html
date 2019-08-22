@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Weismann">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="少前手游安卓与ios互转">
+  <meta property="og:description" content="Weismann的个人网站">
+  <meta property="og:site_name" content="Weismann">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="">
+  <link rel="preload" href="/img/shaoqian.png" as="image">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+  <!-- slider CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
+
+  <!-- Site Title -->
+  <title>Weismann</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+</head>
+
+  <body>
+    <!-- title -->
+
+
+<!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/shaoqian.png)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Weismann</p>
+          <p class="subtitle">筱白</p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/xiaobai2017666">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://jq.qq.com/?_wv=1027&k=5OOQK0R">
+                  
+                  二次元交流群
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comic">
+                  
+                  追番攻略
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于我
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/version">
+                  
+                  版本日志&amp;问题反馈
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<article>
+	<div class="container typo">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<!-- page version -->
+				
+    <div class="post-info text-muted">
+
+        
+            <!-- Author -->
+            <span class="author info">By Weismann</span>
+        
+
+        <!-- Date -->
+        <span class="date-time info">On
+            <span class="date">2019年8月22日</span>
+        </span>
+
+        
+            <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/技术文章/">技术文章</a>
+</span>
+        
+
+    </div>
+
+
+    <!-- Tags -->
+    <div class="post-tags text-muted">
+        Tags: 
+
+<a class="tag" href="/tags/host/">#host</a> <a class="tag" href="/tags/游戏/">#游戏</a>
+
+
+    </div>
+
+
+				<!-- Post Main Content -->
+				<div class="post-content">
+
+					
+						<!-- toc -->
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#少前手游安卓与ios互转"><span class="toc-text">少前手游安卓与ios互转</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么会有这篇文章？"><span class="toc-text">为什么会有这篇文章？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#整体思路"><span class="toc-text">整体思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体实现"><span class="toc-text">具体实现</span></a></li></ol></li></ol>
+					
+				
+					<h2 id="少前手游安卓与ios互转"><a href="#少前手游安卓与ios互转" class="headerlink" title="少前手游安卓与ios互转"></a>少前手游安卓与ios互转</h2><h3 id="为什么会有这篇文章？"><a href="#为什么会有这篇文章？" class="headerlink" title="为什么会有这篇文章？"></a>为什么会有这篇文章？</h3><p>最近用别人的服务器太卡了，经常掉线，很烦，于是我想搞成本地服务。</p>
+<h3 id="整体思路"><a href="#整体思路" class="headerlink" title="整体思路"></a>整体思路</h3><p>首先进入游戏会有一个服务器列表，说明游戏要和服务器进行一次请求来获取服务器信息。</p>
+<p>无论使用什么协议发送请求，域名到ip的转换是必须的，所以我们需要在这一层做一个拦截让转换的ip修改成我们自己的。</p>
+<p>ok，我们已经让接口控制权转交到我们的手上了，我们需要伪装成原接口，以相同的数据格式来篡改数据以达到我们的要的效果。</p>
+<p>所幸的是少前的请求是基于http的，在我所学范围内，所以设想成立，剩下的就是具体操作。</p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><ol>
+<li><p>爬取请求信息</p>
+<p>ios通过Thor去爬取，以下的爬取好的，它会返回一个xml配置，我们的目标是伪造这个xml，篡改他的信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST -H "User-Agent: girlsfrontline/636 CFNetwork/1098.6 Darwin/19.0.0" -H "Content-Type: application/x-www-form-urlencoded" -H "Host: ios.transit.gf.ppgame.com" -H "X-Unity-Version: 2017.4.21f1" -d "c=game&amp;a=newserverList&amp;channel=cn_appstore&amp;platformChannelId=ios&amp;check_version=20400&amp;rnd=755227" "http://ios.transit.gf.ppgame.com/index.php"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>本地请求伪造</p>
+<p>非常简单，但是不同语言用的东西不同，这里我是用nodejs</p>
+<p>注意不加端口的域名默认走80端口，如果被占用，请自行搞反代理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//test.js </span></span><br><span class="line"><span class="comment">//node: v10.16.0</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">80</span>);</span><br><span class="line"></span><br><span class="line">app.post(<span class="string">'/index.php'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  res.set(<span class="string">'Content-Type'</span>, <span class="string">'text/xml'</span>);</span><br><span class="line">  res.send(<span class="string">`</span></span><br><span class="line"><span class="string">  &lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="string">  &lt;servers&gt;</span></span><br><span class="line"><span class="string">   &lt;server&gt;</span></span><br><span class="line"><span class="string">    &lt;name&gt;ios&lt;/name&gt;</span></span><br><span class="line"><span class="string">    &lt;addr&gt;http://gf-ios-cn-zs-game-0001.ppgame.com/index.php/3000/&lt;/addr&gt;</span></span><br><span class="line"><span class="string">    &lt;worldId&gt;3000&lt;/worldId&gt;</span></span><br><span class="line"><span class="string">    &lt;recommended&gt;1&lt;/recommended&gt;</span></span><br><span class="line"><span class="string">    &lt;condition&gt;2&lt;/condition&gt;</span></span><br><span class="line"><span class="string">    &lt;is_check&gt;0&lt;/is_check&gt;</span></span><br><span class="line"><span class="string">    &lt;nc&gt;0&lt;/nc&gt;</span></span><br><span class="line"><span class="string">    &lt;ab_version&gt;190110&lt;/ab_version&gt;</span></span><br><span class="line"><span class="string">    &lt;open_time&gt;1566464400&lt;/open_time&gt;</span></span><br><span class="line"><span class="string">   &lt;/server&gt;</span></span><br><span class="line"><span class="string">   &lt;config&gt;</span></span><br><span class="line"><span class="string">    &lt;notice_url&gt;http://gf.ppgame.com/notice/index.html?type=5&lt;/notice_url&gt;</span></span><br><span class="line"><span class="string">    &lt;update_log_url&gt;http://gf.ppgame.com/update_url.html&lt;/update_log_url&gt;</span></span><br><span class="line"><span class="string">    &lt;update_start_time&gt;1522512000&lt;/update_start_time&gt;</span></span><br><span class="line"><span class="string">    &lt;update_end_time&gt;1609430400&lt;/update_end_time&gt;</span></span><br><span class="line"><span class="string">    &lt;client_version&gt;20400&lt;/client_version&gt;</span></span><br><span class="line"><span class="string">    &lt;platform&gt;https://itunes.apple.com/cn/app/shao-nu-qian-xian-jun-wu-qiang/id1117273600?mt=8&lt;/platform&gt;</span></span><br><span class="line"><span class="string">    &lt;top_client_version&gt;2011&lt;/top_client_version&gt;</span></span><br><span class="line"><span class="string">    &lt;version_desc&gt;made by Weismann&lt;/version_desc&gt;</span></span><br><span class="line"><span class="string">   &lt;/config&gt;</span></span><br><span class="line"><span class="string">  &lt;/servers&gt;</span></span><br><span class="line"><span class="string">  `</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node test.js</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改host指向</p>
+<p>在模拟器中使用re文件管理器，修改hosts文件，增加以下内容</p>
+<p>因为phone的localhost指向与pc不同，phone指向10.0.2.2；pc指向127.0.0.1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10.0.2.2 adr.transit.gf.ppgame.com</span><br><span class="line">10.0.2.2 ios.transit.gf.ppgame.com</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- comments -->
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div id="comments"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- code highlight -->
+	
+	<script>
+		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+		codeBlocks.forEach(function(block, index) {
+		hljs.highlightBlock(block);
+		console.log(1);
+		});
+	</script>
+</article>
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/xiaobai2017666">Weismann</a>.
+          The website started in January 6th,2019.
+        </p>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<!-- highlight -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  function highlights() {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  }
+  highlights();
+</script>
+
+<!-- comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: '#comments',
+    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
+    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
+    placeholder: '快来填满我嘛！',
+    lang: 'zh-cn',
+    path: window.location.pathname
+  });
+</script>
+  </body>
+</html>

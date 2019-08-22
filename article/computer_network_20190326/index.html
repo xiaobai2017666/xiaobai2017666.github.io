@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Weismann">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="浅谈计算机网络（全文字）">
+  <meta property="og:description" content="Weismann的个人网站">
+  <meta property="og:site_name" content="Weismann">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="">
+  <link rel="preload" href="/img/shaoqian.png" as="image">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+  <!-- slider CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
+
+  <!-- Site Title -->
+  <title>Weismann</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+</head>
+
+  <body>
+    <!-- title -->
+
+
+<!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/shaoqian.png)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Weismann</p>
+          <p class="subtitle">筱白</p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/xiaobai2017666">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://jq.qq.com/?_wv=1027&k=5OOQK0R">
+                  
+                  二次元交流群
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comic">
+                  
+                  追番攻略
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于我
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/version">
+                  
+                  版本日志&amp;问题反馈
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<article>
+	<div class="container typo">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<!-- page version -->
+				
+    <div class="post-info text-muted">
+
+        
+            <!-- Author -->
+            <span class="author info">By Weismann</span>
+        
+
+        <!-- Date -->
+        <span class="date-time info">On
+            <span class="date">2019年3月26日</span>
+        </span>
+
+        
+            <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/技术文章/">技术文章</a>
+</span>
+        
+
+    </div>
+
+
+    <!-- Tags -->
+    <div class="post-tags text-muted">
+        Tags: 
+
+<a class="tag" href="/tags/计算机网络/">#计算机网络</a>
+
+
+    </div>
+
+
+				<!-- Post Main Content -->
+				<div class="post-content">
+
+					
+						<!-- toc -->
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#浅谈计算机网络（全文字）"><span class="toc-text">浅谈计算机网络（全文字）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#计算机网络层次"><span class="toc-text">计算机网络层次</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP"><span class="toc-text">HTTP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTPS"><span class="toc-text">HTTPS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP"><span class="toc-text">UDP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP"><span class="toc-text">TCP</span></a></li></ol></li></ol>
+					
+				
+					<h2 id="浅谈计算机网络（全文字）"><a href="#浅谈计算机网络（全文字）" class="headerlink" title="浅谈计算机网络（全文字）"></a>浅谈计算机网络（全文字）</h2><h4 id="计算机网络层次"><a href="#计算机网络层次" class="headerlink" title="计算机网络层次"></a>计算机网络层次</h4><p>从大往小说，<strong>计算机网络层次结构</strong>一共有三种：OSI、TCP/IP、五层。</p>
+<p>最简单的<strong>TCP/IP</strong>，他有应用层、传输层、网际层、网络接口层。</p>
+<p>而其他两个就是对TCP/IP的拓展，<strong>五层</strong>是把网络接口层再分为链路层和物理层，这样方便解释计算机原理方面的知识，比如说物理层的I/O设备是如何将电流抽象成0和1的，它是根据的电压的范围，比如100V以上是1，100V以下是0，那为什么只有0和1没有别的234之类的呢？比如我们在传输时候，如果遇到电话或者磁场的干扰，那么电压会不稳定，会上下波动，如果有01234这种，那么波动后的可能值就会改变，造成错误的几率大大增加。</p>
+<p><strong>OSI</strong>则是在五层基础上将应用层再分为应用层，表示层，会话层，虽然更为详细但是并不实用（但是在解释TLS的机制的时候比较实用）。</p>
+<p>回过头来说TCP/IP层次结构的<strong>应用层</strong>有经常接触到的HTTP、传输层有TCP和UDP、网际层有IP。</p>
+<h4 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h4><p>HTTP是超文本传输协议，是一种<strong>无连接</strong>的，<strong>无状态</strong>的协议。因此，传输效率高。</p>
+<p>它是<strong>基于TCP连接</strong>的协议，需要进行TCP三次握手后才可以开始，所以HTTP的传输可靠性是较高的。</p>
+<p>它支持C/S和B/S模式，支持任意数据对象的传输。</p>
+<p>HTTP是<strong>面向报文</strong>的方式交互的，分为请求和响应。</p>
+<p>报文由三部分组成。</p>
+<p>请求报文有<strong>请求行</strong>，包括请求类型、请求地址（URL）和HTTP的版本号，响应报文则是协议版本、状态码、状态码描述，信息间以空格间隔，结束标志是回车符和换行符；</p>
+<p><strong>请求头</strong>，由一堆键值对组成，有用户端和服务端的一些信息，请求和响应通用的一些键名有Content-Type、Accept、Content-Length、Content-Encoding、Accept-Encoding、{ETag、Cache-Control}（强缓存），请求报文常见的键名有User-Agent、Cookie、Referer、Host，响应报文常见的键名相对于请求报文有Server、Set-Cookie、Location、Date，这些都可以作为爬虫的信息参考，信息间以回车符换行符间隔，结束标志是两个回车符和换行符；</p>
+<p><strong>请求数据</strong>有三种方式，常用的有数据交换，支持任意类型，但需要额外的解析、键值对，和GET请求类似，用=连接键值，用&amp;连接键值对；还有不常用的分部式，把请求体分为多个部分，每个部分有开头标志、分部分信息、内容、结尾标志。</p>
+<p><strong>HTTP1.1</strong>中相对于HTTP1.0加入了持久连接，就是说，单次TCP连接可以传送多次HTTP请求和响应，并且可以同时进行和重叠，然而事实上这种长久连接还是基于TCP协议的，此外还加入了一些新的请求头，比如Host，这在HTTP1.0中是没有的。</p>
+<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>HTTPS是一种加密型的超文本传输协议，事实上它由两个协议组成，HTTP和SSL/TLS。他们同属于应用层，最开始目的是为了解决传输过程中因为明文传输造成的中间人攻击，这种现象可以举例国内某网络服务商，我们进行网络数据传输总会经过中间服务商中转，就是在中转过程中，加入了一些其他的东西，比如广告之类的。为了解决这种问题，采用了加密协议，一开始采用了<strong>对称式加密</strong>，即在服务器端加密后，将解密方法和数据一并传输给用户端，但是这也会出现中间商拦截的情况；然后产生了一种<strong>非对称加密</strong>的方式，即服务端使用公钥，用户端使用私钥，而加密内容如果用公钥加密就只能用私钥解开，如果用私钥加密就只能用公钥解开，这刚好解决了这种问题。但是另一个问题出现了，这个算法如果用来加密解密大数据的话实在太慢了；然后，又产生了一种<strong>对称加密+非对称加密</strong>的一种加密方式，这种方式将数据用对称加密，而对称加密的解密方法用非对称加密的方式传输，因此我们传输数据的时候有用非对称加密好的对称加密算法、用对称加密好的数据，这就大大减少了加密解密使用的资源。</p>
+<p>进行HTTPS传输前也要进行<strong>TLS的握手</strong>，通过客户端发出，过程中产生三个随机数，根据协议，加密方式给客户端产生私钥后正式进行通讯。</p>
+<p>目前网站的许多功能都需要启用HTTPS才能进行使用，比如H5中的Service Worker、Notification等。</p>
+<p>使用HTTPS需要有证书，一般是收费的。使用这种协议一般只需要服务器配置，而用户端目前主流浏览器都支持HTTPS。</p>
+<h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><p>UDP，一种面向数据报<strong>无连接</strong>协议，因为无连接所以并<strong>不可靠</strong>。它很简单，头部只有八个字节，所以<strong>开销很小</strong>，一旦数据报发出去之后就不再管是否到达，所以可能会产生丢包现象。<br>它的<strong>报文头部</strong>有四个部分，每个部分占2字节，分别是源端口、目的端口、长度、检验和。在使用检验和的时候通常会临时在头部前面加入额外的字段，用来检验，但这部分不会随着数据报而发送。<br>此协议使用的场景一般有DNS和一些即时游戏数据的交互，因为要求数据达到的速度，所以玩游戏时候会有一些丢包现象就是由此而来。</p>
+<h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><p>TCP，一种<strong>面向数据流</strong>的协议，它将报文分段，并有序的传输，在传输完成后会根据序号进行拼合，所以看起来就像在传一段有序的字节码，所以说是面向数据流。需要连接和断开连接，并且非常可靠，可靠的同时带来的就是不高效。<strong>头部信息</strong>很复杂，按照惯例有源端口和目的端口，然后是序列号seqNumber，希望接收的下一个序号ackNumber，一些标识符，常用的有ACK、SYN、FIN，AKC在建立连接后会将所有报文段置1；SYN是来表示报文的类型判断是否是请求连接的报文还是同意连接后的报文；FIN主要用来结束连接，此外还有检验头部和、源IP地址和目的IP地址。</p>
+<p>TCP的重点是在于连接三次握手和断开四次握手。</p>
+<p><strong>连接三次握手</strong>前双方均是closed状态，通信开始前双方都会创建TCB模块（系统的一个安全模块），然后服务器开始LISTEN状态，</p>
+<p>第一次握手一般由用户端发起，报文段中含有初始序号，发送后进入SYN-SENT状态，</p>
+<p>第二次握手服务器收到报文段后，如果同意就发送一个应答，报文段中也会携带初始序号，并进入SYN-RECEIVE状态，</p>
+<p>第三次握手用户端收到之后会再次发送一个确认报文，发送完成后用户端处于ESTABLISHED状态，而服务器端收到后也进入这个状态，然后连接建立完成。</p>
+<p><strong>断开连接四次握手</strong>，</p>
+<p>第一次握手若用户端认为数据发送完成则向服务器端发送结束连接请求，</p>
+<p>第二次握手服务端收到后，会发送ACK包进入CLOSE_WAIT状态，并不再接受用户端的数据，因为通信时双工的，此时服务端还可以给用户端发送数据，</p>
+<p>第三次握手，如果服务端还没发送完数据会继续发送，直到发送完向用户端发送结束连接请求并进入LAST_ACK状态，</p>
+<p>第四次握手用户端收到后会发送确定应答，此时进入TIME_WAIT状态，目的是等待最后一次应答到达服务端，随后进入CLOSED状态，服务端收到后也会进入CLOSED状态。</p>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- comments -->
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div id="comments"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- code highlight -->
+	
+	<script>
+		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+		codeBlocks.forEach(function(block, index) {
+		hljs.highlightBlock(block);
+		console.log(1);
+		});
+	</script>
+</article>
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/xiaobai2017666">Weismann</a>.
+          The website started in January 6th,2019.
+        </p>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<!-- highlight -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  function highlights() {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  }
+  highlights();
+</script>
+
+<!-- comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: '#comments',
+    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
+    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
+    placeholder: '快来填满我嘛！',
+    lang: 'zh-cn',
+    path: window.location.pathname
+  });
+</script>
+  </body>
+</html>

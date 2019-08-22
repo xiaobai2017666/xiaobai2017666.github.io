@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Weismann">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="“计算机科学”学习回顾">
+  <meta property="og:description" content="Weismann的个人网站">
+  <meta property="og:site_name" content="Weismann">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="">
+  <link rel="preload" href="/img/shaoqian.png" as="image">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+  <!-- slider CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
+
+  <!-- Site Title -->
+  <title>Weismann</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+</head>
+
+  <body>
+    <!-- title -->
+
+
+<!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/shaoqian.png)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Weismann</p>
+          <p class="subtitle">筱白</p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/xiaobai2017666">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://jq.qq.com/?_wv=1027&k=5OOQK0R">
+                  
+                  二次元交流群
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comic">
+                  
+                  追番攻略
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于我
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/version">
+                  
+                  版本日志&amp;问题反馈
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<article>
+	<div class="container typo">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<!-- page version -->
+				
+    <div class="post-info text-muted">
+
+        
+            <!-- Author -->
+            <span class="author info">By Weismann</span>
+        
+
+        <!-- Date -->
+        <span class="date-time info">On
+            <span class="date">2019年3月4日</span>
+        </span>
+
+        
+            <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/学习回顾/">学习回顾</a>
+</span>
+        
+
+    </div>
+
+
+    <!-- Tags -->
+    <div class="post-tags text-muted">
+        Tags: 
+
+<a class="tag" href="/tags/计算机科学/">#计算机科学</a>
+
+
+    </div>
+
+
+				<!-- Post Main Content -->
+				<div class="post-content">
+
+					
+						<!-- toc -->
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#“计算机科学”学习回顾-2019-3-4"><span class="toc-text">“计算机科学”学习回顾-2019.3.4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#书中的一些干货"><span class="toc-text">书中的一些干货</span></a></li></ol></li></ol>
+					
+				
+					<h2 id="“计算机科学”学习回顾-2019-3-4"><a href="#“计算机科学”学习回顾-2019-3-4" class="headerlink" title="“计算机科学”学习回顾-2019.3.4"></a>“计算机科学”学习回顾-2019.3.4</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>有幸通过一个前端基础文档进入了一个博客，里面一篇写着<a href="https://yuchengkai.cn/%E9%9D%A2%E8%AF%95%E6%95%B0%E5%8D%81%E4%BA%BA%E6%9C%89%E6%84%9F/" target="_blank" rel="noopener">关于面试有感</a>，让我反省了一下最近学习遇到的“天花板”。目前来说，自己可以独立开发一个完整的项目，但是对于优化等其他方面却感到无从下手。读了这篇文章后，回顾自己的专业课程，貌似“OS”、“数据结构与算法”、“网络”都逃掉了（捂脸）。</p>
+<p>现在看来，觉得这些基础还是比较重要的。举个例子来说，优化方面的。</p>
+<p>计算机在执行一个文件并显示时，在机器中有一系列的复制过程：数据从-&gt;存储区复制到主存-&gt;主存复制到L1-&gt;主存复制到显示器（IO设备）。这些复制会产生一定的开销，遇到大文件会造成卡顿。</p>
+<p>引用《深入理解计算机系统》中的一句话，“根据机械原理，空间大的存储设备要比空间小的存储设备运行要慢”，试比较从主存复制到CPU和从磁盘复制到CPU哪个更快？</p>
+<p>由此引出“高速缓存“的概念，他是存在于CPU当中的，存储空间要比主存小，所以理所应当的处理速度快。</p>
+<p>而一层一层的存储设备产生了”存储层次结构“，</p>
+<table>
+<thead>
+<tr>
+<th>寄存器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1高速缓存</td>
+</tr>
+<tr>
+<td>L2高速缓存</td>
+</tr>
+<tr>
+<td>L3高速缓存</td>
+</tr>
+<tr>
+<td>主存</td>
+</tr>
+<tr>
+<td>本地硬盘</td>
+</tr>
+<tr>
+<td>网络硬盘</td>
+</tr>
+</tbody>
+</table>
+<p>速度显而易见，最上层的最快。</p>
+<p>对于”存储层次结构“这个概念来说，每个上级对于下级来说都是一个高速缓存，所以可以得出一个优化的方案：<strong>对于我们部署到服务器的网页项目，可以在服务端和用户端之前加入缓存服务器，以加快处理速度。</strong></p>
+<p>之前的时候，我还不太明白，比较大的一些项目为什么会有一个以上的服务器，知道这些计算机基础后，感觉这些思路很清晰。所以目前我在读一本”深入理解计算机系统“的一本计算机科学基础书，里面对于我的启发还是比较大的。</p>
+<h4 id="书中的一些干货"><a href="#书中的一些干货" class="headerlink" title="书中的一些干货"></a>书中的一些干货</h4><ol>
+<li>文件在系统中一般是以ASCLL码来进行存储的。</li>
+<li>C代码变成可执行文件其实有四个阶段（我以为就一个）：<ul>
+<li>预处理阶段，将#inlcude的一些文件数据引入等其他操作，并产生中间文件</li>
+<li>编译阶段，将上一步产生的中间文件翻译成指令（汇编）代码，并产生中间文件</li>
+<li>汇编阶段，将上一步产生的中间文件翻译成机器码（01），并产生中间文件</li>
+<li>链接阶段，将上一步产生的中间文件中一些C一些自带的函数库（这些代码其实已经到达了汇编阶段）引入，产生可执行文件</li>
+</ul>
+</li>
+<li>字时由字节组成的，而字的大小在不同位的系统中不一样，所以字有可能是两个（16位）、四个（32位）、八个（64位）字节组成，由计算机的CPU每次处理的位数（字长）决定。</li>
+</ol>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- comments -->
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div id="comments"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- code highlight -->
+	
+	<script>
+		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+		codeBlocks.forEach(function(block, index) {
+		hljs.highlightBlock(block);
+		console.log(1);
+		});
+	</script>
+</article>
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/xiaobai2017666">Weismann</a>.
+          The website started in January 6th,2019.
+        </p>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<!-- highlight -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  function highlights() {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  }
+  highlights();
+</script>
+
+<!-- comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: '#comments',
+    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
+    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
+    placeholder: '快来填满我嘛！',
+    lang: 'zh-cn',
+    path: window.location.pathname
+  });
+</script>
+  </body>
+</html>

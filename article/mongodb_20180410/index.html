@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Weismann">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="从零部署Mongodb">
+  <meta property="og:description" content="Weismann的个人网站">
+  <meta property="og:site_name" content="Weismann">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="">
+  <link rel="preload" href="/img/shaoqian.png" as="image">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+  <!-- slider CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
+
+  <!-- Site Title -->
+  <title>Weismann</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+</head>
+
+  <body>
+    <!-- title -->
+
+
+<!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/shaoqian.png)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Weismann</p>
+          <p class="subtitle">筱白</p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/xiaobai2017666">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://jq.qq.com/?_wv=1027&k=5OOQK0R">
+                  
+                  二次元交流群
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comic">
+                  
+                  追番攻略
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于我
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/version">
+                  
+                  版本日志&amp;问题反馈
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<article>
+	<div class="container typo">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<!-- page version -->
+				
+    <div class="post-info text-muted">
+
+        
+            <!-- Author -->
+            <span class="author info">By Weismann</span>
+        
+
+        <!-- Date -->
+        <span class="date-time info">On
+            <span class="date">2018年4月10日</span>
+        </span>
+
+        
+            <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/技术文章/">技术文章</a>
+</span>
+        
+
+    </div>
+
+
+    <!-- Tags -->
+    <div class="post-tags text-muted">
+        Tags: 
+
+<a class="tag" href="/tags/服务器部署/">#服务器部署</a> <a class="tag" href="/tags/mongodb/">#mongodb</a>
+
+
+    </div>
+
+
+				<!-- Post Main Content -->
+				<div class="post-content">
+
+					
+						<!-- toc -->
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#从零部署Mongodb"><span class="toc-text">从零部署Mongodb</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#安装基本功能"><span class="toc-text">安装基本功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#开始安装Mongodb"><span class="toc-text">开始安装Mongodb</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#可能用到的命令"><span class="toc-text">可能用到的命令</span></a></li></ol></li></ol>
+					
+				
+					<h2 id="从零部署Mongodb"><a href="#从零部署Mongodb" class="headerlink" title="从零部署Mongodb"></a>从零部署Mongodb</h2><p><strong>系统版本</strong><br><strong>centos6 64位</strong></p>
+<ol>
+<li><h5 id="安装基本功能"><a href="#安装基本功能" class="headerlink" title="安装基本功能"></a>安装基本功能</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install [功能]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>wget</p>
+<p>网络文件获取</p>
+</li>
+<li><p>tar</p>
+<p>解压缩文件</p>
+</li>
+<li><p>vi</p>
+<p>编辑文件</p>
+</li>
+<li><p>gcc</p>
+<p>编译二进制文件</p>
+</li>
+</ul>
+</li>
+<li><h5 id="开始安装Mongodb"><a href="#开始安装Mongodb" class="headerlink" title="开始安装Mongodb"></a>开始安装Mongodb</h5><p>下载链接从此<a href="https://www.mongodb.com/download-center#community" target="_blank" rel="noopener">链接</a>获取</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel62-3.6.3.tgz</span><br><span class="line"></span><br><span class="line">tar -zxvf mongodb-linux-x86_64-rhel62-3.6.3.tgz</span><br><span class="line"></span><br><span class="line">mv mongodb-linux-x86_64-rhel62-3.6.3 /usr/local/mongodb</span><br><span class="line"></span><br><span class="line">export PATH=[mongodb安装路径]/bin:$PATH</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置Mongodb</p>
+<p><strong>创建数据库目录</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/db</span><br><span class="line"></span><br><span class="line">cd /data</span><br><span class="line"></span><br><span class="line">mkdir log &amp;&amp; cd log</span><br><span class="line"></span><br><span class="line">vi mongodb.log  //此处不填内容直接退出，作用是创建log文件</span><br></pre></td></tr></table></figure>
+<p><strong>启动mongodb</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/mongodb/bin/mongo.conf</span><br></pre></td></tr></table></figure>
+<p>填写内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dbpath=/data/db</span><br><span class="line">logpath=/data/log/mongodb.log</span><br><span class="line">fork=true</span><br><span class="line">port=27017</span><br><span class="line">bind_ip=0.0.0.0</span><br></pre></td></tr></table></figure>
+<p><em>参数解释：</em></p>
+<ul>
+<li><p>fork</p>
+<p>后台运行</p>
+</li>
+<li><p>bind_ip</p>
+<p>允许外网访问本地ip</p>
+<p>0.0.0.0代表可被外网访问</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mongodb/bin</span><br><span class="line"></span><br><span class="line">./mongod -f /usr/local/mongodb/bin/mongo.conf</span><br></pre></td></tr></table></figure>
+<p><strong>数据库操作</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mongo</span><br></pre></td></tr></table></figure>
+<p>运行./mongod出错解决方案：</p>
+<ul>
+<li>检查/data/log/mongodb.log这条路径上的所有文件夹和文件是否被创建</li>
+<li>检查/data/db是否有.lock结尾的文件,有则删除</li>
+</ul>
+</li>
+<li><h5 id="可能用到的命令"><a href="#可能用到的命令" class="headerlink" title="可能用到的命令"></a>可能用到的命令</h5><ul>
+<li><p>删除</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -f [文件路径]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列出当前目录下所有文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>mongodb可视化工具</p>
+<p>adminmongo <a href="https://github.com/mrvautin/adminMongo" target="_blank" rel="noopener">链接</a></p>
+</li>
+</ol>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- comments -->
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div id="comments"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- code highlight -->
+	
+	<script>
+		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+		codeBlocks.forEach(function(block, index) {
+		hljs.highlightBlock(block);
+		console.log(1);
+		});
+	</script>
+</article>
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/xiaobai2017666">Weismann</a>.
+          The website started in January 6th,2019.
+        </p>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<!-- highlight -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  function highlights() {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  }
+  highlights();
+</script>
+
+<!-- comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: '#comments',
+    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
+    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
+    placeholder: '快来填满我嘛！',
+    lang: 'zh-cn',
+    path: window.location.pathname
+  });
+</script>
+  </body>
+</html>

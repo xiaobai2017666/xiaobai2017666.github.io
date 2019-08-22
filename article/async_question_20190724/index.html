@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Weismann">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="某条一面异步题解析">
+  <meta property="og:description" content="Weismann的个人网站">
+  <meta property="og:site_name" content="Weismann">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="">
+  <link rel="preload" href="/img/shaoqian.png" as="image">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+  <!-- slider CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
+
+  <!-- Site Title -->
+  <title>Weismann</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+</head>
+
+  <body>
+    <!-- title -->
+
+
+<!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/shaoqian.png)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Weismann</p>
+          <p class="subtitle">筱白</p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/xiaobai2017666">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://jq.qq.com/?_wv=1027&k=5OOQK0R">
+                  
+                  二次元交流群
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comic">
+                  
+                  追番攻略
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于我
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/version">
+                  
+                  版本日志&amp;问题反馈
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<article>
+	<div class="container typo">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<!-- page version -->
+				
+    <div class="post-info text-muted">
+
+        
+            <!-- Author -->
+            <span class="author info">By Weismann</span>
+        
+
+        <!-- Date -->
+        <span class="date-time info">On
+            <span class="date">2019年7月24日</span>
+        </span>
+
+        
+            <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/技术文章/">技术文章</a>
+</span>
+        
+
+    </div>
+
+
+    <!-- Tags -->
+    <div class="post-tags text-muted">
+        Tags: 
+
+<a class="tag" href="/tags/前端/">#前端</a> <a class="tag" href="/tags/异步/">#异步</a>
+
+
+    </div>
+
+
+				<!-- Post Main Content -->
+				<div class="post-content">
+
+					
+						<!-- toc -->
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#某条一面异步题解析"><span class="toc-text">某条一面异步题解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行过程"><span class="toc-text">运行过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点与不足"><span class="toc-text">缺点与不足</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后"><span class="toc-text">最后</span></a></li></ol></li></ol>
+					
+				
+					<h2 id="某条一面异步题解析"><a href="#某条一面异步题解析" class="headerlink" title="某条一面异步题解析"></a>某条一面异步题解析</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这道面试题论在当时我是写不出来的，当时自吹熟悉promise结果这道题写不粗来有点尴尬哈哈，面试结束后面试官官让我再让我想一下（大概下一面会再考），目前这个写法大概消耗了一下午的时间去思考吧。</p>
+<p>这场面试后续没完成，因为面之前就已经入职某滴的实习生了。</p>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//JS实现一个带并发限制的异步调度器Scheduler，保证同时运行的任务最多有两个。完善代码中Scheduler类，使得以下程序能正确输出</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Scheduler</span> </span>&#123;</span><br><span class="line">  add(promiseCreator) &#123; ... &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> timeout = <span class="function">(<span class="params">time</span>) =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">  setTimeout(resolve, time)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> scheduler = <span class="keyword">new</span> Scheduler()</span><br><span class="line"><span class="keyword">const</span> addTask = <span class="function">(<span class="params">time, order</span>) =&gt;</span> &#123;</span><br><span class="line">  scheduler.add(<span class="function"><span class="params">()</span> =&gt;</span> timeout(time))</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(order))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addTask(<span class="number">1000</span>, <span class="string">'1'</span>)</span><br><span class="line">addTask(<span class="number">500</span>, <span class="string">'2'</span>)</span><br><span class="line">addTask(<span class="number">300</span>, <span class="string">'3'</span>)</span><br><span class="line">addTask(<span class="number">400</span>, <span class="string">'4'</span>)</span><br><span class="line"><span class="comment">// output: 2 3 1 4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 一开始，1、2两个任务进入队列</span></span><br><span class="line"><span class="comment">// 500ms时，2完成，输出2，任务3进队</span></span><br><span class="line"><span class="comment">// 800ms时，3完成，输出3，任务4进队</span></span><br><span class="line"><span class="comment">// 1000ms时，1完成，输出1</span></span><br><span class="line"><span class="comment">// 1200ms时，4完成，输出4</span></span><br></pre></td></tr></table></figure>
+<h3 id="运行过程"><a href="#运行过程" class="headerlink" title="运行过程"></a>运行过程</h3><p>@左值为<u>剩余时间</u>，右值为输出内容</p>
+<table>
+<thead>
+<tr>
+<th>执行队列（最大两个）</th>
+<th>等待队列</th>
+<th>行为</th>
+<th>执行内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000@1</td>
+<td></td>
+<td>执行队列未满，直接进入执行队列</td>
+<td>addTask(1000, ‘1’)</td>
+</tr>
+<tr>
+<td>1000@1、500@2</td>
+<td></td>
+<td>执行队列未满，直接进入执行队列</td>
+<td>addTask(500, ‘2’)</td>
+</tr>
+<tr>
+<td>1000@1、500@2</td>
+<td>300@3</td>
+<td>执行队列已满，加入到等待队列</td>
+<td>addTask(300, ‘3’)</td>
+</tr>
+<tr>
+<td>1000@1、500@2</td>
+<td>300@3、400@4</td>
+<td>执行队列已满，加入到等待队列</td>
+<td>addTask(400, ‘4’)</td>
+</tr>
+<tr>
+<td>500@1、300@3</td>
+<td>400@4</td>
+<td>500@2执行完成输出2，1000@1消耗掉500，从等待队列按序加入到执行队列</td>
+<td></td>
+</tr>
+<tr>
+<td>200@1、400@4</td>
+<td></td>
+<td>300@3执行完成输出3，500@1消耗掉300，从等待队列按序加入到执行队列</td>
+<td></td>
+</tr>
+<tr>
+<td>200@4</td>
+<td></td>
+<td>200@1执行完成输出1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>200@4执行完成输出4</td>
+</tr>
+</tbody>
+</table>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><u>注意add方法里面传入的是函数并返回Promise</u>，这是难点，很多人都是改题，我见过拿getter、setter写的，我觉得跟题目要考的主旨不同。</p>
+<p>前两个很好处理，直接判断执行队列中是否满员，未满直接进队</p>
+<p>第三个及以后则需要判断前两者是否resolve，注意这里前两者和前两个的概念不同（由于是一层抽象，这里举例说明：目前处于第三个，那么前两者的前者指第一个到第一个，后者指第二个；目前处于第四个，那么前两者的前者指第一个到第二个，后者指第三个；以此类推），resolve后从等待队列<u>按顺序</u>加入到执行队列。</p>
+<p>说下原因，有两种情况。前者先完成，也就是集合中的任务全部执行完成，那么后者一定会进入执行（未完成），那么执行队列中一定会剩下一个位置；后者先完成，这个没什么可说的，后者完成后一定会剩下一个位置。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Scheduler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.list=[]   <span class="comment">//promise list</span></span><br><span class="line">        <span class="keyword">this</span>.cur=<span class="number">0</span>   <span class="comment">//current position</span></span><br><span class="line">        <span class="keyword">this</span>.max=<span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">    add(promiseCreator) &#123;</span><br><span class="line">        <span class="keyword">let</span> temp=<span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.cur &lt; <span class="keyword">this</span>.max) &#123;</span><br><span class="line">            temp=promiseCreator();</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> arr=<span class="keyword">this</span>.list.slice(<span class="number">0</span>,<span class="keyword">this</span>.cur<span class="number">-1</span>);</span><br><span class="line">            <span class="keyword">let</span> all=<span class="built_in">Promise</span>.all(arr);</span><br><span class="line">            </span><br><span class="line">            temp=<span class="built_in">Promise</span>.race([all,<span class="keyword">this</span>.list[<span class="keyword">this</span>.cur<span class="number">-1</span>]])</span><br><span class="line">                    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span> promiseCreator();</span><br><span class="line">                    &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.list.push(temp);</span><br><span class="line">        <span class="keyword">this</span>.cur++;</span><br><span class="line">        <span class="keyword">return</span> temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="缺点与不足"><a href="#缺点与不足" class="headerlink" title="缺点与不足"></a>缺点与不足</h3><ul>
+<li><p>无法复用</p>
+<p>如果调整为执行队列最大个数为3或以上，则需要判断前n者中是否有resolve</p>
+</li>
+<li><p>容易内存爆炸</p>
+<p>list一直保存着primise，无论resolve还是pedding</p>
+</li>
+<li><p>异常处理</p>
+</li>
+</ul>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>如果有小伙伴还有别的思路或者对缺点有思路的话欢迎评论</p>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- comments -->
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div id="comments"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- code highlight -->
+	
+	<script>
+		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+		codeBlocks.forEach(function(block, index) {
+		hljs.highlightBlock(block);
+		console.log(1);
+		});
+	</script>
+</article>
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/xiaobai2017666">Weismann</a>.
+          The website started in January 6th,2019.
+        </p>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<!-- highlight -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  function highlights() {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  }
+  highlights();
+</script>
+
+<!-- comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: '#comments',
+    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
+    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
+    placeholder: '快来填满我嘛！',
+    lang: 'zh-cn',
+    path: window.location.pathname
+  });
+</script>
+  </body>
+</html>

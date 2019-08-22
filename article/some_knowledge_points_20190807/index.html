@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Weismann">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="零散知识点二">
+  <meta property="og:description" content="Weismann的个人网站">
+  <meta property="og:site_name" content="Weismann">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="">
+  <link rel="preload" href="/img/shaoqian.png" as="image">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+  <!-- slider CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
+
+  <!-- Site Title -->
+  <title>Weismann</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+</head>
+
+  <body>
+    <!-- title -->
+
+
+<!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/shaoqian.png)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Weismann</p>
+          <p class="subtitle">筱白</p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/xiaobai2017666">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://jq.qq.com/?_wv=1027&k=5OOQK0R">
+                  
+                  二次元交流群
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comic">
+                  
+                  追番攻略
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于我
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/version">
+                  
+                  版本日志&amp;问题反馈
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<article>
+	<div class="container typo">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<!-- page version -->
+				
+    <div class="post-info text-muted">
+
+        
+            <!-- Author -->
+            <span class="author info">By Weismann</span>
+        
+
+        <!-- Date -->
+        <span class="date-time info">On
+            <span class="date">2019年8月7日</span>
+        </span>
+
+        
+            <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/技术文章/">技术文章</a>
+</span>
+        
+
+    </div>
+
+
+    <!-- Tags -->
+    <div class="post-tags text-muted">
+        Tags: 
+
+<a class="tag" href="/tags/javascript/">#javascript</a> <a class="tag" href="/tags/React/">#React</a> <a class="tag" href="/tags/CSS/">#CSS</a>
+
+
+    </div>
+
+
+				<!-- Post Main Content -->
+				<div class="post-content">
+
+					
+						<!-- toc -->
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#零散知识点二"><span class="toc-text">零散知识点二</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS兄弟元素选择器"><span class="toc-text">CSS兄弟元素选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS圆心渐变"><span class="toc-text">CSS圆心渐变</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS自定义属性（变量？）"><span class="toc-text">CSS自定义属性（变量？）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-resize"><span class="toc-text">CSS resize</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#深拷贝中如何判断字符串是不是json？"><span class="toc-text">深拷贝中如何判断字符串是不是json？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React的setState"><span class="toc-text">React的setState</span></a></li></ol></li></ol>
+					
+				
+					<h2 id="零散知识点二"><a href="#零散知识点二" class="headerlink" title="零散知识点二"></a>零散知识点二</h2><h3 id="CSS兄弟元素选择器"><a href="#CSS兄弟元素选择器" class="headerlink" title="CSS兄弟元素选择器"></a>CSS兄弟元素选择器</h3><p>ul &gt; li + li</p>
+<p>ul &gt; li 代表ul元素下的直接li子元素</p>
+<p>li + li 代表li元素后紧邻的li兄弟元素（同父级），注意是后，没有前</p>
+<p>.demo ~ li 代表类名为demo元素后的所有li兄弟元素（同父级）</p>
+<p>可以用来给列表加border</p>
+<h3 id="CSS圆心渐变"><a href="#CSS圆心渐变" class="headerlink" title="CSS圆心渐变"></a>CSS圆心渐变</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.demo</span> &#123; </span><br><span class="line">	<span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">	<span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">conic-gradient</span>(blue60%,red 60% 80%, green 80%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<p>conic-gradient(&lt;第一个颜色&gt;[ &lt;结束位置&gt;][,&lt;第n个颜色&gt;[ &lt;开始位置&gt; &lt;结束位置&gt;],…],&lt;最后一个颜色&gt; [&lt;开始位置&gt;])</p>
+<p>如果增加开始位置或结束位置，则不产生渐变</p>
+<p>用来画饼状图</p>
+<p>优点是不需要考虑整体和是否为100%的问题，因为有些时候，百分比传过来的值往往和为100.1%这样？</p>
+<h3 id="CSS自定义属性（变量？）"><a href="#CSS自定义属性（变量？）" class="headerlink" title="CSS自定义属性（变量？）"></a>CSS自定义属性（变量？）</h3><p>语法：–&lt;属性名&gt;: &lt;属性值&gt;</p>
+<p>应用于进度条</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">“demo</span>" <span class="attr">style</span>=<span class="string">"--percent:20;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.demo</span> &#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">	<span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(red, red);</span><br><span class="line">	<span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">	<span class="attribute">background-size</span>: <span class="built_in">calc</span>(var(--percent) * <span class="number">1%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过dom.style.cssText来控制进度</p>
+<h3 id="CSS-resize"><a href="#CSS-resize" class="headerlink" title="CSS resize"></a>CSS resize</h3><p>还记得textarea吗，原来右下角那个小东西可以拖动，现在可以通过resize属性实现任意元素的大小拖动</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.demo</span> &#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">1px</span>;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">	<span class="attribute">overflow</span>: hidden;</span><br><span class="line">	<span class="attribute">resize</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述除了resize属性之外，其他三者都是必须的，其中height必须&gt;0</p>
+<h3 id="深拷贝中如何判断字符串是不是json？"><a href="#深拷贝中如何判断字符串是不是json？" class="headerlink" title="深拷贝中如何判断字符串是不是json？"></a>深拷贝中如何判断字符串是不是json？</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isJson</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">JSON</span>.parse(str);</span><br><span class="line">	&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">		<span class="keyword">return</span> str;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="React的setState"><a href="#React的setState" class="headerlink" title="React的setState"></a>React的setState</h3><p>此api用于更新组件状态（废话</p>
+<p>但是，React在这上面做了一些手脚，导致这个api是异步的，作为初学者的我在写业务的时候也遇到了。</p>
+<p>一般人来讲，更新了状态后回紧接着打印出来查看结果，但是在React中不会立即更新状态，因为它是异步的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Component.prototype.setState = <span class="function"><span class="keyword">function</span>(<span class="params">partialState, callback</span>) </span>&#123; <span class="comment">//React 16.8.X</span></span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">this</span>.updater.enqueueSetState(<span class="keyword">this</span>, partialState, callback, <span class="string">'setState'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>通过源码中的函数名称enqueueSetState就可以看出来，setState只是将要更新的状态加入了一个队列当中，类似于event loop中的队列，都是pedding状态并未执行。</p>
+<p>然后在<u>真的需要更新</u>的时候去合并队列中的state。</p>
+<p>但是真实情况更加复杂，react16引入了fiber这一概念，类似于操作系统的时间分片，具体内容这里不展开。</p>
+<p>最后如果真的想要看到更新后的结果，可以通过第二个参数callback中去打印。</p>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- comments -->
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div id="comments"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- code highlight -->
+	
+	<script>
+		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+		codeBlocks.forEach(function(block, index) {
+		hljs.highlightBlock(block);
+		console.log(1);
+		});
+	</script>
+</article>
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/xiaobai2017666">Weismann</a>.
+          The website started in January 6th,2019.
+        </p>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<!-- highlight -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  function highlights() {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  }
+  highlights();
+</script>
+
+<!-- comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: '#comments',
+    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
+    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
+    placeholder: '快来填满我嘛！',
+    lang: 'zh-cn',
+    path: window.location.pathname
+  });
+</script>
+  </body>
+</html>

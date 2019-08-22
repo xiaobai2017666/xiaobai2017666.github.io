@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Weismann">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="从零用Nginx部署你的网页">
+  <meta property="og:description" content="Weismann的个人网站">
+  <meta property="og:site_name" content="Weismann">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="">
+  <link rel="preload" href="/img/shaoqian.png" as="image">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  
+  <!-- slider CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
+
+  <!-- Site Title -->
+  <title>Weismann</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+</head>
+
+  <body>
+    <!-- title -->
+
+
+<!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/shaoqian.png)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Weismann</p>
+          <p class="subtitle">筱白</p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/xiaobai2017666">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://jq.qq.com/?_wv=1027&k=5OOQK0R">
+                  
+                  二次元交流群
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comic">
+                  
+                  追番攻略
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于我
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/version">
+                  
+                  版本日志&amp;问题反馈
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<article>
+	<div class="container typo">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<!-- page version -->
+				
+    <div class="post-info text-muted">
+
+        
+            <!-- Author -->
+            <span class="author info">By Weismann</span>
+        
+
+        <!-- Date -->
+        <span class="date-time info">On
+            <span class="date">2018年4月10日</span>
+        </span>
+
+        
+            <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/技术文章/">技术文章</a>
+</span>
+        
+
+    </div>
+
+
+    <!-- Tags -->
+    <div class="post-tags text-muted">
+        Tags: 
+
+<a class="tag" href="/tags/服务器部署/">#服务器部署</a> <a class="tag" href="/tags/nginx/">#nginx</a>
+
+
+    </div>
+
+
+				<!-- Post Main Content -->
+				<div class="post-content">
+
+					
+						<!-- toc -->
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#从零用Nginx部署你的网页"><span class="toc-text">从零用Nginx部署你的网页</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#安装基本功能"><span class="toc-text">安装基本功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#开始安装Nginx-参考菜鸟教程"><span class="toc-text">开始安装Nginx(参考菜鸟教程)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#服务器重启后如何开启Nginx"><span class="toc-text">服务器重启后如何开启Nginx</span></a></li></ol></li></ol>
+					
+				
+					<h2 id="从零用Nginx部署你的网页"><a href="#从零用Nginx部署你的网页" class="headerlink" title="从零用Nginx部署你的网页"></a>从零用Nginx部署你的网页</h2><p><strong>系统版本</strong></p>
+<p><strong>centos6 64位</strong></p>
+<ol>
+<li><h5 id="安装基本功能"><a href="#安装基本功能" class="headerlink" title="安装基本功能"></a>安装基本功能</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install [功能]</span><br></pre></td></tr></table></figure>
+<p>功能与相关说明：</p>
+<ul>
+<li><p>wget</p>
+<p>网络文件下载</p>
+</li>
+<li><p>tar</p>
+<p>解压缩文件</p>
+</li>
+<li><p>vi</p>
+<p>编辑文本</p>
+</li>
+<li><p>gcc</p>
+<p>编译二进制源码</p>
+</li>
+</ul>
+</li>
+<li><h5 id="开始安装Nginx-参考菜鸟教程"><a href="#开始安装Nginx-参考菜鸟教程" class="headerlink" title="开始安装Nginx(参考菜鸟教程)"></a>开始安装Nginx(参考菜鸟教程)</h5><p><strong>安装所需工具</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install make zlib zlib-devel gcc-c++ libtool openssl openssl-devel</span><br></pre></td></tr></table></figure>
+<p><strong>安装pcre</strong></p>
+<p>下载链接在此<a href="ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/" target="_blank" rel="noopener">链接</a>获取，找到“tar.gz”结尾的。（下载之前请先进入文件下载目录下）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.42.tar.gz</span><br></pre></td></tr></table></figure>
+<p><strong>解压pcre</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf pcre-8.42.tar.gz</span><br></pre></td></tr></table></figure>
+<p><strong>进入pcre文件夹</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd pcre-8.42</span><br></pre></td></tr></table></figure>
+<p><strong>编译pcre</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p><strong>下载Nginx</strong></p>
+<p>下载链接在此<a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">链接</a>获取。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.12.2.tar.gz</span><br></pre></td></tr></table></figure>
+<p><strong>解压Nginx</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf nginx-1.12.2.tar.gz</span><br></pre></td></tr></table></figure>
+<p><strong>进入Nginx文件夹</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd nginx-1.12.2</span><br></pre></td></tr></table></figure>
+<p><strong>安装编译Nginx</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --with-http_stub_status_module --with-http_ssl_module --with-pcre=[pcre目录]</span><br></pre></td></tr></table></figure>
+<p><u>解压出来的是源码需要用GCC编译,编译后的安装目录也会变成–prefix后的那串</u></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p><strong>配置Nginx</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+<p><em>vi基操：</em></p>
+<ul>
+<li><p>i</p>
+<p>进入编辑状态</p>
+</li>
+<li><p>Esc</p>
+<p>退出当前状态</p>
+</li>
+<li><p>冒号</p>
+<p>准备输入编辑后的操作</p>
+</li>
+<li><p>wq</p>
+<p>保存并退出</p>
+</li>
+</ul>
+<p>将server用上述操作修改成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen 80;</span><br><span class="line">  server_name [网页域名];</span><br><span class="line"></span><br><span class="line">  root [页面存放目录];</span><br><span class="line">  index index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>检验配置正确性</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -t</span><br></pre></td></tr></table></figure>
+<p><strong>启动Nginx</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+<p><em>Nginx基操：</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
+<p>修改完配置文件需要执行上述命令生效</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reopen</span><br></pre></td></tr></table></figure>
+<p>重启Nginx</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s stop</span><br></pre></td></tr></table></figure>
+<p>停止Nginx</p>
+</li>
+<li><h5 id="服务器重启后如何开启Nginx"><a href="#服务器重启后如何开启Nginx" class="headerlink" title="服务器重启后如何开启Nginx"></a>服务器重启后如何开启Nginx</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- comments -->
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div id="comments"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- code highlight -->
+	
+	<script>
+		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+		codeBlocks.forEach(function(block, index) {
+		hljs.highlightBlock(block);
+		console.log(1);
+		});
+	</script>
+</article>
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/xiaobai2017666">Weismann</a>.
+          The website started in January 6th,2019.
+        </p>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<!-- highlight -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  function highlights() {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  }
+  highlights();
+</script>
+
+<!-- comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: '#comments',
+    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
+    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
+    placeholder: '快来填满我嘛！',
+    lang: 'zh-cn',
+    path: window.location.pathname
+  });
+</script>
+  </body>
+</html>
