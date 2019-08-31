@@ -19,6 +19,9 @@
     <link rel="icon" href="/favicon.ico">
   
 
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
   <!-- gitalk CSS -->
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
@@ -173,7 +176,12 @@
 <p>li + li 代表li元素后紧邻的li兄弟元素（同父级），注意是后，没有前</p>
 <p>.demo ~ li 代表类名为demo元素后的所有li兄弟元素（同父级）</p>
 <p>可以用来给列表加border</p>
-<h3 id="CSS圆心渐变"><a href="#CSS圆心渐变" class="headerlink" title="CSS圆心渐变"></a>CSS圆心渐变</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.demo</span> &#123; </span><br><span class="line">	<span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">	<span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">conic-gradient</span>(blue60%,red 60% 80%, green 80%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CSS圆心渐变"><a href="#CSS圆心渐变" class="headerlink" title="CSS圆心渐变"></a>CSS圆心渐变</h3><pre><code class="css">.demo { 
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(blue60%,red 60% 80%, green 80%);
+}</code></pre>
 <p>参数说明：</p>
 <p>conic-gradient(&lt;第一个颜色&gt;[ &lt;结束位置&gt;][,&lt;第n个颜色&gt;[ &lt;开始位置&gt; &lt;结束位置&gt;],…],&lt;最后一个颜色&gt; [&lt;开始位置&gt;])</p>
 <p>如果增加开始位置或结束位置，则不产生渐变</p>
@@ -181,17 +189,37 @@
 <p>优点是不需要考虑整体和是否为100%的问题，因为有些时候，百分比传过来的值往往和为100.1%这样？</p>
 <h3 id="CSS自定义属性（变量？）"><a href="#CSS自定义属性（变量？）" class="headerlink" title="CSS自定义属性（变量？）"></a>CSS自定义属性（变量？）</h3><p>语法：–&lt;属性名&gt;: &lt;属性值&gt;</p>
 <p>应用于进度条</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">“demo</span>" <span class="attr">style</span>=<span class="string">"--percent:20;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.demo</span> &#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">	<span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(red, red);</span><br><span class="line">	<span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">	<span class="attribute">background-size</span>: <span class="built_in">calc</span>(var(--percent) * <span class="number">1%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;div class=“demo&quot; style=&quot;--percent:20;&quot;&gt;&lt;/div&gt;</code></pre>
+<pre><code class="css">.demo {
+    height: 50px;
+    border: 1px solid;
+    background-image: linear-gradient(red, red);
+    background-repeat: no-repeat;
+    background-size: calc(var(--percent) * 1%);
+}</code></pre>
 <p>通过dom.style.cssText来控制进度</p>
 <h3 id="CSS-resize"><a href="#CSS-resize" class="headerlink" title="CSS resize"></a>CSS resize</h3><p>还记得textarea吗，原来右下角那个小东西可以拖动，现在可以通过resize属性实现任意元素的大小拖动</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.demo</span> &#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">1px</span>;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">	<span class="attribute">overflow</span>: hidden;</span><br><span class="line">	<span class="attribute">resize</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="css">.demo {
+    height: 1px;
+    border: 1px solid;
+    overflow: hidden;
+    resize: auto;
+}</code></pre>
 <p>上述除了resize属性之外，其他三者都是必须的，其中height必须&gt;0</p>
-<h3 id="深拷贝中如何判断字符串是不是json？"><a href="#深拷贝中如何判断字符串是不是json？" class="headerlink" title="深拷贝中如何判断字符串是不是json？"></a>深拷贝中如何判断字符串是不是json？</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isJson</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">JSON</span>.parse(str);</span><br><span class="line">	&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">		<span class="keyword">return</span> str;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="深拷贝中如何判断字符串是不是json？"><a href="#深拷贝中如何判断字符串是不是json？" class="headerlink" title="深拷贝中如何判断字符串是不是json？"></a>深拷贝中如何判断字符串是不是json？</h3><pre><code class="javascript">function isJson(str) {
+    try {
+        return JSON.parse(str);
+    }catch(e){
+        return str;
+    }
+}</code></pre>
 <h3 id="React的setState"><a href="#React的setState" class="headerlink" title="React的setState"></a>React的setState</h3><p>此api用于更新组件状态（废话</p>
 <p>但是，React在这上面做了一些手脚，导致这个api是异步的，作为初学者的我在写业务的时候也遇到了。</p>
 <p>一般人来讲，更新了状态后回紧接着打印出来查看结果，但是在React中不会立即更新状态，因为它是异步的。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Component.prototype.setState = <span class="function"><span class="keyword">function</span>(<span class="params">partialState, callback</span>) </span>&#123; <span class="comment">//React 16.8.X</span></span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">this</span>.updater.enqueueSetState(<span class="keyword">this</span>, partialState, callback, <span class="string">'setState'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">Component.prototype.setState = function(partialState, callback) { //React 16.8.X
+    ...
+    this.updater.enqueueSetState(this, partialState, callback, &#39;setState&#39;);
+};</code></pre>
 <p>通过源码中的函数名称enqueueSetState就可以看出来，setState只是将要更新的状态加入了一个队列当中，类似于event loop中的队列，都是pedding状态并未执行。</p>
 <p>然后在<u>真的需要更新</u>的时候去合并队列中的state。</p>
 <p>但是真实情况更加复杂，react16引入了fiber这一概念，类似于操作系统的时间分片，具体内容这里不展开。</p>
@@ -215,8 +243,12 @@
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre').forEach((block) => {
-      hljs.highlightBlock(block);
+    document.querySelectorAll('pre>code').forEach((block) => {
+	  hljs.highlightBlock(block);
+	  //增加行号
+	  block.innerHTML = block.innerHTML.split('\n').map((item,index) => {
+		return `<span class="line-number">${index + 1}</span>${item}`;
+	  }).join('\n');
     });
   });
 </script>

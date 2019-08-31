@@ -19,6 +19,9 @@
     <link rel="icon" href="/favicon.ico">
   
 
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
   <!-- gitalk CSS -->
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
@@ -184,8 +187,7 @@
 <th>隐式处理</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>string</td>
 <td>number</td>
 <td>ToNumber(x)</td>
@@ -200,8 +202,7 @@
 <td>!Object</td>
 <td>Toprimitive(x)</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h3 id="Toprimitive-Object"><a href="#Toprimitive-Object" class="headerlink" title="Toprimitive(Object)"></a>Toprimitive(Object)</h3><p>​    先返回valueOf()的值，若返回的不是基础类型的值，</p>
 <p>​    则返回toString()的值，若返回的不是基础类型的值，</p>
 <p>​    则抛出异常。</p>
@@ -211,12 +212,12 @@
 <li>​    <strong>如果定义了[Symbol.toPrimitive]，则此方法优先于前面两个方法。</strong></li>
 </ul>
 <h3 id="比较特殊的知识点"><a href="#比较特殊的知识点" class="headerlink" title="比较特殊的知识点"></a>比较特殊的知识点</h3><ul>
-<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">undefined</span>==<span class="literal">null</span>  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<li><pre><code class="javascript">undefined==null  //true</code></pre>
 </li>
 <li><p>null和undefined单独出现与其他值进行比较不进行转换。</p>
 </li>
 <li><p>空值情况</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>(<span class="string">"&lt;空值或空值的组合&gt;"</span>)===<span class="number">0</span>  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">Number(&quot;&lt;空值或空值的组合&gt;&quot;)===0  //true</code></pre>
 </li>
 </ul>
 <h3 id="什么是空值？"><a href="#什么是空值？" class="headerlink" title="什么是空值？"></a>什么是空值？</h3><ol start="2">
@@ -253,8 +254,7 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>“0”</td>
 <td>false</td>
 <td>符合左值为其他基础类型，右值为boolean的情况，右值toNumber</td>
@@ -267,9 +267,9 @@
 <tr>
 <td>0</td>
 <td>0</td>
+<td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li>false == []</li>
 </ul>
@@ -281,8 +281,7 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>false</td>
 <td>[]</td>
 <td>符合左值为非对象，右值为对象的情况，右值toPrimitive，最终是通过toString</td>
@@ -300,18 +299,22 @@
 <tr>
 <td>0</td>
 <td>0</td>
+<td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li><p>false == undefined</p>
 <p>符合undefined单独和其他值比较。</p>
 </li>
 </ul>
 <h3 id="以上内容同样适用于（-lt-）和（-gt-）"><a href="#以上内容同样适用于（-lt-）和（-gt-）" class="headerlink" title="以上内容同样适用于（&lt;）和（&gt;）"></a>以上内容同样适用于（&lt;）和（&gt;）</h3><p>​    但是要注意（&lt;=）和（&gt;=），他在引擎中会被处理成不大于和不小于，如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a&lt;=b    ---&gt;    !(a&gt;b)</span><br></pre></td></tr></table></figure>
-<p>​    为什么要说这点？试着输出下面的例子你就明白了</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a= &#123;<span class="attr">b</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b= &#123;<span class="attr">b</span>:<span class="number">2</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a&gt;b);  <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(a==b);  <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(a&gt;=b);  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<pre><code>a&lt;=b    ---&gt;    !(a&gt;b)</code></pre><p>​    为什么要说这点？试着输出下面的例子你就明白了</p>
+<pre><code class="javascript">var a= {b:1};
+var b= {b:2};
+
+console.log(a&gt;b);  //false
+console.log(a==b);  //false
+console.log(a&gt;=b);  //true</code></pre>
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>如果还有什么不理解、想和我交流、发现问题的请下方评论。</p>
 <p><a href="https://xiaobai2017666.github.io/" target="_blank" rel="noopener">我的博客</a></p>
 
@@ -333,8 +336,12 @@
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre').forEach((block) => {
-      hljs.highlightBlock(block);
+    document.querySelectorAll('pre>code').forEach((block) => {
+	  hljs.highlightBlock(block);
+	  //增加行号
+	  block.innerHTML = block.innerHTML.split('\n').map((item,index) => {
+		return `<span class="line-number">${index + 1}</span>${item}`;
+	  }).join('\n');
     });
   });
 </script>

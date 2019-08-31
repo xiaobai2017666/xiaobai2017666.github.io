@@ -19,6 +19,9 @@
     <link rel="icon" href="/favicon.ico">
   
 
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
   <!-- gitalk CSS -->
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
@@ -175,27 +178,73 @@
 <p>如果想自定义模板需要自行指定文件</p>
 <h3 id="node的exports和module-exports"><a href="#node的exports和module-exports" class="headerlink" title="node的exports和module.exports"></a>node的exports和module.exports</h3><p>他俩指向同一引用</p>
 <p>直接修改exports或module.exports都会导致不相等</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">exports === <span class="built_in">module</span>.exports  <span class="comment">//false</span></span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">exports === <span class="built_in">module</span>.exports  <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">exports = function() {};
+exports === module.exports  //false
+// or
+module.exports = function() {};
+exports === module.exports  //false</code></pre>
 <p>模块化可以通过定义exports的属性去暴露</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line">exports.methods = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;  <span class="comment">//正确</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">const</span> methods = <span class="built_in">require</span>(<span class="string">'module.js'</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">//module.js
+exports.methods = function() {};  //正确
+
+//index.js
+const methods = require(&#39;module.js&#39;);</code></pre>
 <p>如果直接定义exports是无效的</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line">exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;  <span class="comment">//无效</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">const</span> methods = <span class="built_in">require</span>(<span class="string">'module.js'</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">//module.js
+exports = function() {};  //无效
+
+//index.js
+const methods = require(&#39;module.js&#39;);</code></pre>
 <p>还可以通过定义module.exports或定义module.exports的属性去暴露，但是直接定义会造成上述的不相等情况</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;  <span class="comment">//正确</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//or</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports.methods = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;  <span class="comment">//正确</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">const</span> methods = <span class="built_in">require</span>(<span class="string">'module.js'</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">//module.js
+module.exports = function() {};  //正确
+
+//or
+
+module.exports.methods = function() {};  //正确
+
+//index.js
+const methods = require(&#39;module.js&#39;);</code></pre>
 <h3 id="cookie跨域问题"><a href="#cookie跨域问题" class="headerlink" title="cookie跨域问题"></a>cookie跨域问题</h3><p>前端：需要将请求头的<code>withCredentials</code>设置true，前端就只需要做这点</p>
 <p>后端：需要设置两个请求头，第一个是请求头<code>Access-Control-Allow-Origin</code>置为唯一域，不可以是范围性的比如*；第二个是<code>Access-Control-Allow-Credentials</code>置为true</p>
 <p>踩坑：express模板使用res.cookies API的时候需要安装“cookie-parser”，否则无法获得，但是可以通过req.headers.cookie去获取cookie字段，代码如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ajax</span></span><br><span class="line">axios(&#123;</span><br><span class="line">    method: <span class="string">'POST'</span>,</span><br><span class="line">    url: <span class="string">'http://localhost:3000/cors'</span>,</span><br><span class="line">    withCredentials: <span class="literal">true</span></span><br><span class="line">&#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res.data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//node</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"><span class="keyword">const</span> cookieParser = <span class="built_in">require</span>(<span class="string">'cookie-parser'</span>);</span><br><span class="line">app.use(cookieParser());</span><br><span class="line"></span><br><span class="line">app.post(<span class="string">'/cors'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.set(&#123;</span><br><span class="line">        <span class="string">'Access-Control-Allow-Origin'</span>: <span class="string">'http://localhost:5500'</span>,</span><br><span class="line">        <span class="string">'Access-Control-Allow-Credentials'</span>: <span class="literal">true</span></span><br><span class="line">      &#125;);</span><br><span class="line">    res.cookie(<span class="string">'rememberme'</span>, <span class="string">'1'</span>, &#123;</span><br><span class="line">        expires: <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">Date</span>.now() + <span class="number">900000</span>)</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(req.cookies.rememberme);</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        a: <span class="string">'1'</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;).listen(<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">//ajax
+axios({
+    method: &#39;POST&#39;,
+    url: &#39;http://localhost:3000/cors&#39;,
+    withCredentials: true
+}).then((res) =&gt; {
+    console.log(res.data);
+});</code></pre>
+<pre><code class="javascript">//node
+const express = require(&#39;express&#39;);
+const app = express();
+const cookieParser = require(&#39;cookie-parser&#39;);
+app.use(cookieParser());
+
+app.post(&#39;/cors&#39;, function (req, res) {
+    res.set({
+        &#39;Access-Control-Allow-Origin&#39;: &#39;http://localhost:5500&#39;,
+        &#39;Access-Control-Allow-Credentials&#39;: true
+      });
+    res.cookie(&#39;rememberme&#39;, &#39;1&#39;, {
+        expires: new Date(Date.now() + 900000)
+    });
+    console.log(req.cookies.rememberme);
+    res.send({
+        a: &#39;1&#39;
+    });
+}).listen(3000);</code></pre>
 <h3 id="JS正则表达式后行断言"><a href="#JS正则表达式后行断言" class="headerlink" title="JS正则表达式后行断言"></a>JS正则表达式后行断言</h3><p>JS直到ES6才开始支持后行断言，在node v8.9.4以下的版本使用后行断言都会报错，所以想要在node中使用后行断言尽量使用最新版本node</p>
 <p>用途：捕获</p>
 <p>比如：ab</p>
 <ul>
 <li><p>捕获a后的b，在正则表达式的意义上为b的前一个位置是a，属于后行断言。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reg=<span class="regexp">/(?&lt;=a)b/</span>    <span class="comment">//b</span></span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">const reg=/(?&lt;=a)b/    //b</code></pre>
 </li>
 <li><p>捕获b前的a，在正则表达式的意义上为a的后一个位置是b，属于先行断言。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reg=<span class="regexp">/a(?=b)/</span>     <span class="comment">//a</span></span><br></pre></td></tr></table></figure></li>
+<pre><code class="javascript">const reg=/a(?=b)/     //a</code></pre>
+</li>
 </ul>
 
 				</div>
@@ -216,8 +265,12 @@
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre').forEach((block) => {
-      hljs.highlightBlock(block);
+    document.querySelectorAll('pre>code').forEach((block) => {
+	  hljs.highlightBlock(block);
+	  //增加行号
+	  block.innerHTML = block.innerHTML.split('\n').map((item,index) => {
+		return `<span class="line-number">${index + 1}</span>${item}`;
+	  }).join('\n');
     });
   });
 </script>

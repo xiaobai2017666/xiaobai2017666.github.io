@@ -19,6 +19,9 @@
     <link rel="icon" href="/favicon.ico">
   
 
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
   <!-- gitalk CSS -->
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
@@ -170,7 +173,7 @@
 				
 					<h2 id="从零安装nodejs和npm"><a href="#从零安装nodejs和npm" class="headerlink" title="从零安装nodejs和npm"></a>从零安装nodejs和npm</h2><p><strong>系统版本</strong><br><strong>centos6 64位</strong></p>
 <ol>
-<li><h5 id="安装基本功能"><a href="#安装基本功能" class="headerlink" title="安装基本功能"></a>安装基本功能</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install [功能]</span><br></pre></td></tr></table></figure>
+<li><h5 id="安装基本功能"><a href="#安装基本功能" class="headerlink" title="安装基本功能"></a>安装基本功能</h5><pre><code class="shell">yum install [功能]</code></pre>
 <ul>
 <li><p>wget</p>
 <p>网络文件获取</p>
@@ -191,27 +194,43 @@
 </li>
 <li><h5 id="开始安装nodejs"><a href="#开始安装nodejs" class="headerlink" title="开始安装nodejs"></a>开始安装nodejs</h5><p><strong>安装xz解压工具</strong></p>
 <p>下载链接在此<a href="https://tukaani.org/xz/" target="_blank" rel="noopener">链接</a>获取，找“tar.bz2”结尾的</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wget https://tukaani.org/xz/xz-5.2.3.tar.bz2</span><br><span class="line"></span><br><span class="line">tar -jxvf xz-5.2.3.tar.bz2</span><br><span class="line"></span><br><span class="line">cd xz-5.2.3</span><br><span class="line"></span><br><span class="line">./configure</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">wget https://tukaani.org/xz/xz-5.2.3.tar.bz2
+
+tar -jxvf xz-5.2.3.tar.bz2
+
+cd xz-5.2.3
+
+./configure
+
+make &amp;&amp; make install</code></pre>
 <p><em>这里设置环境变量</em></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">vi /etc/profile</code></pre>
 <p>加入内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export XZ_HOME=/usr/local/xz</span><br><span class="line">export PATH=$XZ_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
-<p>使设置生效</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<pre><code>export XZ_HOME=/usr/local/xz
+export PATH=$XZ_HOME/bin:$PATH</code></pre><p>使设置生效</p>
+<pre><code class="shell">source /etc/profile</code></pre>
 <p><strong>安装nodejs</strong></p>
 <p>下载链接在此<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">链接</a>获取</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://nodejs.org/dist/v8.11.1/node-v8.11.1-linux-x64.tar.xz</span><br><span class="line"></span><br><span class="line">xz -d node-v8.11.1-linux-x64.tar.xz</span><br><span class="line"></span><br><span class="line">tar -xvf node-v8.11.1-linux-x64.tar</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">wget https://nodejs.org/dist/v8.11.1/node-v8.11.1-linux-x64.tar.xz
+
+xz -d node-v8.11.1-linux-x64.tar.xz
+
+tar -xvf node-v8.11.1-linux-x64.tar</code></pre>
 <p>修改目录名称（方便敲目录）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv node-v8.11.1-linux-x64 nodejs</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">mv node-v8.11.1-linux-x64 nodejs</code></pre>
 <p><strong>配置nodejs</strong></p>
 <p>建立软连接</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln -s /home/nodejs/bin/npm /usr/local/bin/</span><br><span class="line"></span><br><span class="line">ln -s /home/nodejs/bin/node /usr/local/bin/</span><br></pre></td></tr></table></figure>
-<p>然后就可以进行node操作了</p>
+<pre><code class="shell">ln -s /home/nodejs/bin/npm /usr/local/bin/
+
+ln -s /home/nodejs/bin/node /usr/local/bin/</code></pre>
 </li>
+</ol>
+<p>   然后就可以进行node操作了</p>
+<ol start="3">
 <li><h5 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h5><ul>
 <li>后台如何运行node应用？</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup node [应用] &amp;</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">nohup node [应用] &amp;</code></pre>
 <ul>
 <li><p>如何杀掉node进程？</p>
 <p>ps -A</p>
@@ -244,8 +263,12 @@
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre').forEach((block) => {
-      hljs.highlightBlock(block);
+    document.querySelectorAll('pre>code').forEach((block) => {
+	  hljs.highlightBlock(block);
+	  //增加行号
+	  block.innerHTML = block.innerHTML.split('\n').map((item,index) => {
+		return `<span class="line-number">${index + 1}</span>${item}`;
+	  }).join('\n');
     });
   });
 </script>

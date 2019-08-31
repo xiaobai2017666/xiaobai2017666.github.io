@@ -19,6 +19,9 @@
     <link rel="icon" href="/favicon.ico">
   
 
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
   <!-- gitalk CSS -->
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
@@ -135,6 +138,15 @@
 					
 				
 					<ul>
+<li>2019/9/1<ol>
+<li>修复代码高亮显示错误的问题</li>
+</ol>
+</li>
+<li>2019/8/31<ol>
+<li>更换评论系统，改用gitalk，需要登陆github</li>
+<li>优化页面性能</li>
+</ol>
+</li>
 <li>2019/6/4<ol>
 <li>服务器移至github托管</li>
 <li>更换主题颜色</li>
@@ -202,8 +214,12 @@
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre').forEach((block) => {
-      hljs.highlightBlock(block);
+    document.querySelectorAll('pre>code').forEach((block) => {
+	  hljs.highlightBlock(block);
+	  //增加行号
+	  block.innerHTML = block.innerHTML.split('\n').map((item,index) => {
+		return `<span class="line-number">${index + 1}</span>${item}`;
+	  }).join('\n');
     });
   });
 </script>

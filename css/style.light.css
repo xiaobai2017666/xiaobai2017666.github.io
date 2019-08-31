@@ -1,8 +1,6 @@
 /* basic colors */
 /* theme colors */
 /* modify value of $theme-color to get different theme colors */
-/* typo.css from https://github.com/sofish/typo.css */
-
 @charset "utf-8";
 
 /* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
@@ -129,25 +127,6 @@ sub {
   bottom: -0.25em;
 }
 
-/* 让链接在 hover 状态下显示下划线 */
-// a {
-//   color: #1abc9c;
-// }
-
-// a:hover {
-//   text-decoration: underline;
-// }
-
-// .typo a {
-//   border-bottom: 1px solid #1abc9c;
-// }
-
-// .typo a:hover {
-//   border-bottom-color: #555;
-//   color: #555;
-//   text-decoration: none;
-// }
-
 /* 默认不显示下划线，保持页面简洁 */
 ins, a {
   text-decoration: none;
@@ -177,11 +156,21 @@ mark {
 } */
 
 pre {
-  background: #f8f8f8;
-  border: 1px solid #ddd;
-  padding: 1em 1.5em;
+  border: none;
+  padding: 0;
   display: block;
   -webkit-overflow-scrolling: touch;
+}
+
+/* 代码行号 */
+.line-number {
+  display: inline-block;
+  width: 24px;
+  padding-right: 4px;
+  margin-right: 4px;
+  box-sizing: content-box;
+  border-right: 1px solid #f8f8f2;
+  user-select:none;
 }
 
 /* 一致化 horizontal rule */
@@ -359,115 +348,6 @@ h1, h2, h3, h4, h5, h6 {
 /* Responsive images */
 .typo img {
   max-width: 100%;
-}
-.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #23241f;
-}
-.hljs,
-.hljs-tag,
-.hljs-subst {
-  color: #f8f8f2;
-}
-.hljs-strong,
-.hljs-emphasis {
-  color: #a8a8a2;
-}
-.hljs-bullet,
-.hljs-quote,
-.hljs-number,
-.hljs-regexp,
-.hljs-literal,
-.hljs-link {
-  color: #ae81ff;
-}
-.hljs-code,
-.hljs-title,
-.hljs-section,
-.hljs-selector-class {
-  color: #a6e22e;
-}
-.hljs-strong {
-  font-weight: bold;
-}
-.hljs-emphasis {
-  font-style: italic;
-}
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-name,
-.hljs-attr {
-  color: #f92672;
-}
-.hljs-symbol,
-.hljs-attribute {
-  color: #66d9ef;
-}
-.hljs-params,
-.hljs-class .hljs-title {
-  color: #f8f8f2;
-}
-.hljs-string,
-.hljs-type,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-selector-id,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-addition,
-.hljs-variable,
-.hljs-template-variable {
-  color: #e6db74;
-}
-.hljs-comment,
-.hljs-deletion,
-.hljs-meta {
-  color: #75715e;
-}
-.highlight {
-  overflow: auto;
-}
-.highlight table {
-  width: 100%;
-  max-width: 100%;
-}
-.highlight table td {
-  border: none;
-  padding: 0;
-  color: #666;
-  font-weight: lighter;
-}
-.highlight pre {
-  font-size: 0.8125rem;
-}
-.highlight .gutter {
-  width: 5%;
-  text-align: right;
-}
-.highlight .gutter pre {
-  border-top: 0;
-  border-bottom: 0;
-  border-left: 0;
-}
-.highlight .code {
-  width: 95%;
-}
-.highlight .code pre {
-  border: 0;
-}
-code {
-  color: #5bc0de;
-  padding: 0 0.1875rem;
-  margin: 0 0.125rem;
-  border-radius: 0.1875rem;
-  background-color: #f0e8df;
-}
-@media only screen and (max-width: 414px) {
-  .highlight pre {
-    font-size: 0.75rem;
-  }
 }
 html,
 body {

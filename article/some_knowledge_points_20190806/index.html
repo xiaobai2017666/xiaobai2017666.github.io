@@ -19,6 +19,9 @@
     <link rel="icon" href="/favicon.ico">
   
 
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
   <!-- gitalk CSS -->
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
@@ -173,28 +176,121 @@
 <p>“n”的使用非常简单</p>
 <ul>
 <li><p>安装</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g n</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">npm install -g n</code></pre>
 </li>
 <li><p>安装node指定版本，如果之前已经安装过，输入版本号即可激活</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n &lt;版本号&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">n &lt;版本号&gt;</code></pre>
 </li>
 <li><p>切换node指定版本，输入以下命令上下移动，回车切换。需要注意必须至少激活一个node版本，否则报错。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">n</code></pre>
 </li>
 <li><p>列出可用node版本列表</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n ls</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">n ls</code></pre>
 </li>
 </ul>
 <h3 id="React小坑"><a href="#React小坑" class="headerlink" title="React小坑"></a>React小坑</h3><p>在React官方文档中，有一个语法是在组件中可以通过箭头函数去定义方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class demo extends React.Component &#123;</span><br><span class="line">    handle = () =&gt; &#123;</span><br><span class="line">        console.log(this);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="react">class demo extends React.Component {
+    handle = () =&gt; {
+        console.log(this);
+    }
+    ...
+}</code></pre>
 <p>作为一个刚学习React语法的萌新，我被这个语法给误导了，也是因为没仔细阅读<a href="https://react.docschina.org/docs/handling-events.html" target="_blank" rel="noopener">文档</a>吧。</p>
 <p>这并不是class和箭头函数的ES6语法，只是个实验性的语法，所以但我尝试在非组件的class定义方法的时候，它报错了。</p>
 <h3 id="对象池模式"><a href="#对象池模式" class="headerlink" title="对象池模式"></a>对象池模式</h3><p>最近在看React的源码，学习到了一个单例模式变种“对象池”模式。</p>
 <p>此模式适用于<u>大量实例化复杂可复用的对象</u>的场景，以下是测试的栗子，可以放到控制台去观察一下性能。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MAX=<span class="number">10000</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.dom=<span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">use</span>(<span class="params">obj,callback</span>) </span>&#123;</span><br><span class="line">    callback(obj);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obj.dom;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//对象池</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> obj=<span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;MAX;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!obj) &#123;</span><br><span class="line">            obj = <span class="keyword">new</span> Obj();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        use(obj,get);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//多次new对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;MAX;i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> obj=<span class="keyword">new</span> Obj();</span><br><span class="line"></span><br><span class="line">        use(obj,get);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.time(<span class="string">'test'</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// test1();</span></span><br><span class="line">        </span><br><span class="line">        test2();</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'test'</span>);</span><br><span class="line">    &#125;,<span class="number">100</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">const MAX=10000;
+
+function Obj() {
+    this.dom=document.createElement(&#39;div&#39;);
+}
+
+function use(obj,callback) {
+    callback(obj);
+}
+
+function get(obj) {
+    return obj.dom;
+}
+
+//对象池
+function test1() {
+    let obj=null;
+
+    for(let i=0;i&lt;MAX;i++) {
+        if(!obj) {
+            obj = new Obj();
+        }
+
+        use(obj,get);
+    }
+}
+
+//多次new对象
+function test2() {
+    for(let i=0;i&lt;MAX;i++) {
+        const obj=new Obj();
+
+        use(obj,get);
+    }
+}
+
+(function start() {
+    setInterval(() =&gt; {
+        console.time(&#39;test&#39;);
+
+        // test1();
+
+        test2();
+
+        console.timeEnd(&#39;test&#39;);
+    },100);
+})();</code></pre>
 <p>经过测试可以发现，实例化对象越复杂，对象池模式相对于多次实例化对象的性能越好。</p>
 <p>但是，当MAX趋于无穷大时，相反多次实例化对象的方法反而性能更好，这可能跟浏览器的本身的垃圾回收机制有关。关于这点，可以通过下面的代码观察。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MAX=<span class="number">1000000000</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">use</span>(<span class="params">obj,callback</span>) </span>&#123;</span><br><span class="line">    callback(obj);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> obj=<span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;MAX;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!obj) &#123;</span><br><span class="line">            obj = <span class="keyword">new</span> Obj();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        use(obj,get);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;MAX;i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> obj=<span class="keyword">new</span> Obj();</span><br><span class="line"></span><br><span class="line">        use(obj,get);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.time(<span class="string">'test'</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// test1();</span></span><br><span class="line">        </span><br><span class="line">        test2();</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'test'</span>);</span><br><span class="line">    &#125;,<span class="number">100</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">const MAX=1000000000;
+
+function Obj() {}
+
+function use(obj,callback) {
+    callback(obj);
+}
+
+function get(obj) {
+    return obj;
+}
+
+function test1() {
+    let obj=null;
+
+    for(let i=0;i&lt;MAX;i++) {
+        if(!obj) {
+            obj = new Obj();
+        }
+
+        use(obj,get);
+    }
+}
+
+function test2() {
+    for(let i=0;i&lt;MAX;i++) {
+        const obj=new Obj();
+
+        use(obj,get);
+    }
+}
+
+(function start() {
+    setInterval(() =&gt; {
+        console.time(&#39;test&#39;);
+
+        // test1();
+
+        test2();
+
+        console.timeEnd(&#39;test&#39;);
+    },100);
+})();</code></pre>
 <p>很神奇，也可能是因为我实验的方法不太正确。</p>
 <p>关于单例模式还有惰性单例很多变种，由于没有过深的研究，所以先不讨论了哈。</p>
 
@@ -216,8 +312,12 @@
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre').forEach((block) => {
-      hljs.highlightBlock(block);
+    document.querySelectorAll('pre>code').forEach((block) => {
+	  hljs.highlightBlock(block);
+	  //增加行号
+	  block.innerHTML = block.innerHTML.split('\n').map((item,index) => {
+		return `<span class="line-number">${index + 1}</span>${item}`;
+	  }).join('\n');
     });
   });
 </script>

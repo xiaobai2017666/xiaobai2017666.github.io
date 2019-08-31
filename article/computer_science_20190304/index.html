@@ -19,6 +19,9 @@
     <link rel="icon" href="/favicon.ico">
   
 
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
   <!-- gitalk CSS -->
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
@@ -180,8 +183,7 @@
 <th>寄存器</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>L1高速缓存</td>
 </tr>
 <tr>
@@ -199,8 +201,7 @@
 <tr>
 <td>网络硬盘</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>速度显而易见，最上层的最快。</p>
 <p>对于”存储层次结构“这个概念来说，每个上级对于下级来说都是一个高速缓存，所以可以得出一个优化的方案：<strong>对于我们部署到服务器的网页项目，可以在服务端和用户端之前加入缓存服务器，以加快处理速度。</strong></p>
 <p>之前的时候，我还不太明白，比较大的一些项目为什么会有一个以上的服务器，知道这些计算机基础后，感觉这些思路很清晰。所以目前我在读一本”深入理解计算机系统“的一本计算机科学基础书，里面对于我的启发还是比较大的。</p>
@@ -234,8 +235,12 @@
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre').forEach((block) => {
-      hljs.highlightBlock(block);
+    document.querySelectorAll('pre>code').forEach((block) => {
+	  hljs.highlightBlock(block);
+	  //增加行号
+	  block.innerHTML = block.innerHTML.split('\n').map((item,index) => {
+		return `<span class="line-number">${index + 1}</span>${item}`;
+	  }).join('\n');
     });
   });
 </script>

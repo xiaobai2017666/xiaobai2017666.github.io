@@ -19,6 +19,9 @@
     <link rel="icon" href="/favicon.ico">
   
 
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
   <!-- gitalk CSS -->
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
@@ -183,39 +186,45 @@
 <li><p>把下方的命令按顺序敲在你的vps上</p>
 </li>
 <li><p>配置完后尝试</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping6 google.com</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">ping6 google.com</code></pre>
 </li>
 <li><p>如果ping通说明成功了</p>
 </li>
 <li><p>接下来设置开机启动，这样你vps重启时，就可以开机启动了</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /root/ipv6.sh</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">vi /root/ipv6.sh</code></pre>
 <p>写入内容，ifconfig的内容时上面“Example Configurations”标签下的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">ifconfig sit0 up</span><br><span class="line">ifconfig sit0 inet6 tunnel ::YOUR-IPV4 %%%%% 请进行替换</span><br><span class="line">ifconfig sit1 up</span><br><span class="line">ifconfig sit1 inet6 add YOUR-IPV6  %%%% 请进行替换</span><br><span class="line">route -A inet6 add ::/0 dev sit1</span><br></pre></td></tr></table></figure>
-<p>给文件添加执行权限</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /root/ipv6.sh</span><br></pre></td></tr></table></figure>
+<pre><code>#!/bin/bash
+
+ifconfig sit0 up
+ifconfig sit0 inet6 tunnel ::YOUR-IPV4 %%%%% 请进行替换
+ifconfig sit1 up
+ifconfig sit1 inet6 add YOUR-IPV6  %%%% 请进行替换
+route -A inet6 add ::/0 dev sit1</code></pre><p>给文件添加执行权限</p>
+<pre><code class="shell">chmod +x /root/ipv6.sh</code></pre>
 <p>编辑文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">vi /etc/rc.d/rc.local</code></pre>
 <p>在最下面写入内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh /root/ipv6.sh</span><br></pre></td></tr></table></figure>
-<p>搭建完成</p>
+<pre><code>sh /root/ipv6.sh</code></pre><p>搭建完成</p>
 </li>
 </ol>
 <h4 id="配置vps"><a href="#配置vps" class="headerlink" title="配置vps"></a>配置vps</h4><ol>
 <li><p>Win10安装openSSH，可以通过cmd连接vps</p>
 </li>
 <li><p>确认vps是否安装了wget和vi</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install wget -y &amp;&amp; yum install vi -y</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">yum install wget -y &amp;&amp; yum install vi -y</code></pre>
 </li>
 <li><p>配置SSR</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate -O shadowsocksR.sh https://raw.githubusercontent.com/uxh/shadowsocks_bash/master/shadowsocksR.sh</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">wget –no-check-certificate -O shadowsocksR.sh https://raw.githubusercontent.com/uxh/shadowsocks_bash/master/shadowsocksR.sh</code></pre>
 <p>完成后</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash shadowsocksR.sh</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">bash shadowsocksR.sh</code></pre>
 <p>接下来按照指示进行配置就好了</p>
-<p><img src="https://segmentfault.com/img/bVbjTeE?w=828&amp;h=947" alt=""></p>
+<p><img src="https://segmentfault.com/img/bVbjTeE?w=828&h=947" alt=""></p>
 <p>出现你的配置信息，说明你的SSR已经搭建成功了。</p>
 </li>
 </ol>
-<h4 id="SSR端口放行"><a href="#SSR端口放行" class="headerlink" title="SSR端口放行"></a>SSR端口放行</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/sbin/ip6tables -I INPUT -p tcp --dport 138 -j ACCEPT    #将这里的138改成在上面搭建过程中设置的端口</span><br><span class="line">/etc/rc.d/init.d/ip6tables save    #保存端口放行设置</span><br><span class="line">/etc/init.d/ip6tables restart    #重启ip6tables，应用放行设置</span><br></pre></td></tr></table></figure>
+<h4 id="SSR端口放行"><a href="#SSR端口放行" class="headerlink" title="SSR端口放行"></a>SSR端口放行</h4><pre><code class="shell">/sbin/ip6tables -I INPUT -p tcp --dport 138 -j ACCEPT    #将这里的138改成在上面搭建过程中设置的端口
+/etc/rc.d/init.d/ip6tables save    #保存端口放行设置
+/etc/init.d/ip6tables restart    #重启ip6tables，应用放行设置</code></pre>
 <p>到这里所有工作基本完成，可以使用了，如果有任何问题在下方评论留言</p>
 <h4 id="IPv6测试地址"><a href="#IPv6测试地址" class="headerlink" title="IPv6测试地址"></a>IPv6测试地址</h4><p><a href="https://test-ipv6.com/index.html.zh_CN" target="_blank" rel="noopener">测试地址</a></p>
 
@@ -237,8 +246,12 @@
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre').forEach((block) => {
-      hljs.highlightBlock(block);
+    document.querySelectorAll('pre>code').forEach((block) => {
+	  hljs.highlightBlock(block);
+	  //增加行号
+	  block.innerHTML = block.innerHTML.split('\n').map((item,index) => {
+		return `<span class="line-number">${index + 1}</span>${item}`;
+	  }).join('\n');
     });
   });
 </script>

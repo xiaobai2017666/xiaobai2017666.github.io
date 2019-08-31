@@ -19,6 +19,9 @@
     <link rel="icon" href="/favicon.ico">
   
 
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
   <!-- gitalk CSS -->
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
@@ -198,15 +201,14 @@
 <p>进入<a href="http://www.mingw.org/" target="_blank" rel="noopener">Mingw</a>下载Mingw，右上角Downloads</p>
 <p>安装好后点击Basic Setup，右键点击mingw32-gcc-g++，点击Mark for installation，点击上方菜单栏Installaton，点击Apply Changes</p>
 <p>配置环境变量，在Path中添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\MinGW\bin</span><br></pre></td></tr></table></figure>
-<p><strong><u>注意要有分号分隔前后，否则会破坏其他路径</u></strong></p>
+<pre><code>C:\MinGW\bin</code></pre><p><strong><u>注意要有分号分隔前后，否则会破坏其他路径</u></strong></p>
 <p>打开cmd，测试安装是否成功</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -v</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">gcc -v</code></pre>
 <p>显示version版本号说明安装成功</p>
 </li>
 <li><p>使用GCC/G++</p>
 <p>用文本编辑器编辑好你的代码后，打开cmd</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ [文件路径] -o [输出文件名]</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">g++ [文件路径] -o [输出文件名]</code></pre>
 </li>
 </ol>
 <h4 id="推荐几款IDE"><a href="#推荐几款IDE" class="headerlink" title="推荐几款IDE"></a>推荐几款IDE</h4><table>
@@ -217,8 +219,7 @@
 <th>备注</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Visual Studio</td>
 <td>Windows</td>
 <td>最强IDE</td>
@@ -236,9 +237,9 @@
 <tr>
 <td>Vim</td>
 <td>Linux</td>
+<td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 
 				</div>
 
@@ -258,8 +259,12 @@
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre').forEach((block) => {
-      hljs.highlightBlock(block);
+    document.querySelectorAll('pre>code').forEach((block) => {
+	  hljs.highlightBlock(block);
+	  //增加行号
+	  block.innerHTML = block.innerHTML.split('\n').map((item,index) => {
+		return `<span class="line-number">${index + 1}</span>${item}`;
+	  }).join('\n');
     });
   });
 </script>
