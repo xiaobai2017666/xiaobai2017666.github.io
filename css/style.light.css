@@ -162,15 +162,46 @@ pre {
   -webkit-overflow-scrolling: touch;
 }
 
-/* 代码行号 */
-.line-number {
-  display: inline-block;
+pre table {
+  margin-bottom: 0 !important;
+}
+
+pre td  {
+  border: none !important;
+  padding: 1px 10px !important;
+  color: #fff !important;
+}
+
+pre td.hljs-ln-numbers {
+  padding: 1px 4px 1px 0 !important;
+}
+
+.hljs-ln-n:before {
+  display: block;
   width: 24px;
-  padding-right: 4px;
-  margin-right: 4px;
-  box-sizing: content-box;
-  border-right: 1px solid #f8f8f2;
-  user-select:none;
+}
+
+/* for block of numbers */
+.hljs-ln-numbers {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  text-align: right;
+  border-right: 2px solid #fff !important;
+  vertical-align: top;
+  padding-right: 5px;
+
+  /* your custom style here */
+  
+}
+
+/* for block of code */
+.hljs-ln-code {
+  padding-left: 10px;
 }
 
 /* 一致化 horizontal rule */

@@ -279,15 +279,11 @@ git push --set-upstream origin [远程分支]</code></pre>
 
 <!-- highlight -->
 <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre>code').forEach((block) => {
-	  hljs.highlightBlock(block);
-	  //增加行号
-	  block.innerHTML = block.innerHTML.split('\n').map((item,index) => {
-		return `<span class="line-number">${index + 1}</span>${item}`;
-	  }).join('\n');
-    });
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
   });
 </script>
 
