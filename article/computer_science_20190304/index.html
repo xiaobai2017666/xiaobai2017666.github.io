@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
   <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +18,12 @@
   
     <link rel="icon" href="/favicon.ico">
   
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
   <!-- slider CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
@@ -162,7 +168,7 @@
 
 					
 						<!-- toc -->
-						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#“计算机科学”学习回顾-2019-3-4"><span class="toc-text">“计算机科学”学习回顾-2019.3.4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#书中的一些干货"><span class="toc-text">书中的一些干货</span></a></li></ol></li></ol>
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#“计算机科学”学习回顾-2019-3-4"><span class="toc-text">“计算机科学”学习回顾-2019.3.4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#书中的一些干货"><span class="toc-text">书中的一些干货</span></a></li></ol></li></ol></li></ol>
 					
 				
 					<h2 id="“计算机科学”学习回顾-2019-3-4"><a href="#“计算机科学”学习回顾-2019-3-4" class="headerlink" title="“计算机科学”学习回顾-2019.3.4"></a>“计算机科学”学习回顾-2019.3.4</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>有幸通过一个前端基础文档进入了一个博客，里面一篇写着<a href="https://yuchengkai.cn/%E9%9D%A2%E8%AF%95%E6%95%B0%E5%8D%81%E4%BA%BA%E6%9C%89%E6%84%9F/" target="_blank" rel="noopener">关于面试有感</a>，让我反省了一下最近学习遇到的“天花板”。目前来说，自己可以独立开发一个完整的项目，但是对于优化等其他方面却感到无从下手。读了这篇文章后，回顾自己的专业课程，貌似“OS”、“数据结构与算法”、“网络”都逃掉了（捂脸）。</p>
@@ -177,8 +183,7 @@
 <th>寄存器</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>L1高速缓存</td>
 </tr>
 <tr>
@@ -196,8 +201,7 @@
 <tr>
 <td>网络硬盘</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>速度显而易见，最上层的最快。</p>
 <p>对于”存储层次结构“这个概念来说，每个上级对于下级来说都是一个高速缓存，所以可以得出一个优化的方案：<strong>对于我们部署到服务器的网页项目，可以在服务端和用户端之前加入缓存服务器，以加快处理速度。</strong></p>
 <p>之前的时候，我还不太明白，比较大的一些项目为什么会有一个以上的服务器，知道这些计算机基础后，感觉这些思路很清晰。所以目前我在读一本”深入理解计算机系统“的一本计算机科学基础书，里面对于我的启发还是比较大的。</p>
@@ -219,23 +223,23 @@
 		</div>
 
 		<!-- comments -->
-		<div class="row">
+		<div class='row'>
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<div id="comments"></div>
 			</div>
 		</div>
 	</div>
-
-	<!-- code highlight -->
-	
-	<script>
-		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-		codeBlocks.forEach(function(block, index) {
-		hljs.highlightBlock(block);
-		console.log(1);
-		});
-	</script>
 </article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
 
 
     <!-- Footer -->
@@ -257,30 +261,20 @@
 
 
     <!-- After Footer Scripts -->
-<!-- highlight -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  function highlights() {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  }
-  highlights();
-</script>
 
 <!-- comments -->
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script>
-  new Valine({
-    el: '#comments',
-    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
-    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
-    placeholder: '快来填满我嘛！',
-    lang: 'zh-cn',
-    path: window.location.pathname
-  });
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
 </script>
   </body>
 </html>

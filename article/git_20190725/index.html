@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
   <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +18,12 @@
   
     <link rel="icon" href="/favicon.ico">
   
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
   <!-- slider CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
@@ -167,86 +173,94 @@
 				
 					<h2 id="git相关"><a href="#git相关" class="headerlink" title="git相关"></a>git相关</h2><ul>
 <li><p>设置个人信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name "&lt;名字&gt;”</span><br><span class="line">git config --global user.email "&lt;邮箱&gt;”</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git config --global user.name &quot;&lt;名字&gt;”
+git config --global user.email &quot;&lt;邮箱&gt;”</code></pre>
 </li>
 <li><p>重置个人信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global --replace-all user.name "&lt;名字&gt;"</span><br><span class="line"></span><br><span class="line">git config --global --replace-all user.email "&lt;邮箱&gt;"</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git config --global --replace-all user.name &quot;&lt;名字&gt;&quot;
+
+git config --global --replace-all user.email &quot;&lt;邮箱&gt;&quot;</code></pre>
 </li>
 <li><p>创建密钥</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rasa -C “&lt;邮箱&gt;”</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">ssh-keygen -t rasa -C “&lt;邮箱&gt;”</code></pre>
 </li>
 <li><p>Mac的密钥存储位置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.ssh</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">~/.ssh</code></pre>
 </li>
 <li><p>删除本地分支</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &lt;分支&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git branch -d &lt;分支&gt;</code></pre>
 </li>
 <li><p>删除远程分支</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete &lt;分支&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git push origin --delete &lt;分支&gt;</code></pre>
 </li>
 <li><p>查看所有分支，包括本地和远程</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -a</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git branch -a</code></pre>
 </li>
 <li><p>创建本地分支并切换</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;分支&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git checkout -b &lt;分支&gt;</code></pre>
 </li>
 <li><p>切换本地分支</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;分支&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git checkout &lt;分支&gt;</code></pre>
 </li>
 <li><p>查看追踪分支</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -vv</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git branch -vv</code></pre>
 </li>
 <li><p>提交更改到暂存区</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;文件&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git add &lt;文件&gt;</code></pre>
 </li>
 <li><p>撤销暂存区更改</p>
 <p>可以先通过 git status查看，有一些提示</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD &lt;文件&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git reset HEAD &lt;文件&gt;</code></pre>
 </li>
 <li><p>查看暂存区的内容与原文件的区别</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git diff</code></pre>
 </li>
 <li><p>查看暂存区的内容与上次提交的区别</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --cached</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git diff --cached</code></pre>
 </li>
 <li><p>提交更改到本地</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m "&lt;更改注释&gt;”</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git commit -m &quot;&lt;更改注释&gt;”</code></pre>
 </li>
 <li><p>查看所有提交</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git log</code></pre>
 </li>
 <li><p>查看所有历史操作</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git reflog</code></pre>
 </li>
 <li><p>回到某个提交状态</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git revert &lt;标记&gt;</span><br><span class="line">git reset &lt;标记&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git revert &lt;标记&gt;
+git reset &lt;标记&gt;</code></pre>
 </li>
 <li><p>撤销revert</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert --abort</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git revert --abort</code></pre>
 </li>
 <li><p>更新本地仓库至远程仓库的最新改动</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git pull</code></pre>
 </li>
 <li><p>合并其他分支至当前分支</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge &lt;分支&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git merge &lt;分支&gt;</code></pre>
 </li>
 <li><p>覆盖远程分支</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin &lt;远程分支&gt; --force</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git push origin &lt;远程分支&gt; --force</code></pre>
 </li>
-</ul>
-<ul>
 <li><p>本地已有项目与远程空项目关联</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:[用户名]/[项目名].git</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git init
+git remote add origin git@github.com:[用户名]/[项目名].git</code></pre>
 </li>
-</ul>
-<ul>
 <li><p>设置本地与远程的通道</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -u origin/[远程分支]</span><br><span class="line">git branch --set-upstream-to=origin/[远程分支]</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">git branch -u origin/[远程分支]
+git branch --set-upstream-to=origin/[远程分支]</code></pre>
 </li>
-</ul>
-<ul>
 <li><p>设置本地与远程的通道并推送</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin [远程分支]</span><br><span class="line">git push --set-upstream origin [远程分支]</span><br></pre></td></tr></table></figure></li>
+<pre><code class="bash">git push -u origin [远程分支]
+git push --set-upstream origin [远程分支]</code></pre>
+</li>
+<li><p>还原工作区内容</p>
+<pre><code class="bash">git stash</code></pre>
+</li>
+<li><p>还原“还原工作区内容”</p>
+<pre><code class="bash">git stash apply</code></pre>
+</li>
 </ul>
 
 				</div>
@@ -255,23 +269,23 @@
 		</div>
 
 		<!-- comments -->
-		<div class="row">
+		<div class='row'>
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<div id="comments"></div>
 			</div>
 		</div>
 	</div>
-
-	<!-- code highlight -->
-	
-	<script>
-		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-		codeBlocks.forEach(function(block, index) {
-		hljs.highlightBlock(block);
-		console.log(1);
-		});
-	</script>
 </article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
 
 
     <!-- Footer -->
@@ -293,30 +307,20 @@
 
 
     <!-- After Footer Scripts -->
-<!-- highlight -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  function highlights() {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  }
-  highlights();
-</script>
 
 <!-- comments -->
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script>
-  new Valine({
-    el: '#comments',
-    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
-    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
-    placeholder: '快来填满我嘛！',
-    lang: 'zh-cn',
-    path: window.location.pathname
-  });
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
 </script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
   <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +18,12 @@
   
     <link rel="icon" href="/favicon.ico">
   
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
   <!-- slider CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
@@ -151,7 +157,7 @@
     <div class="post-tags text-muted">
         Tags: 
 
-<a class="tag" href="/tags/百度地图/">#百度地图</a> <a class="tag" href="/tags/前端/">#前端</a>
+<a class="tag" href="/tags/前端/">#前端</a> <a class="tag" href="/tags/百度地图/">#百度地图</a>
 
 
     </div>
@@ -162,7 +168,7 @@
 
 					
 						<!-- toc -->
-						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#百度地图API“自定义”信息窗口样式"><span class="toc-text">百度地图API“自定义”信息窗口样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#利用API自定义的内容块覆盖"><span class="toc-text">利用API自定义的内容块覆盖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用CSS的优先级覆盖"><span class="toc-text">利用CSS的优先级覆盖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#寻找DOM节点规律，js驱动修改样式"><span class="toc-text">寻找DOM节点规律，js驱动修改样式</span></a></li></ol></li></ol>
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#百度地图API“自定义”信息窗口样式"><span class="toc-text">百度地图API“自定义”信息窗口样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#利用API自定义的内容块覆盖"><span class="toc-text">利用API自定义的内容块覆盖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用CSS的优先级覆盖"><span class="toc-text">利用CSS的优先级覆盖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#寻找DOM节点规律，js驱动修改样式"><span class="toc-text">寻找DOM节点规律，js驱动修改样式</span></a></li></ol></li></ol></li></ol>
 					
 				
 					<h2 id="百度地图API“自定义”信息窗口样式"><a href="#百度地图API“自定义”信息窗口样式" class="headerlink" title="百度地图API“自定义”信息窗口样式"></a>百度地图API“自定义”信息窗口样式</h2><p>首先看一下起点样式和目标样式</p>
@@ -182,7 +188,25 @@
 <li><h4 id="寻找DOM节点规律，js驱动修改样式"><a href="#寻找DOM节点规律，js驱动修改样式" class="headerlink" title="寻找DOM节点规律，js驱动修改样式"></a>寻找DOM节点规律，js驱动修改样式</h4><p><strong>此方案完美解决需求样式</strong></p>
 <p>通过自定义的内容定位，用js来获取四个角落的块、中间三大块的节点，并使用display隐藏掉。</p>
 <p>剩下样式的书写什么的就不多说了，自己慢慢调试。如果还不懂直接分析一下下面的代码。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//为代码简洁，使用了JQueryAPI</span></span><br><span class="line"><span class="keyword">var</span> sContent = <span class="string">"&lt;div id="</span>pos<span class="string">"&gt;&lt;/div&gt;"</span>;</span><br><span class="line"><span class="keyword">var</span> map = <span class="keyword">new</span> BMap.Map(<span class="string">"allmap"</span>);</span><br><span class="line"><span class="keyword">var</span> point = <span class="keyword">new</span> BMap.Point(<span class="number">116.404</span>, <span class="number">39.915</span>);</span><br><span class="line"><span class="keyword">var</span> marker = <span class="keyword">new</span> BMap.Marker(point);</span><br><span class="line"><span class="keyword">var</span> infoWindow = <span class="keyword">new</span> BMap.InfoWindow(sContent);  <span class="comment">// 创建信息窗口对象</span></span><br><span class="line">map.centerAndZoom(point, <span class="number">15</span>);</span><br><span class="line">map.addOverlay(marker);</span><br><span class="line">marker.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;    </span><br><span class="line">   <span class="keyword">var</span> posP=$($($(<span class="string">"#pos"</span>).parent(<span class="string">'div'</span>)).parent(<span class="string">'div'</span>)).siblings();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">7</span>;i++)&#123;</span><br><span class="line">        posP[i].css(&#123;<span class="string">"display"</span>:none&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    posP[<span class="number">7</span>].css(&#123;<span class="string">"top"</span>:<span class="string">"0"</span>,<span class="string">"left"</span>:<span class="string">"0"</span>&#125;);</span><br><span class="line">    <span class="comment">//此地方修改关闭按钮位置，如需修改样式，做成图片修改src路径即可</span></span><br><span class="line">    <span class="comment">//修改其它样式</span></span><br><span class="line">    ...</span><br><span class="line">   <span class="keyword">this</span>.openInfoWindow(infoWindow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">//为代码简洁，使用了JQueryAPI
+var sContent = &quot;&lt;div id=&quot;pos&quot;&gt;&lt;/div&gt;&quot;;
+var map = new BMap.Map(&quot;allmap&quot;);
+var point = new BMap.Point(116.404, 39.915);
+var marker = new BMap.Marker(point);
+var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+map.centerAndZoom(point, 15);
+map.addOverlay(marker);
+marker.addEventListener(&quot;click&quot;, function(){    
+   var posP=$($($(&quot;#pos&quot;).parent(&#39;div&#39;)).parent(&#39;div&#39;)).siblings();
+    for(let i=0;i&lt;7;i++){
+        posP[i].css({&quot;display&quot;:none});
+    }
+    posP[7].css({&quot;top&quot;:&quot;0&quot;,&quot;left&quot;:&quot;0&quot;});
+    //此地方修改关闭按钮位置，如需修改样式，做成图片修改src路径即可
+    //修改其它样式
+    ...
+   this.openInfoWindow(infoWindow);
+}</code></pre>
 </li>
 </ol>
 
@@ -192,23 +216,23 @@
 		</div>
 
 		<!-- comments -->
-		<div class="row">
+		<div class='row'>
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<div id="comments"></div>
 			</div>
 		</div>
 	</div>
-
-	<!-- code highlight -->
-	
-	<script>
-		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-		codeBlocks.forEach(function(block, index) {
-		hljs.highlightBlock(block);
-		console.log(1);
-		});
-	</script>
 </article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
 
 
     <!-- Footer -->
@@ -230,30 +254,20 @@
 
 
     <!-- After Footer Scripts -->
-<!-- highlight -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  function highlights() {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  }
-  highlights();
-</script>
 
 <!-- comments -->
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script>
-  new Valine({
-    el: '#comments',
-    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
-    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
-    placeholder: '快来填满我嘛！',
-    lang: 'zh-cn',
-    path: window.location.pathname
-  });
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
 </script>
   </body>
 </html>

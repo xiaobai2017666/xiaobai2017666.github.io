@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
   <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +18,12 @@
   
     <link rel="icon" href="/favicon.ico">
   
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
   <!-- slider CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
@@ -151,7 +157,7 @@
     <div class="post-tags text-muted">
         Tags: 
 
-<a class="tag" href="/tags/前端/">#前端</a> <a class="tag" href="/tags/异步/">#异步</a>
+<a class="tag" href="/tags/异步/">#异步</a> <a class="tag" href="/tags/前端/">#前端</a>
 
 
     </div>
@@ -167,7 +173,33 @@
 				
 					<h2 id="某条一面异步题解析"><a href="#某条一面异步题解析" class="headerlink" title="某条一面异步题解析"></a>某条一面异步题解析</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这道面试题论在当时我是写不出来的，当时自吹熟悉promise结果这道题写不粗来有点尴尬哈哈，面试结束后面试官官让我再让我想一下（大概下一面会再考），目前这个写法大概消耗了一下午的时间去思考吧。</p>
 <p>这场面试后续没完成，因为面之前就已经入职某滴的实习生了。</p>
-<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//JS实现一个带并发限制的异步调度器Scheduler，保证同时运行的任务最多有两个。完善代码中Scheduler类，使得以下程序能正确输出</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Scheduler</span> </span>&#123;</span><br><span class="line">  add(promiseCreator) &#123; ... &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> timeout = <span class="function">(<span class="params">time</span>) =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">  setTimeout(resolve, time)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> scheduler = <span class="keyword">new</span> Scheduler()</span><br><span class="line"><span class="keyword">const</span> addTask = <span class="function">(<span class="params">time, order</span>) =&gt;</span> &#123;</span><br><span class="line">  scheduler.add(<span class="function"><span class="params">()</span> =&gt;</span> timeout(time))</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(order))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addTask(<span class="number">1000</span>, <span class="string">'1'</span>)</span><br><span class="line">addTask(<span class="number">500</span>, <span class="string">'2'</span>)</span><br><span class="line">addTask(<span class="number">300</span>, <span class="string">'3'</span>)</span><br><span class="line">addTask(<span class="number">400</span>, <span class="string">'4'</span>)</span><br><span class="line"><span class="comment">// output: 2 3 1 4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 一开始，1、2两个任务进入队列</span></span><br><span class="line"><span class="comment">// 500ms时，2完成，输出2，任务3进队</span></span><br><span class="line"><span class="comment">// 800ms时，3完成，输出3，任务4进队</span></span><br><span class="line"><span class="comment">// 1000ms时，1完成，输出1</span></span><br><span class="line"><span class="comment">// 1200ms时，4完成，输出4</span></span><br></pre></td></tr></table></figure>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><pre><code class="javascript">//JS实现一个带并发限制的异步调度器Scheduler，保证同时运行的任务最多有两个。完善代码中Scheduler类，使得以下程序能正确输出
+class Scheduler {
+  add(promiseCreator) { ... }
+  // ...
+}
+
+const timeout = (time) =&gt; new Promise(resolve =&gt; {
+  setTimeout(resolve, time)
+})
+
+const scheduler = new Scheduler()
+const addTask = (time, order) =&gt; {
+  scheduler.add(() =&gt; timeout(time))
+    .then(() =&gt; console.log(order))
+}
+
+addTask(1000, &#39;1&#39;)
+addTask(500, &#39;2&#39;)
+addTask(300, &#39;3&#39;)
+addTask(400, &#39;4&#39;)
+// output: 2 3 1 4
+
+// 一开始，1、2两个任务进入队列
+// 500ms时，2完成，输出2，任务3进队
+// 800ms时，3完成，输出3，任务4进队
+// 1000ms时，1完成，输出1
+// 1200ms时，4完成，输出4</code></pre>
 <h3 id="运行过程"><a href="#运行过程" class="headerlink" title="运行过程"></a>运行过程</h3><p>@左值为<u>剩余时间</u>，右值为输出内容</p>
 <table>
 <thead>
@@ -178,8 +210,7 @@
 <th>执行内容</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>1000@1</td>
 <td></td>
 <td>执行队列未满，直接进入执行队列</td>
@@ -225,14 +256,39 @@
 <td></td>
 <td></td>
 <td>200@4执行完成输出4</td>
+<td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><u>注意add方法里面传入的是函数并返回Promise</u>，这是难点，很多人都是改题，我见过拿getter、setter写的，我觉得跟题目要考的主旨不同。</p>
 <p>前两个很好处理，直接判断执行队列中是否满员，未满直接进队</p>
 <p>第三个及以后则需要判断前两者是否resolve，注意这里前两者和前两个的概念不同（由于是一层抽象，这里举例说明：目前处于第三个，那么前两者的前者指第一个到第一个，后者指第二个；目前处于第四个，那么前两者的前者指第一个到第二个，后者指第三个；以此类推），resolve后从等待队列<u>按顺序</u>加入到执行队列。</p>
 <p>说下原因，有两种情况。前者先完成，也就是集合中的任务全部执行完成，那么后者一定会进入执行（未完成），那么执行队列中一定会剩下一个位置；后者先完成，这个没什么可说的，后者完成后一定会剩下一个位置。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Scheduler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.list=[]   <span class="comment">//promise list</span></span><br><span class="line">        <span class="keyword">this</span>.cur=<span class="number">0</span>   <span class="comment">//current position</span></span><br><span class="line">        <span class="keyword">this</span>.max=<span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">    add(promiseCreator) &#123;</span><br><span class="line">        <span class="keyword">let</span> temp=<span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.cur &lt; <span class="keyword">this</span>.max) &#123;</span><br><span class="line">            temp=promiseCreator();</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> arr=<span class="keyword">this</span>.list.slice(<span class="number">0</span>,<span class="keyword">this</span>.cur<span class="number">-1</span>);</span><br><span class="line">            <span class="keyword">let</span> all=<span class="built_in">Promise</span>.all(arr);</span><br><span class="line">            </span><br><span class="line">            temp=<span class="built_in">Promise</span>.race([all,<span class="keyword">this</span>.list[<span class="keyword">this</span>.cur<span class="number">-1</span>]])</span><br><span class="line">                    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span> promiseCreator();</span><br><span class="line">                    &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.list.push(temp);</span><br><span class="line">        <span class="keyword">this</span>.cur++;</span><br><span class="line">        <span class="keyword">return</span> temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre><code class="javascript">class Scheduler {
+    constructor() {
+        this.list=[]   //promise list
+        this.cur=0   //current position
+        this.max=2
+    }
+    add(promiseCreator) {
+        let temp=null;
+
+        if(this.cur &lt; this.max) {
+            temp=promiseCreator();
+        }else {
+            let arr=this.list.slice(0,this.cur-1);
+            let all=Promise.all(arr);
+
+            temp=Promise.race([all,this.list[this.cur-1]])
+                    .then(() =&gt; {
+                        return promiseCreator();
+                    });
+        }
+
+        this.list.push(temp);
+        this.cur++;
+        return temp;
+    }
+}</code></pre>
 <h3 id="缺点与不足"><a href="#缺点与不足" class="headerlink" title="缺点与不足"></a>缺点与不足</h3><ul>
 <li><p>无法复用</p>
 <p>如果调整为执行队列最大个数为3或以上，则需要判断前n者中是否有resolve</p>
@@ -251,23 +307,23 @@
 		</div>
 
 		<!-- comments -->
-		<div class="row">
+		<div class='row'>
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<div id="comments"></div>
 			</div>
 		</div>
 	</div>
-
-	<!-- code highlight -->
-	
-	<script>
-		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-		codeBlocks.forEach(function(block, index) {
-		hljs.highlightBlock(block);
-		console.log(1);
-		});
-	</script>
 </article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
 
 
     <!-- Footer -->
@@ -289,30 +345,20 @@
 
 
     <!-- After Footer Scripts -->
-<!-- highlight -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  function highlights() {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  }
-  highlights();
-</script>
 
 <!-- comments -->
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script>
-  new Valine({
-    el: '#comments',
-    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
-    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
-    placeholder: '快来填满我嘛！',
-    lang: 'zh-cn',
-    path: window.location.pathname
-  });
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
 </script>
   </body>
 </html>

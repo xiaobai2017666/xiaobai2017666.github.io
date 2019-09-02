@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
   <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +18,12 @@
   
     <link rel="icon" href="/favicon.ico">
   
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
   <!-- slider CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
@@ -162,51 +168,101 @@
 
 					
 						<!-- toc -->
-						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hash路由实现"><span class="toc-text">hash路由实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#如何获取当前hash"><span class="toc-text">如何获取当前hash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#监听hash改变事件"><span class="toc-text">监听hash改变事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#监听load（页面-加载）事件"><span class="toc-text">监听load（页面/加载）事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#何时注册“-”路由？"><span class="toc-text">何时注册“/”路由？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#地址栏的编码问题"><span class="toc-text">地址栏的编码问题</span></a></li></ol></li></ol>
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hash路由实现"><span class="toc-text">hash路由实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#如何获取当前hash"><span class="toc-text">如何获取当前hash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#监听hash改变事件"><span class="toc-text">监听hash改变事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#监听load（页面-加载）事件"><span class="toc-text">监听load（页面/加载）事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#何时注册“-”路由？"><span class="toc-text">何时注册“/”路由？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#地址栏的编码问题"><span class="toc-text">地址栏的编码问题</span></a></li></ol></li></ol></li></ol>
 					
 				
 					<h2 id="hash路由实现"><a href="#hash路由实现" class="headerlink" title="hash路由实现"></a>hash路由实现</h2><p>众所周知,当我们的浏览器地址栏改变时会刷新页面.<br>然而hash却不会<br>hash即地址后的”#/123”类似的字符串<br>所以利用它我们可以做前端路由</p>
 <p>实现的几个关键点(注意this是全局作用域中(非严格模式))：</p>
 <ol>
-<li><h4 id="如何获取当前hash"><a href="#如何获取当前hash" class="headerlink" title="如何获取当前hash"></a>如何获取当前hash</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location.hash      <span class="comment">//"#/123"</span></span><br></pre></td></tr></table></figure>
+<li><h4 id="如何获取当前hash"><a href="#如何获取当前hash" class="headerlink" title="如何获取当前hash"></a>如何获取当前hash</h4><pre><code class="javascript">location.hash      //&quot;#/123&quot;</code></pre>
 </li>
-<li><h4 id="监听hash改变事件"><a href="#监听hash改变事件" class="headerlink" title="监听hash改变事件"></a>监听hash改变事件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.addEventListener(<span class="string">'hashchange'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<li><h4 id="监听hash改变事件"><a href="#监听hash改变事件" class="headerlink" title="监听hash改变事件"></a>监听hash改变事件</h4><pre><code class="javascript">this.addEventListener(&#39;hashchange&#39;,function(){},false);</code></pre>
 </li>
 <li><h4 id="监听load（页面-加载）事件"><a href="#监听load（页面-加载）事件" class="headerlink" title="监听load（页面/加载）事件"></a>监听load（页面/加载）事件</h4><p>监听的目的是为了用户在得到这段地址时,如果想在新的标签栏直接打开,此时并不会触发hash改变事件,所以我们要补充一个load事件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.addEventListener(<span class="string">'load'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">this.addEventListener(&#39;load&#39;,function(){},false);</code></pre>
 </li>
 <li><h4 id="何时注册“-”路由？"><a href="#何时注册“-”路由？" class="headerlink" title="何时注册“/”路由？"></a>何时注册“/”路由？</h4><p>个人建议在this.onload时<br>写这个点的原因是我在一开始写的时候,是这么写”/“路由的回调函数的</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location.href = <span class="string">'http://localhost:8080'</span>;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">location.href = &#39;http://localhost:8080&#39;;</code></pre>
 <p>意思是重新加载主页<br>如果不在onload时候注册,就会因为监听了load事件造成页面无限循环加载<br>ps:不过后来不这么写了,2333</p>
 </li>
 <li><h4 id="地址栏的编码问题"><a href="#地址栏的编码问题" class="headerlink" title="地址栏的编码问题"></a>地址栏的编码问题</h4><p>地址栏获取到的字符编码和你js注册时候的字符编码是不一样的,因此比较时会不相等,造成不存在此路由<br>需要unescape([String])</p>
 </li>
 </ol>
 <p>下面实践：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> router=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    routes: &#123;&#125;,</span><br><span class="line">    <span class="comment">//模糊路由,即你无法在本地捕捉到准确数据</span></span><br><span class="line">    vagueRoutes: [],</span><br><span class="line">    vagueRoutesFun: [],</span><br><span class="line">    <span class="comment">//当前路由</span></span><br><span class="line">    nowUrl: <span class="string">''</span>,</span><br><span class="line"></span><br><span class="line">    route: <span class="function"><span class="keyword">function</span> (<span class="params">url, callback</span>) </span>&#123;</span><br><span class="line">      <span class="comment">//路由注册，传入字符串</span></span><br><span class="line">      <span class="keyword">this</span>.routes[url]=callback||<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    vagueRoute: <span class="function"><span class="keyword">function</span> (<span class="params">reg, callback</span>) </span>&#123;</span><br><span class="line">      <span class="comment">//模糊路由注册，传入正则表达式</span></span><br><span class="line">      <span class="keyword">this</span>.vagueRoutes.push(reg);</span><br><span class="line">      <span class="keyword">this</span>.vagueRoutesFun.push(callback);</span><br><span class="line">    &#125;,</span><br><span class="line">    refresh: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">//路由执行</span></span><br><span class="line">      <span class="keyword">this</span>.nowUrl=<span class="built_in">window</span>.location.hash.slice(<span class="number">1</span>)||<span class="string">'/'</span>;</span><br><span class="line">      <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.routes[<span class="keyword">this</span>.nowUrl]();</span><br><span class="line">      &#125;<span class="keyword">catch</span>(err)&#123;</span><br><span class="line">        <span class="comment">//计数器</span></span><br><span class="line">        <span class="keyword">let</span> num=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.vagueRoutes.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item,index</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span>(item.test(<span class="keyword">this</span>.nowUrl))&#123;</span><br><span class="line">            <span class="keyword">this</span>.vagueRoutesFun[index]();</span><br><span class="line">            num--;</span><br><span class="line">          &#125;</span><br><span class="line">          num++;</span><br><span class="line">        &#125;,<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">if</span>(num===<span class="keyword">this</span>.vagueRoutes.length&amp;&amp;<span class="keyword">this</span>.nowUrl!=<span class="string">'/'</span>)&#123;</span><br><span class="line">          <span class="comment">//不存在的页面处理方式</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    init: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">//初始化</span></span><br><span class="line">      <span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, router.refresh.bind(router));</span><br><span class="line">      <span class="built_in">window</span>.addEventListener(<span class="string">'hashchange'</span>, router.refresh.bind(router));</span><br><span class="line">      <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        router.route(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          location.href = <span class="string">'http://localhost:8080/'</span>;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">let router=(function(){
+  return {
+    routes: {},
+    //模糊路由,即你无法在本地捕捉到准确数据
+    vagueRoutes: [],
+    vagueRoutesFun: [],
+    //当前路由
+    nowUrl: &#39;&#39;,
+
+    route: function (url, callback) {
+      //路由注册，传入字符串
+      this.routes[url]=callback||function () {};
+    },
+    vagueRoute: function (reg, callback) {
+      //模糊路由注册，传入正则表达式
+      this.vagueRoutes.push(reg);
+      this.vagueRoutesFun.push(callback);
+    },
+    refresh: function () {
+      //路由执行
+      this.nowUrl=window.location.hash.slice(1)||&#39;/&#39;;
+      try{
+        this.routes[this.nowUrl]();
+      }catch(err){
+        //计数器
+        let num=0;
+        this.vagueRoutes.forEach(function (item,index) {
+          if(item.test(this.nowUrl)){
+            this.vagueRoutesFun[index]();
+            num--;
+          }
+          num++;
+        },this);
+        if(num===this.vagueRoutes.length&amp;&amp;this.nowUrl!=&#39;/&#39;){
+          //不存在的页面处理方式
+        }
+      }
+    },
+    init: function () {
+      //初始化
+      window.addEventListener(&#39;load&#39;, router.refresh.bind(router));
+      window.addEventListener(&#39;hashchange&#39;, router.refresh.bind(router));
+      window.onload = function () {
+        router.route(&#39;/&#39;, function () {
+          location.href = &#39;http://localhost:8080/&#39;;
+        })
+      }
+    }
+  }
+})();</code></pre>
+
 				</div>
 
 			</div>
 		</div>
 
 		<!-- comments -->
-		<div class="row">
+		<div class='row'>
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<div id="comments"></div>
 			</div>
 		</div>
 	</div>
-
-	<!-- code highlight -->
-	
-	<script>
-		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-		codeBlocks.forEach(function(block, index) {
-		hljs.highlightBlock(block);
-		console.log(1);
-		});
-	</script>
 </article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
 
 
     <!-- Footer -->
@@ -228,30 +284,20 @@
 
 
     <!-- After Footer Scripts -->
-<!-- highlight -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  function highlights() {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  }
-  highlights();
-</script>
 
 <!-- comments -->
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script>
-  new Valine({
-    el: '#comments',
-    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
-    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
-    placeholder: '快来填满我嘛！',
-    lang: 'zh-cn',
-    path: window.location.pathname
-  });
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
 </script>
   </body>
 </html>

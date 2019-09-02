@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Weismann">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="零散知识点三">
+  <meta property="og:description" content="Weismann的个人网站">
+  <meta property="og:site_name" content="Weismann">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="">
+  <link rel="preload" href="/img/shaoqian.png" as="image">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  
+  <!-- slider CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
+
+  <!-- Site Title -->
+  <title>Weismann</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+</head>
+
+  <body>
+    <!-- title -->
+
+
+<!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/shaoqian.png)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Weismann</p>
+          <p class="subtitle">筱白</p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/xiaobai2017666">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://jq.qq.com/?_wv=1027&k=5OOQK0R">
+                  
+                  二次元交流群
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comic">
+                  
+                  追番攻略
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于我
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/version">
+                  
+                  版本日志&amp;问题反馈
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<article>
+	<div class="container typo">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<!-- page version -->
+				
+    <div class="post-info text-muted">
+
+        
+            <!-- Author -->
+            <span class="author info">By Weismann</span>
+        
+
+        <!-- Date -->
+        <span class="date-time info">On
+            <span class="date">2019年8月15日</span>
+        </span>
+
+        
+            <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/技术文章/">技术文章</a>
+</span>
+        
+
+    </div>
+
+
+    <!-- Tags -->
+    <div class="post-tags text-muted">
+        Tags: 
+
+<a class="tag" href="/tags/git/">#git</a> <a class="tag" href="/tags/javascript/">#javascript</a> <a class="tag" href="/tags/webpack/">#webpack</a> <a class="tag" href="/tags/跨域/">#跨域</a> <a class="tag" href="/tags/cookie/">#cookie</a>
+
+
+    </div>
+
+
+				<!-- Post Main Content -->
+				<div class="post-content">
+
+					
+						<!-- toc -->
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#零散知识点三"><span class="toc-text">零散知识点三</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git踩坑"><span class="toc-text">git踩坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#html-webpack-plugin踩坑"><span class="toc-text">html-webpack-plugin踩坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node的exports和module-exports"><span class="toc-text">node的exports和module.exports</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cookie跨域问题"><span class="toc-text">cookie跨域问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JS正则表达式后行断言"><span class="toc-text">JS正则表达式后行断言</span></a></li></ol></li></ol>
+					
+				
+					<h2 id="零散知识点三"><a href="#零散知识点三" class="headerlink" title="零散知识点三"></a>零散知识点三</h2><h3 id="git踩坑"><a href="#git踩坑" class="headerlink" title="git踩坑"></a>git踩坑</h3><p><code>git add .</code>不会加入空文件夹，需要在文件夹下加入一个空的无效文件。目前做法是加入<code>.gitkeep</code></p>
+<p>使用场景：类似react-cli的工具，需要制定一个项目模板，提前设置好项目结构，但是目录下并没有文件。</p>
+<h3 id="html-webpack-plugin踩坑"><a href="#html-webpack-plugin踩坑" class="headerlink" title="html-webpack-plugin踩坑"></a>html-webpack-plugin踩坑</h3><p>使用默认template参数时，会寻找<code>./src/index.ejs</code>作为模版（注意有后缀）</p>
+<p>如果没有则创建一个默认空模版，即使存在<code>./src/index.html</code></p>
+<p>如果想自定义模板需要自行指定文件</p>
+<h3 id="node的exports和module-exports"><a href="#node的exports和module-exports" class="headerlink" title="node的exports和module.exports"></a>node的exports和module.exports</h3><p>他俩指向同一引用</p>
+<p>直接修改exports或module.exports都会导致不相等</p>
+<pre><code class="javascript">exports = function() {};
+exports === module.exports  //false
+// or
+module.exports = function() {};
+exports === module.exports  //false</code></pre>
+<p>模块化可以通过定义exports的属性去暴露</p>
+<pre><code class="javascript">//module.js
+exports.methods = function() {};  //正确
+
+//index.js
+const methods = require(&#39;module.js&#39;);</code></pre>
+<p>如果直接定义exports是无效的</p>
+<pre><code class="javascript">//module.js
+exports = function() {};  //无效
+
+//index.js
+const methods = require(&#39;module.js&#39;);</code></pre>
+<p>还可以通过定义module.exports或定义module.exports的属性去暴露，但是直接定义会造成上述的不相等情况</p>
+<pre><code class="javascript">//module.js
+module.exports = function() {};  //正确
+
+//or
+
+module.exports.methods = function() {};  //正确
+
+//index.js
+const methods = require(&#39;module.js&#39;);</code></pre>
+<h3 id="cookie跨域问题"><a href="#cookie跨域问题" class="headerlink" title="cookie跨域问题"></a>cookie跨域问题</h3><p>前端：需要将请求头的<code>withCredentials</code>设置true，前端就只需要做这点</p>
+<p>后端：需要设置两个请求头，第一个是请求头<code>Access-Control-Allow-Origin</code>置为唯一域，不可以是范围性的比如*；第二个是<code>Access-Control-Allow-Credentials</code>置为true</p>
+<p>踩坑：express模板使用res.cookies API的时候需要安装“cookie-parser”，否则无法获得，但是可以通过req.headers.cookie去获取cookie字段，代码如下</p>
+<pre><code class="javascript">//ajax
+axios({
+    method: &#39;POST&#39;,
+    url: &#39;http://localhost:3000/cors&#39;,
+    withCredentials: true
+}).then((res) =&gt; {
+    console.log(res.data);
+});</code></pre>
+<pre><code class="javascript">//node
+const express = require(&#39;express&#39;);
+const app = express();
+const cookieParser = require(&#39;cookie-parser&#39;);
+app.use(cookieParser());
+
+app.post(&#39;/cors&#39;, function (req, res) {
+    res.set({
+        &#39;Access-Control-Allow-Origin&#39;: &#39;http://localhost:5500&#39;,
+        &#39;Access-Control-Allow-Credentials&#39;: true
+      });
+    res.cookie(&#39;rememberme&#39;, &#39;1&#39;, {
+        expires: new Date(Date.now() + 900000)
+    });
+    console.log(req.cookies.rememberme);
+    res.send({
+        a: &#39;1&#39;
+    });
+}).listen(3000);</code></pre>
+<h3 id="JS正则表达式后行断言"><a href="#JS正则表达式后行断言" class="headerlink" title="JS正则表达式后行断言"></a>JS正则表达式后行断言</h3><p>JS直到ES6才开始支持后行断言，在node v8.9.4以下的版本使用后行断言都会报错，所以想要在node中使用后行断言尽量使用最新版本node</p>
+<p>用途：捕获</p>
+<p>比如：ab</p>
+<ul>
+<li><p>捕获a后的b，在正则表达式的意义上为b的前一个位置是a，属于后行断言。</p>
+<pre><code class="javascript">const reg=/(?&lt;=a)b/    //b</code></pre>
+</li>
+<li><p>捕获b前的a，在正则表达式的意义上为a的后一个位置是b，属于先行断言。</p>
+<pre><code class="javascript">const reg=/a(?=b)/     //a</code></pre>
+</li>
+</ul>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- comments -->
+		<div class='row'>
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div id="comments"></div>
+			</div>
+		</div>
+	</div>
+</article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/xiaobai2017666">Weismann</a>.
+          The website started in January 6th,2019.
+        </p>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+
+<!-- comments -->
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
+</script>
+  </body>
+</html>

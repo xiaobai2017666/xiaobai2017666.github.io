@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
   <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +18,12 @@
   
     <link rel="icon" href="/favicon.ico">
   
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
   <!-- slider CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
@@ -162,7 +168,7 @@
 
 					
 						<!-- toc -->
-						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LU分解解线性方程组实现"><span class="toc-text">LU分解解线性方程组实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#先给定一个目标"><span class="toc-text">先给定一个目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LU分解法"><span class="toc-text">LU分解法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特殊状况"><span class="toc-text">特殊状况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#完整代码"><span class="toc-text">完整代码</span></a></li></ol></li></ol>
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LU分解解线性方程组实现"><span class="toc-text">LU分解解线性方程组实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#先给定一个目标"><span class="toc-text">先给定一个目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LU分解法"><span class="toc-text">LU分解法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特殊状况"><span class="toc-text">特殊状况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#完整代码"><span class="toc-text">完整代码</span></a></li></ol></li></ol></li></ol>
 					
 				
 					<h2 id="LU分解解线性方程组实现"><a href="#LU分解解线性方程组实现" class="headerlink" title="LU分解解线性方程组实现"></a>LU分解解线性方程组实现</h2><p>这里不涉及证明</p>
@@ -177,7 +183,7 @@
 <thead>
 <tr>
 <th>3</th>
-<th style="text-align:left">-1</th>
+<th align="left">-1</th>
 <th>2</th>
 <th></th>
 <th>1</th>
@@ -189,10 +195,9 @@
 <th>U13</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>1</td>
-<td style="text-align:left">2</td>
+<td align="left">2</td>
 <td>3</td>
 <td>=</td>
 <td>L21</td>
@@ -205,7 +210,7 @@
 </tr>
 <tr>
 <td>2</td>
-<td style="text-align:left">-2</td>
+<td align="left">-2</td>
 <td>-1</td>
 <td></td>
 <td>L31</td>
@@ -216,8 +221,7 @@
 <td>0</td>
 <td>U33</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>​    依次根据左值从左到右，从上到下得出右值未知数结果：</p>
 <p>​        U11=3/1=3</p>
 <p>​        U12=-1/1=-1</p>
@@ -245,8 +249,7 @@
 <th></th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>1</td>
 <td>2</td>
 <td>3</td>
@@ -274,13 +277,25 @@
 <td>L32</td>
 <td>U33</td>
 <td></td>
+<td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>​    以上我们把LU存到一个二维数组中，初始值为最左边的矩阵，之后为了看着方便，则标记为Lxx、Uxx，变为真实值的则采用原地处理的方式覆盖原值，由此我们总结出公式。</p>
 <p><img src="https://i.loli.net/2018/11/27/5bfcc1db0a517.png" alt=""></p>
 <p>​    通过以上计算公式，可总结以下算法代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> k = <span class="number">0</span>; k &lt; n - <span class="number">1</span>; k++) &#123;  <span class="comment">//进行n-1次循环，因第一行和最后一列不需要计算</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = k + <span class="number">1</span>; i &lt; n; i++) &#123;  <span class="comment">//L</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; k; j++) &#123;</span><br><span class="line">            data[i][k] -= data[j][k] * data[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">        data[i][k] /= data[k][k];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = k + <span class="number">1</span>; j &lt; n; j++) &#123;  <span class="comment">//U</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; k + <span class="number">1</span>; i++) &#123;</span><br><span class="line">            data[k + <span class="number">1</span>][j] -= data[k + <span class="number">1</span>][i] * data[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">for (var k = 0; k &lt; n - 1; k++) {  //进行n-1次循环，因第一行和最后一列不需要计算
+    for (var i = k + 1; i &lt; n; i++) {  //L
+        for (var j = 0; j &lt; k; j++) {
+            data[i][k] -= data[j][k] * data[i][j];
+        }
+        data[i][k] /= data[k][k];
+    }
+    for (var j = k + 1; j &lt; n; j++) {  //U
+        for (var i = 0; i &lt; k + 1; i++) {
+            data[k + 1][j] -= data[k + 1][i] * data[i][j];
+        }
+    }
+}</code></pre>
 <p>​    接下来是回代，由新LU矩阵得出y和x，有以下公式，此处bi是线性方程组矩阵最后一列的值。</p>
 <p><img src="https://i.loli.net/2018/11/27/5bfcc1db7fa9d.png" alt=""></p>
 <p>​    开始进行回代（以下为手算），为了计算方便，我们把LU结果列在下方</p>
@@ -293,8 +308,7 @@
 <th>2</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>1/3</td>
 <td>7/3</td>
 <td>7/3</td>
@@ -304,8 +318,7 @@
 <td>-4/7</td>
 <td>-1</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>回代过程</p>
 <table>
 <thead>
@@ -314,8 +327,7 @@
 <th>x1=(y1-u12*x2-u13*x3)/u11=3</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>y2=b2-y1*l21=7</td>
 <td>x2=(y2-u23*x3)/u22=1</td>
 </tr>
@@ -323,10 +335,23 @@
 <td>y3=b3-y2*l32-y1*l31=-2</td>
 <td>x3=y3/u33=2</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>​    以上计算过程根据公式总结出算法代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;n;i++) &#123;  <span class="comment">//yi回代</span></span><br><span class="line">  <span class="keyword">var</span> temp=data[i][n];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;=i<span class="number">-1</span>;j++) &#123;</span><br><span class="line">    temp-=data[i][j]*data[j][n];</span><br><span class="line">  &#125;</span><br><span class="line">  data[i][n]=temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=n<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) &#123;  <span class="comment">//xi回代</span></span><br><span class="line">  <span class="keyword">var</span> temp=data[i][n];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> j=n<span class="number">-1</span>;j&gt;i;j--) &#123;</span><br><span class="line">    temp-=data[i][j]*data[j][n];</span><br><span class="line">  &#125;</span><br><span class="line">  data[i][n]=temp/data[i][i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">  for(var i=0;i&lt;n;i++) {  //yi回代
+    var temp=data[i][n];
+    for(var j=0;j&lt;=i-1;j++) {
+      temp-=data[i][j]*data[j][n];
+    }
+    data[i][n]=temp;
+  }
+
+  for(var i=n-1;i&gt;=0;i--) {  //xi回代
+    var temp=data[i][n];
+    for(var j=n-1;j&gt;i;j--) {
+      temp-=data[i][j]*data[j][n];
+    }
+    data[i][n]=temp/data[i][i];
+  }</code></pre>
 <p>​    结果会因为语言不同造成的浮点数实现不同，从而结果有一丝偏差。</p>
 <p>​    你以为这就完了？不，还有一些情况没有考虑，这里的例子只是最佳情况。</p>
 <h4 id="特殊状况"><a href="#特殊状况" class="headerlink" title="特殊状况"></a>特殊状况</h4><p>​    看一下这种情况，题目如下：</p>
@@ -336,8 +361,68 @@
 <p>​    这时我们引入选主元的的概念。</p>
 <p>​    根据定理，设n*n矩阵非奇异，若对矩阵实施高斯消去过程时主元data[k][k]=0，则该列下方至少有一个元素不为0，即存在ik&gt;k，data[ik][k]!=0。</p>
 <p>​    至此，我们则需要对代码做一些调整，即要保证data[k][k]!=0，所以在分解LU矩阵时修改代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> k = <span class="number">0</span>; k &lt; n - <span class="number">1</span>; k++) &#123;  <span class="comment">//进行n-1次循环，因第一行和最后一列不需要计算</span></span><br><span class="line">  <span class="keyword">if</span>(data[k][k]===<span class="number">0</span>) &#123;  <span class="comment">//修改部分</span></span><br><span class="line">    <span class="keyword">var</span> temp=[];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=k+<span class="number">1</span>;i&lt;n;i++) &#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="built_in">Math</span>.abs(data[i][k])&gt;data[k][k]) &#123;</span><br><span class="line">        [data[k],data[i]]=[data[i],data[k]];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = k + <span class="number">1</span>; i &lt; n; i++) &#123;  <span class="comment">//L</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; k; j++) &#123;</span><br><span class="line">      data[i][k] -= data[j][k] * data[i][j];</span><br><span class="line">    &#125;</span><br><span class="line">    data[i][k] /= data[k][k];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> j = k + <span class="number">1</span>; j &lt; n; j++) &#123;  <span class="comment">//U</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; k + <span class="number">1</span>; i++) &#123;</span><br><span class="line">      data[k + <span class="number">1</span>][j] -= data[k + <span class="number">1</span>][i] * data[i][j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">n,data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> k = <span class="number">0</span>; k &lt; n - <span class="number">1</span>; k++) &#123;  <span class="comment">//进行n-1次循环，因第一行和最后一列不需要计算</span></span><br><span class="line">    <span class="keyword">if</span>(data[k][k]===<span class="number">0</span>) &#123;  <span class="comment">//选主元</span></span><br><span class="line">      <span class="keyword">var</span> temp=[];</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> i=k+<span class="number">1</span>;i&lt;n;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">Math</span>.abs(data[i][k])&gt;data[k][k]) &#123;</span><br><span class="line">          [data[k],data[i]]=[data[i],data[k]];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = k + <span class="number">1</span>; i &lt; n; i++) &#123;  <span class="comment">//L</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; k; j++) &#123;</span><br><span class="line">        data[i][k] -= data[j][k] * data[i][j];</span><br><span class="line">      &#125;</span><br><span class="line">      data[i][k] /= data[k][k];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = k + <span class="number">1</span>; j &lt; n; j++) &#123;  <span class="comment">//U</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; k + <span class="number">1</span>; i++) &#123;</span><br><span class="line">        data[k + <span class="number">1</span>][j] -= data[k + <span class="number">1</span>][i] * data[i][j];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;  <span class="comment">//yi回代</span></span><br><span class="line">    <span class="keyword">var</span> temp = data[i][n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt;= i - <span class="number">1</span>; j++) &#123;</span><br><span class="line">      temp -= data[i][j] * data[j][n];</span><br><span class="line">    &#125;</span><br><span class="line">    data[i][n] = temp;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;  <span class="comment">//xi回代</span></span><br><span class="line">    <span class="keyword">var</span> temp = data[i][n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = n - <span class="number">1</span>; j &gt; i; j--) &#123;</span><br><span class="line">      temp -= data[i][j] * data[j][n];</span><br><span class="line">    &#125;</span><br><span class="line">    data[i][n] = temp / data[i][i];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">for (var k = 0; k &lt; n - 1; k++) {  //进行n-1次循环，因第一行和最后一列不需要计算
+  if(data[k][k]===0) {  //修改部分
+    var temp=[];
+    for(var i=k+1;i&lt;n;i++) {
+      if(Math.abs(data[i][k])&gt;data[k][k]) {
+        [data[k],data[i]]=[data[i],data[k]];
+      }
+    }
+  }
+  for (var i = k + 1; i &lt; n; i++) {  //L
+    for (var j = 0; j &lt; k; j++) {
+      data[i][k] -= data[j][k] * data[i][j];
+    }
+    data[i][k] /= data[k][k];
+  }
+  for (var j = k + 1; j &lt; n; j++) {  //U
+    for (var i = 0; i &lt; k + 1; i++) {
+      data[k + 1][j] -= data[k + 1][i] * data[i][j];
+    }
+  }
+}</code></pre>
+<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><pre><code class="javascript">function a(n,data) {
+  for (var k = 0; k &lt; n - 1; k++) {  //进行n-1次循环，因第一行和最后一列不需要计算
+    if(data[k][k]===0) {  //选主元
+      var temp=[];
+      for(var i=k+1;i&lt;n;i++) {
+        if(Math.abs(data[i][k])&gt;data[k][k]) {
+          [data[k],data[i]]=[data[i],data[k]];
+        }
+      }
+    }
+    for (var i = k + 1; i &lt; n; i++) {  //L
+      for (var j = 0; j &lt; k; j++) {
+        data[i][k] -= data[j][k] * data[i][j];
+      }
+      data[i][k] /= data[k][k];
+    }
+    for (var j = k + 1; j &lt; n; j++) {  //U
+      for (var i = 0; i &lt; k + 1; i++) {
+        data[k + 1][j] -= data[k + 1][i] * data[i][j];
+      }
+    }
+  }
+
+  for (var i = 0; i &lt; n; i++) {  //yi回代
+    var temp = data[i][n];
+    for (var j = 0; j &lt;= i - 1; j++) {
+      temp -= data[i][j] * data[j][n];
+    }
+    data[i][n] = temp;
+  }
+
+  for (var i = n - 1; i &gt;= 0; i--) {  //xi回代
+    var temp = data[i][n];
+    for (var j = n - 1; j &gt; i; j--) {
+      temp -= data[i][j] * data[j][n];
+    }
+    data[i][n] = temp / data[i][i];
+  }
+
+  return data;
+}</code></pre>
 
 				</div>
 
@@ -345,23 +430,23 @@
 		</div>
 
 		<!-- comments -->
-		<div class="row">
+		<div class='row'>
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<div id="comments"></div>
 			</div>
 		</div>
 	</div>
-
-	<!-- code highlight -->
-	
-	<script>
-		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-		codeBlocks.forEach(function(block, index) {
-		hljs.highlightBlock(block);
-		console.log(1);
-		});
-	</script>
 </article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
 
 
     <!-- Footer -->
@@ -383,30 +468,20 @@
 
 
     <!-- After Footer Scripts -->
-<!-- highlight -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  function highlights() {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  }
-  highlights();
-</script>
 
 <!-- comments -->
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script>
-  new Valine({
-    el: '#comments',
-    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
-    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
-    placeholder: '快来填满我嘛！',
-    lang: 'zh-cn',
-    path: window.location.pathname
-  });
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
 </script>
   </body>
 </html>

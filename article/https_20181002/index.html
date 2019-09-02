@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
   <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +18,12 @@
   
     <link rel="icon" href="/favicon.ico">
   
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
   <!-- slider CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
@@ -162,7 +168,7 @@
 
 					
 						<!-- toc -->
-						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#http升级https"><span class="toc-text">http升级https</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#确认基本配置是否完成"><span class="toc-text">确认基本配置是否完成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用acme-sh生成并安装证书（http方式）"><span class="toc-text">使用acme.sh生成并安装证书（http方式）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后端接口配置"><span class="toc-text">后端接口配置</span></a></li></ol></li></ol>
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#http升级https"><span class="toc-text">http升级https</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#确认基本配置是否完成"><span class="toc-text">确认基本配置是否完成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用acme-sh生成并安装证书（http方式）"><span class="toc-text">使用acme.sh生成并安装证书（http方式）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后端接口配置"><span class="toc-text">后端接口配置</span></a></li></ol></li></ol></li></ol>
 					
 				
 					<h2 id="http升级https"><a href="#http升级https" class="headerlink" title="http升级https"></a>http升级https</h2><p><strong>系统版本</strong></p>
@@ -171,36 +177,63 @@
 <li><h4 id="确认基本配置是否完成"><a href="#确认基本配置是否完成" class="headerlink" title="确认基本配置是否完成"></a>确认基本配置是否完成</h4><p>需要Nginx，具体安装步骤移步<a href="https://www.b0110.com/work/从零用Nginx部署你的网页" target="_blank" rel="noopener">链接</a></p>
 </li>
 <li><h4 id="使用acme-sh生成并安装证书（http方式）"><a href="#使用acme-sh生成并安装证书（http方式）" class="headerlink" title="使用acme.sh生成并安装证书（http方式）"></a>使用acme.sh生成并安装证书（http方式）</h4><p>安装acme.sh，此时acme.sh会安装到~/.acme.sh/，注意是个隐藏的目录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  https://get.acme.sh | sh</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">curl  https://get.acme.sh | sh</code></pre>
 <p>创建bash，方便调用</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias acme.sh=~/.acme.sh/acme.sh</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">alias acme.sh=~/.acme.sh/acme.sh</code></pre>
 <p>验证所有权，并生成证书</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --issue -d [域名] -w [网页放置路径]</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">acme.sh --issue -d [域名] -w [网页放置路径]</code></pre>
 <p><u><strong>此时可能操作不正确会有报错，如果报错解决，务必将acme.sh生成的[域名]文件夹删掉！否则将一直验证错误。期间可能用到的命令如下</strong></u></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls		//列出当前文件夹下文件</span><br><span class="line">rm -rf [文件夹]		//删除文件夹及文件夹下所有文件</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">ls        //列出当前文件夹下文件
+rm -rf [文件夹]        //删除文件夹及文件夹下所有文件</code></pre>
 <p><u><strong>注意一小时内限制获取5次证书</strong></u></p>
 <p>Copy证书，需要先创建一个存放的证书的文件夹</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx</span><br><span class="line"></span><br><span class="line">mkdir ssl</span><br><span class="line"></span><br><span class="line">acme.sh --installcert -d [域名] --key-file /usr/local/nginx/ssl/[domain].key --fullchain-file /usr/local/nginx/ssl/fullchain.cer</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">cd /usr/local/nginx
+
+mkdir ssl
+
+acme.sh --installcert -d [域名] --key-file /usr/local/nginx/ssl/[domain].key --fullchain-file /usr/local/nginx/ssl/fullchain.cer</code></pre>
 <p><strong><u>这里的[domain]指[域名]去掉“.com”</u></strong></p>
 <p>编辑Nginx.conf（配置文本）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">vi /usr/local/nginx/conf/nginx.conf</code></pre>
 <p>配置文本修改内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name [域名];</span><br><span class="line">    rewrite ^(.*)$ https://$&#123;server_name&#125;$1 permanent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       443 ssl;</span><br><span class="line">    server_name  [域名];</span><br><span class="line"></span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate       /usr/local/nginx/ssl/fullchain.cer;</span><br><span class="line">    ssl_certificate_key   /usr/local/nginx/ssl/www.b0110.key;</span><br><span class="line"></span><br><span class="line">    root [网页存放路径];</span><br><span class="line">    index index.html;</span><br><span class="line"></span><br><span class="line">    error_page 404              /home/html/404.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重启nginx，不是重新加载，官方文档道，reload经测试并不是重新加载证书</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s stop</span><br><span class="line"></span><br><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+<pre><code>server {
+    listen 80;
+    server_name [域名];
+    rewrite ^(.*)$ https://${server_name}$1 permanent;
+}
+
+server {
+    listen       443 ssl;
+    server_name  [域名];
+
+    ssl on;
+    ssl_certificate       /usr/local/nginx/ssl/fullchain.cer;
+    ssl_certificate_key   /usr/local/nginx/ssl/www.b0110.key;
+
+    root [网页存放路径];
+    index index.html;
+
+    error_page 404              /home/html/404.html;
+}</code></pre><p>重启nginx，不是重新加载，官方文档道，reload经测试并不是重新加载证书</p>
+<pre><code class="shell">/usr/local/nginx/sbin/nginx -s stop
+
+/usr/local/nginx/sbin/nginx</code></pre>
 <p>更新acme.sh，并开启自动升级</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh  --upgrade  --auto-upgrade</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">acme.sh  --upgrade  --auto-upgrade</code></pre>
 <p>关闭自动升级</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --upgrade  --auto-upgrade  0</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">acme.sh --upgrade  --auto-upgrade  0</code></pre>
 <p><strong>目前证书在 60 天以后会自动更新, 你无需任何操作. 今后有可能会缩短这个时间, 不过都是自动的, 你不用关心</strong></p>
 </li>
 <li><h4 id="后端接口配置"><a href="#后端接口配置" class="headerlink" title="后端接口配置"></a>后端接口配置</h4><p>当你调试完网页成功之后，你会发现你之前的接口都连不上了，这是因为你的接口地址协议没有变更https。变更后，还需要一些其他的配置，让我们来操作一下</p>
 <p>首先，网页的接口url都要改成https协议的</p>
 <p>然后是Nginx的配置，端口需要用Nginx反向代理一下，<strong><u>因为你的后端接口（我是用node写的）是用http模块写的，那么这时你会想用https模块去重写，不过那样生产环境下调试证书验证的时候不是很麻烦吗？</u></strong></p>
 <p>将配置文本中的第二个server加入：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /server/ &#123;</span><br><span class="line">        proxy_pass http://localhost:[监听端口号]/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">location /server/ {
+        proxy_pass http://localhost:[监听端口号]/;
+}</code></pre>
 <p>重启Nginx</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure></li>
+<pre><code class="shell">/usr/local/nginx/sbin/nginx -s reload</code></pre>
+</li>
 </ol>
 
 				</div>
@@ -209,23 +242,23 @@
 		</div>
 
 		<!-- comments -->
-		<div class="row">
+		<div class='row'>
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<div id="comments"></div>
 			</div>
 		</div>
 	</div>
-
-	<!-- code highlight -->
-	
-	<script>
-		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-		codeBlocks.forEach(function(block, index) {
-		hljs.highlightBlock(block);
-		console.log(1);
-		});
-	</script>
 </article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
 
 
     <!-- Footer -->
@@ -247,30 +280,20 @@
 
 
     <!-- After Footer Scripts -->
-<!-- highlight -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  function highlights() {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  }
-  highlights();
-</script>
 
 <!-- comments -->
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script>
-  new Valine({
-    el: '#comments',
-    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
-    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
-    placeholder: '快来填满我嘛！',
-    lang: 'zh-cn',
-    path: window.location.pathname
-  });
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
 </script>
   </body>
 </html>

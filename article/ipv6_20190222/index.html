@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
   <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +18,12 @@
   
     <link rel="icon" href="/favicon.ico">
   
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
   <!-- slider CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
@@ -162,7 +168,7 @@
 
 					
 						<!-- toc -->
-						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#让vps可以访问ipv6网站"><span class="toc-text">让vps可以访问ipv6网站</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置IPv6"><span class="toc-text">配置IPv6</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置vps"><span class="toc-text">配置vps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSR端口放行"><span class="toc-text">SSR端口放行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IPv6测试地址"><span class="toc-text">IPv6测试地址</span></a></li></ol></li></ol>
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#让vps可以访问ipv6网站"><span class="toc-text">让vps可以访问ipv6网站</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置IPv6"><span class="toc-text">配置IPv6</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置vps"><span class="toc-text">配置vps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSR端口放行"><span class="toc-text">SSR端口放行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IPv6测试地址"><span class="toc-text">IPv6测试地址</span></a></li></ol></li></ol></li></ol>
 					
 				
 					<h2 id="让vps可以访问ipv6网站"><a href="#让vps可以访问ipv6网站" class="headerlink" title="让vps可以访问ipv6网站"></a>让vps可以访问ipv6网站</h2><h4 id="配置IPv6"><a href="#配置IPv6" class="headerlink" title="配置IPv6"></a>配置IPv6</h4><p>注意：如果找不到我说的按钮，请Ctrl+F进行查找</p>
@@ -180,39 +186,45 @@
 <li><p>把下方的命令按顺序敲在你的vps上</p>
 </li>
 <li><p>配置完后尝试</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping6 google.com</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">ping6 google.com</code></pre>
 </li>
 <li><p>如果ping通说明成功了</p>
 </li>
 <li><p>接下来设置开机启动，这样你vps重启时，就可以开机启动了</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /root/ipv6.sh</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">vi /root/ipv6.sh</code></pre>
 <p>写入内容，ifconfig的内容时上面“Example Configurations”标签下的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">ifconfig sit0 up</span><br><span class="line">ifconfig sit0 inet6 tunnel ::YOUR-IPV4 %%%%% 请进行替换</span><br><span class="line">ifconfig sit1 up</span><br><span class="line">ifconfig sit1 inet6 add YOUR-IPV6  %%%% 请进行替换</span><br><span class="line">route -A inet6 add ::/0 dev sit1</span><br></pre></td></tr></table></figure>
-<p>给文件添加执行权限</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /root/ipv6.sh</span><br></pre></td></tr></table></figure>
+<pre><code>#!/bin/bash
+
+ifconfig sit0 up
+ifconfig sit0 inet6 tunnel ::YOUR-IPV4 %%%%% 请进行替换
+ifconfig sit1 up
+ifconfig sit1 inet6 add YOUR-IPV6  %%%% 请进行替换
+route -A inet6 add ::/0 dev sit1</code></pre><p>给文件添加执行权限</p>
+<pre><code class="shell">chmod +x /root/ipv6.sh</code></pre>
 <p>编辑文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">vi /etc/rc.d/rc.local</code></pre>
 <p>在最下面写入内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh /root/ipv6.sh</span><br></pre></td></tr></table></figure>
-<p>搭建完成</p>
+<pre><code>sh /root/ipv6.sh</code></pre><p>搭建完成</p>
 </li>
 </ol>
 <h4 id="配置vps"><a href="#配置vps" class="headerlink" title="配置vps"></a>配置vps</h4><ol>
 <li><p>Win10安装openSSH，可以通过cmd连接vps</p>
 </li>
 <li><p>确认vps是否安装了wget和vi</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install wget -y &amp;&amp; yum install vi -y</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">yum install wget -y &amp;&amp; yum install vi -y</code></pre>
 </li>
 <li><p>配置SSR</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate -O shadowsocksR.sh https://raw.githubusercontent.com/uxh/shadowsocks_bash/master/shadowsocksR.sh</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">wget –no-check-certificate -O shadowsocksR.sh https://raw.githubusercontent.com/uxh/shadowsocks_bash/master/shadowsocksR.sh</code></pre>
 <p>完成后</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash shadowsocksR.sh</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">bash shadowsocksR.sh</code></pre>
 <p>接下来按照指示进行配置就好了</p>
-<p><img src="https://segmentfault.com/img/bVbjTeE?w=828&amp;h=947" alt=""></p>
+<p><img src="https://segmentfault.com/img/bVbjTeE?w=828&h=947" alt=""></p>
 <p>出现你的配置信息，说明你的SSR已经搭建成功了。</p>
 </li>
 </ol>
-<h4 id="SSR端口放行"><a href="#SSR端口放行" class="headerlink" title="SSR端口放行"></a>SSR端口放行</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/sbin/ip6tables -I INPUT -p tcp --dport 138 -j ACCEPT    #将这里的138改成在上面搭建过程中设置的端口</span><br><span class="line">/etc/rc.d/init.d/ip6tables save    #保存端口放行设置</span><br><span class="line">/etc/init.d/ip6tables restart    #重启ip6tables，应用放行设置</span><br></pre></td></tr></table></figure>
+<h4 id="SSR端口放行"><a href="#SSR端口放行" class="headerlink" title="SSR端口放行"></a>SSR端口放行</h4><pre><code class="shell">/sbin/ip6tables -I INPUT -p tcp --dport 138 -j ACCEPT    #将这里的138改成在上面搭建过程中设置的端口
+/etc/rc.d/init.d/ip6tables save    #保存端口放行设置
+/etc/init.d/ip6tables restart    #重启ip6tables，应用放行设置</code></pre>
 <p>到这里所有工作基本完成，可以使用了，如果有任何问题在下方评论留言</p>
 <h4 id="IPv6测试地址"><a href="#IPv6测试地址" class="headerlink" title="IPv6测试地址"></a>IPv6测试地址</h4><p><a href="https://test-ipv6.com/index.html.zh_CN" target="_blank" rel="noopener">测试地址</a></p>
 
@@ -222,23 +234,23 @@
 		</div>
 
 		<!-- comments -->
-		<div class="row">
+		<div class='row'>
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<div id="comments"></div>
 			</div>
 		</div>
 	</div>
-
-	<!-- code highlight -->
-	
-	<script>
-		var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-		codeBlocks.forEach(function(block, index) {
-		hljs.highlightBlock(block);
-		console.log(1);
-		});
-	</script>
 </article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
 
 
     <!-- Footer -->
@@ -260,30 +272,20 @@
 
 
     <!-- After Footer Scripts -->
-<!-- highlight -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  function highlights() {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  }
-  highlights();
-</script>
 
 <!-- comments -->
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script>
-  new Valine({
-    el: '#comments',
-    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
-    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
-    placeholder: '快来填满我嘛！',
-    lang: 'zh-cn',
-    path: window.location.pathname
-  });
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
 </script>
   </body>
 </html>

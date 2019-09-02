@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
   <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +18,12 @@
   
     <link rel="icon" href="/favicon.ico">
   
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   
   <!-- slider CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
@@ -117,6 +123,44 @@
       <div class="col-lg-10 col-md-10 col-md-offset-1">
         
           <div class="post-item-wrapper">
+  <a href="/article/nodejs_and_npm_20180410/" class="post-title">
+      从零安装nodejs和npm
+  </a>
+  <div class="post-excerpt">
+    <!-- Post Date and Categories -->
+    <div class="date-and-category">
+      <div class="date">2018年4月10日</div>
+      <div class="categories">
+        
+          
+
+<a href="/categories/技术文章/">技术文章</a>
+
+        
+      </div>
+    </div>
+    <!-- Post Excerpt -->
+    <div class="excerpt typo"><p><strong>系统版本</strong><br><strong>centos6 64位</strong></p>
+<ol>
+
+
+</ol>
+<p>   然后就可以进行node操作了</p></div>
+    <!-- Post Tags -->
+    <div class="tags">
+      
+        
+
+<a class="tag" href="/tags/服务器部署/">服务器部署</a> <a class="tag" href="/tags/nodejs/">nodejs</a>
+
+
+      
+    </div>
+  </div>
+</div>
+
+        
+          <div class="post-item-wrapper">
   <a href="/article/mongodb_20180410/" class="post-title">
       从零部署Mongodb
   </a>
@@ -141,45 +185,6 @@
         
 
 <a class="tag" href="/tags/服务器部署/">服务器部署</a> <a class="tag" href="/tags/mongodb/">mongodb</a>
-
-
-      
-    </div>
-  </div>
-</div>
-
-        
-          <div class="post-item-wrapper">
-  <a href="/article/nginx_20180410/" class="post-title">
-      从零用Nginx部署你的网页
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">2018年4月10日</div>
-      <div class="categories">
-        
-          
-
-<a href="/categories/技术文章/">技术文章</a>
-
-        
-      </div>
-    </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><p><strong>系统版本</strong></p>
-<p><strong>centos6 64位</strong></p>
-<ol>
-
-
-
-</ol></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        
-
-<a class="tag" href="/tags/服务器部署/">服务器部署</a> <a class="tag" href="/tags/nginx/">nginx</a>
 
 
       
@@ -233,30 +238,20 @@
 
 
     <!-- After Footer Scripts -->
-<!-- highlight -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  function highlights() {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'));
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  }
-  highlights();
-</script>
 
 <!-- comments -->
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script>
-  new Valine({
-    el: '#comments',
-    appId: 'EQ2mW2PSbIbRip4i3zjQOd4r-gzGzoHsz',
-    appKey: '0DC6WAAaeRYN0HejK1nrqKhe',
-    placeholder: '快来填满我嘛！',
-    lang: 'zh-cn',
-    path: window.location.pathname
-  });
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
 </script>
   </body>
 </html>
