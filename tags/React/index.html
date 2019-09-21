@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
   <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="Weismann">
   <meta property="og:type" content="website">
   <meta property="og:image" content="">
-  <link rel="preload" href="/img/shaoqian.png" as="image">
+  <link rel="preload" href="/img/shaoqian.webp" as="image">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -43,7 +43,7 @@
 <!-- Page Header -->
 
 
-<header class="site-header header-background" style="background-image: url(/img/shaoqian.png)">
+<header class="site-header header-background" style="background-image: url(/img/shaoqian.webp)">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -124,18 +124,10 @@
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         
           <div class="archive-item">
-  <a href="/article/some_knowledge_points_20190807/" class="post-title">
-    零散知识点二
+  <a href="/article/setState_20190905/" class="post-title">
+    走一遍setState源码
   </a>
-  <div class="date text-muted">Posted on 2019年8月7日</div>
-</div>
-
-        
-          <div class="archive-item">
-  <a href="/article/some_knowledge_points_20190806/" class="post-title">
-    零散知识点一
-  </a>
-  <div class="date text-muted">Posted on 2019年8月6日</div>
+  <div class="date text-muted">Posted on 2019年9月5日</div>
 </div>
 
         
@@ -184,6 +176,16 @@
   var gitalk = new Gitalk({
     clientID: '394f98c0c127cc35d9c7',
     clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
+</script>
+  </body>
+</html>d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
     repo: 'xiaobai2017666.github.io',
     owner: 'xiaobai2017666',
     admin: ['xiaobai2017666'],

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Weismann">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="走一遍setState源码">
+  <meta property="og:description" content="Weismann的个人网站">
+  <meta property="og:site_name" content="Weismann">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="">
+  <link rel="preload" href="/img/shaoqian.webp" as="image">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  
+  <!-- slider CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
+
+  <!-- Site Title -->
+  <title>Weismann</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+</head>
+
+  <body>
+    <!-- title -->
+
+
+<!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/shaoqian.webp)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Weismann</p>
+          <p class="subtitle">筱白</p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/xiaobai2017666">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://jq.qq.com/?_wv=1027&k=5OOQK0R">
+                  
+                  二次元交流群
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comic">
+                  
+                  追番攻略
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于我
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/version">
+                  
+                  版本日志&amp;问题反馈
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<article>
+	<div class="container typo">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<!-- page version -->
+				
+    <div class="post-info text-muted">
+
+        
+            <!-- Author -->
+            <span class="author info">By Weismann</span>
+        
+
+        <!-- Date -->
+        <span class="date-time info">On
+            <span class="date">2019年9月5日</span>
+        </span>
+
+        
+            <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/技术文章/">技术文章</a>
+</span>
+        
+
+    </div>
+
+
+    <!-- Tags -->
+    <div class="post-tags text-muted">
+        Tags: 
+
+<a class="tag" href="/tags/react/">#react</a>
+
+
+    </div>
+
+
+				<!-- Post Main Content -->
+				<div class="post-content">
+
+					
+						<!-- toc -->
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Component-prototype-setState"><span class="toc-text">Component.prototype.setState</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#this-updater-enqueueSetState"><span class="toc-text">this.updater.enqueueSetState</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#getInstance"><span class="toc-text">getInstance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#createUpdate"><span class="toc-text">createUpdate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#enqueueUpdate"><span class="toc-text">enqueueUpdate</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#createUpdateQueue"><span class="toc-text">createUpdateQueue</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#appendUpdateToQueue"><span class="toc-text">appendUpdateToQueue</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scheduleWork"><span class="toc-text">scheduleWork</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#scheduleWorkToRoot"><span class="toc-text">scheduleWorkToRoot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#recordScheduleUpdate"><span class="toc-text">recordScheduleUpdate</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#resetStack"><span class="toc-text">resetStack</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#requestWork"><span class="toc-text">requestWork</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#scheduleCallbackWithExpirationTime"><span class="toc-text">scheduleCallbackWithExpirationTime</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+					
+				
+					<h2 id="Component-prototype-setState"><a href="#Component-prototype-setState" class="headerlink" title="Component.prototype.setState"></a>Component.prototype.setState</h2><p>react-interpretation/packages/react/src/ReactBaseClasses.js</p>
+<pre><code class="javascript">Component.prototype.setState = function(partialState, callback) {
+  invariant(
+    typeof partialState === &#39;object&#39; ||
+      typeof partialState === &#39;function&#39; ||
+      partialState == null,
+    &#39;setState(...): takes an object of state variables to update or a &#39; +
+      &#39;function which returns an object of state variables.&#39;,
+  );
+  this.updater.enqueueSetState(this, partialState, callback, &#39;setState&#39;);
+};</code></pre>
+<h3 id="this-updater-enqueueSetState"><a href="#this-updater-enqueueSetState" class="headerlink" title="this.updater.enqueueSetState"></a>this.updater.enqueueSetState</h3><p>react-interpretation/packages/reactreconciler/src/ReactFiberClassComponent.js</p>
+<p>如果搜索这个函数名的话，你会发现有四个地方，三个是定义，一个是使用，另外两个定义的地方分别是用来测试和报错</p>
+<pre><code class="javascript">enqueueSetState(inst, payload, callback) {
+  const fiber = getInstance(inst);  //获得组件实例
+  const currentTime = requestCurrentTime();
+  const expirationTime = computeExpirationForFiber(currentTime, fiber);
+
+  const update = createUpdate(expirationTime);
+  update.payload = payload;
+  if (callback !== undefined &amp;&amp; callback !== null) {
+    if (__DEV__) {
+      warnOnInvalidCallback(callback, &#39;setState&#39;);
+    }
+    update.callback = callback;
+  }
+
+  //flushPassiveEffects和scheduleWork都会根据以下路径的boolean常量（false）进行不同的函数赋值
+  //应该是控制新旧版本逻辑的代码，可能未来返回true，使用新的调度逻辑
+  //react-interpretation/packages/shared/ReactFeatureFlags.js
+  flushPassiveEffects();  //好像没什么意义，最终返回了一个boolean，也没人承接
+  enqueueUpdate(fiber, update);
+  scheduleWork(fiber, expirationTime);
+}</code></pre>
+<h4 id="getInstance"><a href="#getInstance" class="headerlink" title="getInstance"></a>getInstance</h4><p>react-interpretation/packages/shared/ReactInstanceMap.js</p>
+<p>此处是getInstance，使用了as关键字进行了重命名</p>
+<pre><code class="javascript">export function get(key) {
+  return key._reactInternalFiber;
+}</code></pre>
+<h4 id="createUpdate"><a href="#createUpdate" class="headerlink" title="createUpdate"></a>createUpdate</h4><p>react-interpretation/packages/react-reconciler/src/ReactUpdateQueue.js</p>
+<pre><code class="javascript">export function createUpdate(expirationTime: ExpirationTime): Update&lt;*&gt; {
+  return {
+    expirationTime: expirationTime,
+
+    tag: UpdateState,
+    payload: null,
+    callback: null,
+    next: null,
+    nextEffect: null,
+  };
+}</code></pre>
+<h4 id="enqueueUpdate"><a href="#enqueueUpdate" class="headerlink" title="enqueueUpdate"></a>enqueueUpdate</h4><p>react-interpretation/packages/react-reconciler/src/ReactUpdateQueue.js</p>
+<pre><code class="javascript">export function enqueueUpdate&lt;State&gt;(fiber: Fiber, update: Update&lt;State&gt;) {
+  const alternate = fiber.alternate;  //获取fiber替身，就是即将要更新的fiber对象
+  let queue1;
+  let queue2;
+  //下面是对queue1、queue2的空值处理
+  if (alternate === null) {  //首次更新
+    queue1 = fiber.updateQueue;
+    queue2 = null;
+    if (queue1 === null) {
+      queue1 = fiber.updateQueue = createUpdateQueue(fiber.memoizedState);
+    }
+  } else {  //非首次更新
+    queue1 = fiber.updateQueue;
+    queue2 = alternate.updateQueue;
+    if (queue1 === null) {
+      if (queue2 === null) {
+        queue1 = fiber.updateQueue = createUpdateQueue(fiber.memoizedState);
+        queue2 = alternate.updateQueue = createUpdateQueue(
+          alternate.memoizedState,
+        );
+      } else {
+        queue1 = fiber.updateQueue = cloneUpdateQueue(queue2);
+      }
+    } else {
+      if (queue2 === null) {
+        queue2 = alternate.updateQueue = cloneUpdateQueue(queue1);
+      } else {
+        // Both owners have an update queue.
+      }
+    }
+  }
+  //下面添加队列逻辑
+  if (queue2 === null || queue1 === queue2) {  //只有一种queue的情况
+    appendUpdateToQueue(queue1, update);
+  } else {  //当有两个queue时合并，因为我们不想让相同的queue多次添加
+    if (queue1.lastUpdate === null || queue2.lastUpdate === null) {
+      //只有一种lastUpdate的情况，将lastUpdate添加到两个queue
+      appendUpdateToQueue(queue1, update);
+      appendUpdateToQueue(queue2, update);
+    } else {
+      // Both queues are non-empty. The last update is the same in both lists,
+      // because of structural sharing. So, only append to one of the lists.
+      appendUpdateToQueue(queue1, update);
+      //修正queue2.lastUpdate指向
+      queue2.lastUpdate = update;
+    }
+  }
+
+  if (__DEV__) {
+    if (
+      fiber.tag === ClassComponent &amp;&amp;
+      (currentlyProcessingQueue === queue1 ||
+        (queue2 !== null &amp;&amp; currentlyProcessingQueue === queue2)) &amp;&amp;
+      !didWarnUpdateInsideUpdate
+    ) {
+      warningWithoutStack(
+        false,
+        &#39;An update (setState, replaceState, or forceUpdate) was scheduled &#39; +
+          &#39;from inside an update function. Update functions should be pure, &#39; +
+          &#39;with zero side-effects. Consider using componentDidUpdate or a &#39; +
+          &#39;callback.&#39;,
+      );
+      didWarnUpdateInsideUpdate = true;
+    }
+  }
+}</code></pre>
+<h5 id="createUpdateQueue"><a href="#createUpdateQueue" class="headerlink" title="createUpdateQueue"></a>createUpdateQueue</h5><p>react-interpretation/packages/react-reconciler/src/ReactUpdateQueue.js</p>
+<pre><code class="javascript">export function createUpdateQueue&lt;State&gt;(baseState: State): UpdateQueue&lt;State&gt; {
+  const queue: UpdateQueue&lt;State&gt; = {
+    baseState,
+    firstUpdate: null,  //链表头
+    lastUpdate: null,  //链表尾
+    firstCapturedUpdate: null,
+    lastCapturedUpdate: null,
+    firstEffect: null,
+    lastEffect: null,
+    firstCapturedEffect: null,
+    lastCapturedEffect: null,
+  };
+  return queue;
+}</code></pre>
+<h5 id="appendUpdateToQueue"><a href="#appendUpdateToQueue" class="headerlink" title="appendUpdateToQueue"></a>appendUpdateToQueue</h5><p>react-interpretation/packages/react-reconciler/src/ReactUpdateQueue.js</p>
+<pre><code class="javascript">function appendUpdateToQueue&lt;State&gt;(
+  queue: UpdateQueue&lt;State&gt;,
+  update: Update&lt;State&gt;,
+) {
+  //链表插入逻辑
+  if (queue.lastUpdate === null) {
+    queue.firstUpdate = queue.lastUpdate = update;
+  } else {
+    queue.lastUpdate.next = update;
+    queue.lastUpdate = update;
+  }
+}</code></pre>
+<h4 id="scheduleWork"><a href="#scheduleWork" class="headerlink" title="scheduleWork"></a>scheduleWork</h4><p>react-interpretation/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
+<pre><code class="javascript">function scheduleWork (fiber: Fiber, expirationTime: ExpirationTime) {
+  const root = scheduleWorkToRoot(fiber, expirationTime);  //获取 fiber root
+  if (root === null) {
+    if (__DEV__) {
+      switch (fiber.tag) {
+        case ClassComponent:
+          warnAboutUpdateOnUnmounted(fiber, true);
+          break;
+        case FunctionComponent:
+        case ForwardRef:
+        case MemoComponent:
+        case SimpleMemoComponent:
+          warnAboutUpdateOnUnmounted(fiber, false);
+          break;
+      }
+    }
+    return;
+  }
+  if (
+    !isWorking &amp;&amp;  //如果不处于任务状态
+    nextRenderExpirationTime !== NoWork &amp;&amp;  //从词义可以看出来：下一个渲染过期时间段有任务
+    expirationTime &gt; nextRenderExpirationTime  //比较优先级
+  ) {
+    interruptedBy = fiber;  //记录打断者
+    resetStack();  //重置fiber栈
+  }
+  markPendingPriorityLevel(root, expirationTime);  //标记等待任务优先级
+  if (
+    // 如果我们在渲染阶段，我们不需要为了更新调度这个fiber任务，因为我们会在退出之前执行它，除非两者（正在渲染的和等待的）的fiber root不相同
+    !isWorking ||
+    isCommitting ||
+    nextRoot !== root
+  ) {
+    const rootExpirationTime = root.expirationTime;
+    requestWork(root, rootExpirationTime);  //请求执行任务
+  }
+    //触发无限循环逻辑警告
+  if (nestedUpdateCount &gt; NESTED_UPDATE_LIMIT) {
+    // Reset this back to zero so subsequent updates don&#39;t throw.
+    nestedUpdateCount = 0;
+    invariant(
+      false,
+      &#39;Maximum update depth exceeded. This can happen when a &#39; +
+        &#39;component repeatedly calls setState inside &#39; +
+        &#39;componentWillUpdate or componentDidUpdate. React limits &#39; +
+        &#39;the number of nested updates to prevent infinite loops.&#39;,
+    );
+  }
+  if (__DEV__) {
+    if (
+      isInPassiveEffectDEV &amp;&amp;
+      nestedPassiveEffectCountDEV &gt; NESTED_PASSIVE_UPDATE_LIMIT
+    ) {
+      nestedPassiveEffectCountDEV = 0;
+      warning(
+        false,
+        &#39;Maximum update depth exceeded. This can happen when a &#39; +
+          &#39;component calls setState inside useEffect, but &#39; +
+          &quot;useEffect either doesn&#39;t have a dependency array, or &quot; +
+          &#39;one of the dependencies changes on every render.&#39;,
+      );
+    }
+  }
+}</code></pre>
+<h5 id="scheduleWorkToRoot"><a href="#scheduleWorkToRoot" class="headerlink" title="scheduleWorkToRoot"></a>scheduleWorkToRoot</h5><p>react-interpretation/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
+<pre><code class="javascript">function scheduleWorkToRoot(fiber: Fiber, expirationTime): FiberRoot | null {
+  recordScheduleUpdate();  //记录调度器的状态
+
+  if (__DEV__) {
+    if (fiber.tag === ClassComponent) {
+      const instance = fiber.stateNode;
+      warnAboutInvalidUpdates(instance);
+    }
+  }
+
+  // expirationTime 越大说明优先级越高
+  if (fiber.expirationTime &lt; expirationTime) {
+    fiber.expirationTime = expirationTime;
+  }
+  let alternate = fiber.alternate;
+  if (alternate !== null &amp;&amp; alternate.expirationTime &lt; expirationTime) {
+    alternate.expirationTime = expirationTime;
+  }
+  // Walk the parent path to the root and update the child expiration time.
+  // 获取 fiber 的父节点
+  let node = fiber.return;
+  let root = null;
+  // 判断这时候 fiber 是否为 Root Fiber
+  if (node === null &amp;&amp; fiber.tag === HostRoot) {
+    // 取出 Fiber Root
+    root = fiber.stateNode;
+  } else {
+    while (node !== null) {  //Root Fiber 是没有 return 属性的
+      alternate = node.alternate;
+      //调整优先级
+      if (node.childExpirationTime &lt; expirationTime) {
+        node.childExpirationTime = expirationTime;
+        if (
+          alternate !== null &amp;&amp;
+          alternate.childExpirationTime &lt; expirationTime
+        ) {
+          alternate.childExpirationTime = expirationTime;
+        }
+      } else if (
+        alternate !== null &amp;&amp;
+        alternate.childExpirationTime &lt; expirationTime
+      ) {
+        alternate.childExpirationTime = expirationTime;
+      }
+      if (node.return === null &amp;&amp; node.tag === HostRoot) {
+        root = node.stateNode;
+        break;
+      }
+      node = node.return;
+    }
+  }
+
+  // 这部分内容是 React Profiler 相关的，DevTool 相关的内容
+  // 可以方便找出你的 React 应用的性能瓶颈
+  if (enableSchedulerTracing) {
+    if (root !== null) {
+      const interactions = __interactionsRef.current;
+      if (interactions.size &gt; 0) {
+        const pendingInteractionMap = root.pendingInteractionMap;
+        const pendingInteractions = pendingInteractionMap.get(expirationTime);
+        if (pendingInteractions != null) {
+          interactions.forEach(interaction =&gt; {
+            if (!pendingInteractions.has(interaction)) {
+              // Update the pending async work count for previously unscheduled interaction.
+              interaction.__count++;
+            }
+
+            pendingInteractions.add(interaction);
+          });
+        } else {
+          pendingInteractionMap.set(expirationTime, new Set(interactions));
+
+          // Update the pending async work count for the current interactions.
+          interactions.forEach(interaction =&gt; {
+            interaction.__count++;
+          });
+        }
+
+        const subscriber = __subscriberRef.current;
+        if (subscriber !== null) {
+          const threadID = computeThreadID(
+            expirationTime,
+            root.interactionThreadID,
+          );
+          subscriber.onWorkScheduled(interactions, threadID);
+        }
+      }
+    }
+  }
+  return root;
+}</code></pre>
+<h5 id="recordScheduleUpdate"><a href="#recordScheduleUpdate" class="headerlink" title="recordScheduleUpdate"></a>recordScheduleUpdate</h5><p>react-interpretation/packages/react-reconciler/src/ReactDebugFiberPerf.js</p>
+<pre><code class="javascript">export function recordScheduleUpdate(): void {
+  if (enableUserTimingAPI) {
+    if (isCommitting) {
+      hasScheduledUpdateInCurrentCommit = true;
+    }
+    if (
+      currentPhase !== null &amp;&amp;
+      currentPhase !== &#39;componentWillMount&#39; &amp;&amp;
+      currentPhase !== &#39;componentWillReceiveProps&#39;
+    ) {
+      hasScheduledUpdateInCurrentPhase = true;
+    }
+  }
+}</code></pre>
+<h5 id="resetStack"><a href="#resetStack" class="headerlink" title="resetStack"></a>resetStack</h5><p>react-interpretation/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
+<pre><code class="javascript">function resetStack() {
+  if (nextUnitOfWork !== null) {
+    let interruptedWork = nextUnitOfWork.return;  //向上查找节点
+    while (interruptedWork !== null) {
+      unwindInterruptedWork(interruptedWork);  //还原已经改变的节点，这里不再展开，是一系列的还原逻辑
+      interruptedWork = interruptedWork.return;
+    }
+  }
+
+  if (__DEV__) {
+    ReactStrictModeWarnings.discardPendingWarnings();
+    checkThatStackIsEmpty();
+  }
+  // 重置变量
+  nextRoot = null;
+  nextRenderExpirationTime = NoWork;
+  nextLatestAbsoluteTimeoutMs = -1;
+  nextRenderDidError = false;
+  nextUnitOfWork = null;
+}</code></pre>
+<h5 id="requestWork"><a href="#requestWork" class="headerlink" title="requestWork"></a>requestWork</h5><p>react-interpretation/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
+<p>这里是主要内容</p>
+<pre><code class="javascript">function requestWork(root: FiberRoot, expirationTime: ExpirationTime) {
+  // 将fiber root加入调度中
+  addRootToSchedule(root, expirationTime);
+  if (isRendering) {
+    //阻止重复渲染，剩余的任务将会在当前渲染阶段结束调度
+    return;
+  }
+  // 以下判断，执行的更新任务会包一层batchedUpdates函数，执行时改变下面判断变量的值，进而判断任务是否需要批量更新
+  // 判断是否需要批量更新
+  if (isBatchingUpdates) {
+    // 判断是否不需要批量更新
+    if (isUnbatchingUpdates) {
+      // ...unless we&#39;re inside unbatchedUpdates, in which case we should
+      // flush it now.
+      // 除非我们还未在里面批量更新，这时我们应该立即批量更新它，说实话我不太懂这种是什么情况
+      nextFlushedRoot = root;
+      nextFlushedExpirationTime = Sync;
+      performWorkOnRoot(root, Sync, false);
+    }
+    return;  //这里是为什么我们的setState没有立即更新状态的原因
+  }
+
+  // 不需要批量更新的逻辑
+  // TODO: Get rid of Sync and use current time?
+  // 以上TODO还未实现
+  // 判断优先级是同步还是异步，异步的话需要调度
+  if (expirationTime === Sync) {
+    performSyncWork();  //执行同步任务
+  } else {
+    // 因为setTimeOut等类似函数属于异步，所以执行这个分支的函数
+    // 函数核心是实现了 requestIdleCallback 的 polyfill 版本
+    // 因为这个函数浏览器的兼容性很差
+    // 具体作用可以查看 MDN 文档 https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback
+    // 这个函数可以让浏览器空闲时期依次调用函数，这就可以让开发者在主事件循环中执行后台或低优先级的任务，
+    // 而且不会对像动画和用户交互这样延迟敏感的事件产生影响
+    scheduleCallbackWithExpirationTime(root, expirationTime);
+  }
+}</code></pre>
+<h6 id="scheduleCallbackWithExpirationTime"><a href="#scheduleCallbackWithExpirationTime" class="headerlink" title="scheduleCallbackWithExpirationTime"></a>scheduleCallbackWithExpirationTime</h6><p>react-interpretation/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
+<pre><code class="javascript">function scheduleCallbackWithExpirationTime(
+  root: FiberRoot,
+  expirationTime: ExpirationTime,
+) {
+  // 判断上一个 callback 是否执行完毕
+  if (callbackExpirationTime !== NoWork) {
+    if (expirationTime &lt; callbackExpirationTime) {
+      return;  // 当前任务如果优先级小于上个任务就退出
+    } else {
+      if (callbackID !== null) {
+        cancelCallback(callbackID);  // 否则的话就取消上个 callback
+      }
+    }
+    // The request callback timer is already running. Don&#39;t start a new one.
+  } else {
+    // 没有需要执行的上一个 callback，开始定时器，这个函数用于 devtool
+    startRequestCallbackTimer();
+  }
+
+  callbackExpirationTime = expirationTime;
+  // 当前 performance.now() 和程序刚执行时的 performance.now() 相减
+  const currentMs = now() - originalStartTimeMs;
+  const expirationTimeMs = expirationTimeToMs(expirationTime);
+  // 毫秒相减，优先级越大，算出来的值越小，可以自己模拟一下
+  // 这个值在后面会和 performance.now() 相加再算出一个 expirationTime
+  const timeout = expirationTimeMs - currentMs;
+  // 获取优先级，这个优先级有五个，但是这个优先级其实在 scheduleCallback 函数中压根没用到
+  const priorityLevel = getCurrentPriorityLevel();
+  callbackID = scheduleCallback(priorityLevel, performAsyncWork, {timeout});
+}</code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>可以看出来，setState本身乃至本身做的事情都是同步的，只是将任务加入队列，并根据react类型判断是否需要批量更新，而使用setTimeout这种api会判断为异步类型导致立即执行任务。</p>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- comments -->
+		<div class='row'>
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div id="comments"></div>
+			</div>
+		</div>
+	</div>
+</article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/xiaobai2017666">Weismann</a>.
+          The website started in January 6th,2019.
+        </p>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+
+<!-- comments -->
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
+</script>
+  </body>
+</html>

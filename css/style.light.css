@@ -162,48 +162,6 @@ pre {
   -webkit-overflow-scrolling: touch;
 }
 
-pre table {
-  margin-bottom: 0 !important;
-}
-
-pre td  {
-  border: none !important;
-  padding: 1px 10px !important;
-  color: #fff !important;
-}
-
-pre td.hljs-ln-numbers {
-  padding: 1px 4px 1px 0 !important;
-}
-
-.hljs-ln-n:before {
-  display: block;
-  width: 24px;
-}
-
-/* for block of numbers */
-.hljs-ln-numbers {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  text-align: right;
-  border-right: 2px solid #fff !important;
-  vertical-align: top;
-  padding-right: 5px;
-
-  /* your custom style here */
-  
-}
-
-/* for block of code */
-.hljs-ln-code {
-  padding-left: 10px;
-}
-
 /* 一致化 horizontal rule */
 hr {
   border: none;
@@ -336,15 +294,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-// .typo table th,
+/* .typo table th,
 .typo-table th {
   background: #fbfbfb;
-}
+} */
 
-// .typo table thead th,
+/* .typo table thead th,
 .typo-table thead th {
   background: #f1f1f1;
-}
+} */
 
 .typo table caption {
   border-bottom: none;
@@ -379,6 +337,44 @@ h1, h2, h3, h4, h5, h6 {
 /* Responsive images */
 .typo img {
   max-width: 100%;
+}
+.hljs {
+  font-size: 0.75rem;
+}
+.hljs .hljs-ln {
+  margin-bottom: 0;
+}
+.hljs .hljs-ln-line {
+  border: none;
+  padding: 1px 10px;
+  color: #fff;
+}
+.hljs .hljs-ln-numbers {
+  padding: 1px 4px 1px 0;
+}
+.hljs-ln-n::before {
+  display: block;
+  width: 24px;
+  color: #858585;
+}
+.hljs-ln-numbers {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: right;
+  vertical-align: top;
+  padding-right: 5px;
+}
+.hljs-ln-code {
+  padding-left: 10px;
+}
+@media only screen and (max-width: 414px) {
+  .hljs {
+    font-size: 0.75rem;
+  }
 }
 html,
 body {
@@ -742,4 +738,46 @@ footer {
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
+}
+
+/* 大图片加载动画 */
+@keyframes loading {
+    0% {
+        background-color: rgba(0,0,0,0.2);
+    }
+    35% {
+        background-color: rgba(0,0,0,0.4);
+    }
+    100% {
+        background-color: rgba(0,0,0,0.2);
+    }
+}
+@keyframes onload {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.progress-img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.truth-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    animation: 1s onload;
+}
+.temp-img {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,1);
+    filter: blur(10px);
+    animation: 2s loading infinite;
 }
