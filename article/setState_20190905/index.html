@@ -168,10 +168,11 @@
 
 					
 						<!-- toc -->
-						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Component-prototype-setState"><span class="toc-text">Component.prototype.setState</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#this-updater-enqueueSetState"><span class="toc-text">this.updater.enqueueSetState</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#getInstance"><span class="toc-text">getInstance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#createUpdate"><span class="toc-text">createUpdate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#enqueueUpdate"><span class="toc-text">enqueueUpdate</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#createUpdateQueue"><span class="toc-text">createUpdateQueue</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#appendUpdateToQueue"><span class="toc-text">appendUpdateToQueue</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scheduleWork"><span class="toc-text">scheduleWork</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#scheduleWorkToRoot"><span class="toc-text">scheduleWorkToRoot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#recordScheduleUpdate"><span class="toc-text">recordScheduleUpdate</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#resetStack"><span class="toc-text">resetStack</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#requestWork"><span class="toc-text">requestWork</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#scheduleCallbackWithExpirationTime"><span class="toc-text">scheduleCallbackWithExpirationTime</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React版本"><span class="toc-text">React版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Component-prototype-setState"><span class="toc-text">Component.prototype.setState</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#this-updater-enqueueSetState"><span class="toc-text">this.updater.enqueueSetState</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#getInstance"><span class="toc-text">getInstance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#createUpdate"><span class="toc-text">createUpdate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#enqueueUpdate"><span class="toc-text">enqueueUpdate</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#createUpdateQueue"><span class="toc-text">createUpdateQueue</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#appendUpdateToQueue"><span class="toc-text">appendUpdateToQueue</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scheduleWork"><span class="toc-text">scheduleWork</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#scheduleWorkToRoot"><span class="toc-text">scheduleWorkToRoot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#recordScheduleUpdate"><span class="toc-text">recordScheduleUpdate</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#resetStack"><span class="toc-text">resetStack</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#requestWork"><span class="toc-text">requestWork</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#scheduleCallbackWithExpirationTime"><span class="toc-text">scheduleCallbackWithExpirationTime</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a></li></ol>
 					
 				
-					<h2 id="Component-prototype-setState"><a href="#Component-prototype-setState" class="headerlink" title="Component.prototype.setState"></a>Component.prototype.setState</h2><p>react-interpretation/packages/react/src/ReactBaseClasses.js</p>
+					<h2 id="React版本"><a href="#React版本" class="headerlink" title="React版本"></a>React版本</h2><p>16.8.6</p>
+<h2 id="Component-prototype-setState"><a href="#Component-prototype-setState" class="headerlink" title="Component.prototype.setState"></a>Component.prototype.setState</h2><p>react/packages/react/src/ReactBaseClasses.js</p>
 <pre><code class="javascript">Component.prototype.setState = function(partialState, callback) {
   invariant(
     typeof partialState === &#39;object&#39; ||
@@ -182,7 +183,7 @@
   );
   this.updater.enqueueSetState(this, partialState, callback, &#39;setState&#39;);
 };</code></pre>
-<h3 id="this-updater-enqueueSetState"><a href="#this-updater-enqueueSetState" class="headerlink" title="this.updater.enqueueSetState"></a>this.updater.enqueueSetState</h3><p>react-interpretation/packages/reactreconciler/src/ReactFiberClassComponent.js</p>
+<h3 id="this-updater-enqueueSetState"><a href="#this-updater-enqueueSetState" class="headerlink" title="this.updater.enqueueSetState"></a>this.updater.enqueueSetState</h3><p>react/packages/reactreconciler/src/ReactFiberClassComponent.js</p>
 <p>如果搜索这个函数名的话，你会发现有四个地方，三个是定义，一个是使用，另外两个定义的地方分别是用来测试和报错</p>
 <pre><code class="javascript">enqueueSetState(inst, payload, callback) {
   const fiber = getInstance(inst);  //获得组件实例
@@ -200,17 +201,17 @@
 
   //flushPassiveEffects和scheduleWork都会根据以下路径的boolean常量（false）进行不同的函数赋值
   //应该是控制新旧版本逻辑的代码，可能未来返回true，使用新的调度逻辑
-  //react-interpretation/packages/shared/ReactFeatureFlags.js
+  //react/packages/shared/ReactFeatureFlags.js
   flushPassiveEffects();  //好像没什么意义，最终返回了一个boolean，也没人承接
   enqueueUpdate(fiber, update);
   scheduleWork(fiber, expirationTime);
 }</code></pre>
-<h4 id="getInstance"><a href="#getInstance" class="headerlink" title="getInstance"></a>getInstance</h4><p>react-interpretation/packages/shared/ReactInstanceMap.js</p>
+<h4 id="getInstance"><a href="#getInstance" class="headerlink" title="getInstance"></a>getInstance</h4><p>react/packages/shared/ReactInstanceMap.js</p>
 <p>此处是getInstance，使用了as关键字进行了重命名</p>
 <pre><code class="javascript">export function get(key) {
   return key._reactInternalFiber;
 }</code></pre>
-<h4 id="createUpdate"><a href="#createUpdate" class="headerlink" title="createUpdate"></a>createUpdate</h4><p>react-interpretation/packages/react-reconciler/src/ReactUpdateQueue.js</p>
+<h4 id="createUpdate"><a href="#createUpdate" class="headerlink" title="createUpdate"></a>createUpdate</h4><p>react/packages/react-reconciler/src/ReactUpdateQueue.js</p>
 <pre><code class="javascript">export function createUpdate(expirationTime: ExpirationTime): Update&lt;*&gt; {
   return {
     expirationTime: expirationTime,
@@ -222,7 +223,7 @@
     nextEffect: null,
   };
 }</code></pre>
-<h4 id="enqueueUpdate"><a href="#enqueueUpdate" class="headerlink" title="enqueueUpdate"></a>enqueueUpdate</h4><p>react-interpretation/packages/react-reconciler/src/ReactUpdateQueue.js</p>
+<h4 id="enqueueUpdate"><a href="#enqueueUpdate" class="headerlink" title="enqueueUpdate"></a>enqueueUpdate</h4><p>react/packages/react-reconciler/src/ReactUpdateQueue.js</p>
 <pre><code class="javascript">export function enqueueUpdate&lt;State&gt;(fiber: Fiber, update: Update&lt;State&gt;) {
   const alternate = fiber.alternate;  //获取fiber替身，就是即将要更新的fiber对象
   let queue1;
@@ -289,7 +290,7 @@
     }
   }
 }</code></pre>
-<h5 id="createUpdateQueue"><a href="#createUpdateQueue" class="headerlink" title="createUpdateQueue"></a>createUpdateQueue</h5><p>react-interpretation/packages/react-reconciler/src/ReactUpdateQueue.js</p>
+<h5 id="createUpdateQueue"><a href="#createUpdateQueue" class="headerlink" title="createUpdateQueue"></a>createUpdateQueue</h5><p>react/packages/react-reconciler/src/ReactUpdateQueue.js</p>
 <pre><code class="javascript">export function createUpdateQueue&lt;State&gt;(baseState: State): UpdateQueue&lt;State&gt; {
   const queue: UpdateQueue&lt;State&gt; = {
     baseState,
@@ -304,7 +305,7 @@
   };
   return queue;
 }</code></pre>
-<h5 id="appendUpdateToQueue"><a href="#appendUpdateToQueue" class="headerlink" title="appendUpdateToQueue"></a>appendUpdateToQueue</h5><p>react-interpretation/packages/react-reconciler/src/ReactUpdateQueue.js</p>
+<h5 id="appendUpdateToQueue"><a href="#appendUpdateToQueue" class="headerlink" title="appendUpdateToQueue"></a>appendUpdateToQueue</h5><p>react/packages/react-reconciler/src/ReactUpdateQueue.js</p>
 <pre><code class="javascript">function appendUpdateToQueue&lt;State&gt;(
   queue: UpdateQueue&lt;State&gt;,
   update: Update&lt;State&gt;,
@@ -317,7 +318,7 @@
     queue.lastUpdate = update;
   }
 }</code></pre>
-<h4 id="scheduleWork"><a href="#scheduleWork" class="headerlink" title="scheduleWork"></a>scheduleWork</h4><p>react-interpretation/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
+<h4 id="scheduleWork"><a href="#scheduleWork" class="headerlink" title="scheduleWork"></a>scheduleWork</h4><p>react/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
 <pre><code class="javascript">function scheduleWork (fiber: Fiber, expirationTime: ExpirationTime) {
   const root = scheduleWorkToRoot(fiber, expirationTime);  //获取 fiber root
   if (root === null) {
@@ -346,7 +347,7 @@
   }
   markPendingPriorityLevel(root, expirationTime);  //标记等待任务优先级
   if (
-    // 如果我们在渲染阶段，我们不需要为了更新调度这个fiber任务，因为我们会在退出之前执行它，除非两者（正在渲染的和等待的）的fiber root不相同
+    // 如果我们在执行任务状态，我们不需要为了更新调度这个fiber任务，因为我们会在退出之前执行它，除非两者（正在渲染的和等待的）的fiber root不相同
     !isWorking ||
     isCommitting ||
     nextRoot !== root
@@ -382,7 +383,7 @@
     }
   }
 }</code></pre>
-<h5 id="scheduleWorkToRoot"><a href="#scheduleWorkToRoot" class="headerlink" title="scheduleWorkToRoot"></a>scheduleWorkToRoot</h5><p>react-interpretation/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
+<h5 id="scheduleWorkToRoot"><a href="#scheduleWorkToRoot" class="headerlink" title="scheduleWorkToRoot"></a>scheduleWorkToRoot</h5><p>react/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
 <pre><code class="javascript">function scheduleWorkToRoot(fiber: Fiber, expirationTime): FiberRoot | null {
   recordScheduleUpdate();  //记录调度器的状态
 
@@ -474,7 +475,7 @@
   }
   return root;
 }</code></pre>
-<h5 id="recordScheduleUpdate"><a href="#recordScheduleUpdate" class="headerlink" title="recordScheduleUpdate"></a>recordScheduleUpdate</h5><p>react-interpretation/packages/react-reconciler/src/ReactDebugFiberPerf.js</p>
+<h5 id="recordScheduleUpdate"><a href="#recordScheduleUpdate" class="headerlink" title="recordScheduleUpdate"></a>recordScheduleUpdate</h5><p>react/packages/react-reconciler/src/ReactDebugFiberPerf.js</p>
 <pre><code class="javascript">export function recordScheduleUpdate(): void {
   if (enableUserTimingAPI) {
     if (isCommitting) {
@@ -489,7 +490,7 @@
     }
   }
 }</code></pre>
-<h5 id="resetStack"><a href="#resetStack" class="headerlink" title="resetStack"></a>resetStack</h5><p>react-interpretation/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
+<h5 id="resetStack"><a href="#resetStack" class="headerlink" title="resetStack"></a>resetStack</h5><p>react/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
 <pre><code class="javascript">function resetStack() {
   if (nextUnitOfWork !== null) {
     let interruptedWork = nextUnitOfWork.return;  //向上查找节点
@@ -510,7 +511,7 @@
   nextRenderDidError = false;
   nextUnitOfWork = null;
 }</code></pre>
-<h5 id="requestWork"><a href="#requestWork" class="headerlink" title="requestWork"></a>requestWork</h5><p>react-interpretation/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
+<h5 id="requestWork"><a href="#requestWork" class="headerlink" title="requestWork"></a>requestWork</h5><p>react/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
 <p>这里是主要内容</p>
 <pre><code class="javascript">function requestWork(root: FiberRoot, expirationTime: ExpirationTime) {
   // 将fiber root加入调度中
@@ -550,7 +551,7 @@
     scheduleCallbackWithExpirationTime(root, expirationTime);
   }
 }</code></pre>
-<h6 id="scheduleCallbackWithExpirationTime"><a href="#scheduleCallbackWithExpirationTime" class="headerlink" title="scheduleCallbackWithExpirationTime"></a>scheduleCallbackWithExpirationTime</h6><p>react-interpretation/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
+<h6 id="scheduleCallbackWithExpirationTime"><a href="#scheduleCallbackWithExpirationTime" class="headerlink" title="scheduleCallbackWithExpirationTime"></a>scheduleCallbackWithExpirationTime</h6><p>react/packages/react-reconciler/src/ReactFiberScheduler.old.js</p>
 <pre><code class="javascript">function scheduleCallbackWithExpirationTime(
   root: FiberRoot,
   expirationTime: ExpirationTime,
@@ -582,6 +583,8 @@
   callbackID = scheduleCallback(priorityLevel, performAsyncWork, {timeout});
 }</code></pre>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>可以看出来，setState本身乃至本身做的事情都是同步的，只是将任务加入队列，并根据react类型判断是否需要批量更新，而使用setTimeout这种api会判断为异步类型导致立即执行任务。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://github.com/KieSun/react-interpretation" target="_blank" rel="noopener">https://github.com/KieSun/react-interpretation</a></p>
+<p><a href="https://github.com/acdlite/react-fiber-architecture" target="_blank" rel="noopener">https://github.com/acdlite/react-fiber-architecture</a></p>
 
 				</div>
 
