@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Weismann">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="React生命周期使用场景">
+  <meta property="og:description" content="Weismann的个人网站">
+  <meta property="og:site_name" content="Weismann">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="">
+  <link rel="preload" href="/img/daojian.jpg" as="image">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/monokai-sublime.min.css">
+
+  <!-- gitalk CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  
+  <!-- slider CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/swiper@4.4.6/dist/css/swiper.min.css">
+
+  <!-- Site Title -->
+  <title>Weismann</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+</head>
+
+  <body>
+    <!-- title -->
+
+
+<!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/daojian.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Weismann</p>
+          <p class="subtitle">筱白</p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  首页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  归档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/xiaobai2017666">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://jq.qq.com/?_wv=1027&k=5OOQK0R">
+                  
+                  二次元交流群
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comic">
+                  
+                  追番攻略
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/about">
+                  
+                  关于我
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/version">
+                  
+                  版本日志&amp;问题反馈
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<article>
+	<div class="container typo">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<!-- page version -->
+				
+    <div class="post-info text-muted">
+
+        
+            <!-- Author -->
+            <span class="author info">By Weismann</span>
+        
+
+        <!-- Date -->
+        <span class="date-time info">On
+            <span class="date">2019年10月11日</span>
+        </span>
+
+        
+            <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/技术文章/">技术文章</a>
+</span>
+        
+
+    </div>
+
+
+    <!-- Tags -->
+    <div class="post-tags text-muted">
+        Tags: 
+
+<a class="tag" href="/tags/React/">#React</a>
+
+
+    </div>
+
+
+				<!-- Post Main Content -->
+				<div class="post-content">
+
+					
+						<!-- toc -->
+						<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React生命周期使用场景"><span class="toc-text">React生命周期使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#只会调用一次"><span class="toc-text">只会调用一次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多次调用"><span class="toc-text">多次调用</span></a></li></ol></li></ol>
+					
+				
+					<h2 id="React生命周期使用场景"><a href="#React生命周期使用场景" class="headerlink" title="React生命周期使用场景"></a>React生命周期使用场景</h2><p>版本：v16.10.2</p>
+<h3 id="只会调用一次"><a href="#只会调用一次" class="headerlink" title="只会调用一次"></a>只会调用一次</h3><ul>
+<li><p>constructor(props)</p>
+<p>初始化state</p>
+<p>修正指向</p>
+<pre><code class="jsx">class Demo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {  //初始化state
+            msg: &quot;click&quot;
+        }
+        this.onClickHandle = this.onClickHandle.bind(this);  //修正指向
+    }
+
+    onClickHandle(e) {
+        console.log(&#39;handle&#39;,this);
+    }
+
+    render() {
+        console.log(&#39;render&#39;);
+        return (
+            &lt;a onClick={this.onClickHandle}&gt;{this.state.msg}&lt;/a&gt;
+        );
+    }
+}</code></pre>
+</li>
+<li><p>componentDidMount()</p>
+<p>发起请求加载数据</p>
+<p>发起订阅（定时器、emmiter等）</p>
+<pre><code class="jsx">class Demo extends React.Component {
+    componentDidMount() {
+        Emitter.on(&#39;start&#39;,() =&gt; {  //自定义事件订阅
+            console.log(&#39;start&#39;);
+        });
+    }
+
+    componentWillUnmount() {
+        Emitter.off(&#39;start&#39;);
+    }
+
+    render() {
+        console.log(&#39;render&#39;);
+        Emitter.emit(&#39;start&#39;);
+
+        return (
+            &#39;demo&#39;
+        );
+    }
+}
+
+function addTimer(Component) {  //定时器
+    let timer = null;
+
+    return class extends React.Component {
+        componentDidMount() {
+            timer = setInterval(() =&gt; {
+                console.log(&#39;timer&#39;);
+            },1000);
+        }
+
+        componentWillUnmount() {
+            clearInterval(timer);
+        }
+
+        render() {
+            return (
+                &lt;Component /&gt;
+            )
+        }
+    }
+}
+
+const DemoWithTimer = addTimer(Demo);</code></pre>
+</li>
+<li><p>componentWillUnmount()</p>
+<p>解绑定时器</p>
+<p>卸载事件</p>
+</li>
+</ul>
+<h3 id="多次调用"><a href="#多次调用" class="headerlink" title="多次调用"></a>多次调用</h3><ul>
+<li><p>static getDerivedStateFromProps(nextProps, nextState)，需要返回类似setState的第一个参数值</p>
+<p>props变化时更新state</p>
+<p>用于自定义受控组件，如Upload回填数据</p>
+<pre><code class="jsx">//Upload引用自antd
+//注意以下state初始化方法需要babel plugin
+class UploadFile extends React.Component {
+    state = {
+        loading: false,
+        isEmpty: true,
+        fileUrl: &quot;&quot;
+    };
+
+    static getDerivedStateFromProps(nextProps, nextState) {
+          if (this.props.value !== nextProps.value) {
+            return {
+                fileUrl: nextProps.value,
+            }
+        }
+    }
+
+    handleChange = info =&gt; {
+        const { onChange } = this.props;
+        if(info.file.status === &#39;uploading&#39;) {
+            this.setState({
+                loading: true,
+            })
+        }
+        if(info.file.status === &#39;done&#39;) {
+            const { fileUrl } = info.file.response ? info.file.response.data : {};
+            this.setState({
+                fileUrl: fileUrl,
+                isEmpty: false,
+            })
+            onChange(fileUrl);
+        }
+        if(info.file.status === &#39;error&#39;) {
+            message.error(&#39;上传接口出现问题！&#39;);
+        }
+        this.setState({
+            loading: false,
+        });
+    }
+
+    handleDelete = () =&gt; {
+        const { onChange } = this.props;
+        const { confirm } = Modal;
+        const self = this;
+
+        confirm({
+            title: &#39;提示&#39;,
+            content: &#39;确认删除吗？&#39;,
+            okText: &#39;是&#39;,
+            cancelText: &#39;否&#39;,
+            onOk() {
+                self.setState({
+                    fileUrl: &quot;&quot;,
+                    isEmpty: true,
+                })
+                onChange &amp;&amp; onChange(&quot;&quot;);
+            },
+            onCancel() {},
+        });
+    }
+
+    render() {
+        const { fileUrl } = this.state;
+        const {
+            onChange,
+              ...others
+        } = this.props;
+
+        return (
+            &lt;div&gt;
+                &lt;Upload
+                    onChange={this.handleChange}
+                      { ...others }&gt;
+                        &lt;Button&gt;
+                            &lt;Icon type={this.state.loading ? &#39;loading&#39; : &#39;upload&#39;} /&gt;
+                            { this.state.isEmpty ? &#39;上传文件&#39;: &#39;重新上传&#39; }
+                        &lt;/Button&gt;
+                &lt;/Upload&gt;
+                {
+                    fileUrl ?
+                        (
+                        &lt;span&gt;
+                            &lt;a className=&quot;upload-url&quot; target=&quot;_blank&quot; href={fileUrl} alt={fileUrl}&gt;文件链接&lt;/a&gt;
+                            &lt;Icon type=&quot;close&quot; className=&quot;delete-pic&quot; onClick={this.handleDelete}/&gt;
+                        &lt;/span&gt;
+                        )
+                        : null
+                }
+            &lt;/div&gt;
+        )
+    }
+}</code></pre>
+<p>动画组件更新起始、目标或其他动画参数值（同理，不再书写示例）</p>
+</li>
+<li><p>shouldComponentUpdate(nextProps,nextState)</p>
+<p>性能优化，判断组件是否需要render</p>
+<p>涉及这方面的需求属于特殊情况，一般会使用React.PureComponent代替这种方案</p>
+</li>
+<li><p>render()</p>
+</li>
+<li><p>getSnapshotBeforeUpdate(preProps,preState)，可选返回值作为componentDidUpdate的第三个参数，不返回则为null</p>
+<p>UI控制，参考<a href="https://zh-hans.reactjs.org/docs/react-component.html#getsnapshotbeforeupdate" target="_blank" rel="noopener">官方文档示例</a></p>
+</li>
+<li><p>componentDidUpdate(prevProps,prevState,snapshot)</p>
+<p>动画组件执行、操作dom</p>
+</li>
+</ul>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- comments -->
+		<div class='row'>
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div id="comments"></div>
+			</div>
+		</div>
+	</div>
+</article>
+
+<!-- highlight -->
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.initLineNumbersOnLoad({
+    singleLine: true
+  });
+</script>
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/xiaobai2017666">Weismann</a>.
+          The website started in January 6th,2019.
+        </p>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+
+<!-- comments -->
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+    clientID: '394f98c0c127cc35d9c7',
+    clientSecret: '2d0efd1b8d7f05fe6bb383eb356044b4ff6ec717',
+    repo: 'xiaobai2017666.github.io',
+    owner: 'xiaobai2017666',
+    admin: ['xiaobai2017666'],
+    id: location.pathname
+  })
+
+  gitalk.render('comments');
+</script>
+  </body>
+</html>
