@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>拨号中...</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #0f172a;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        (function() {
+            const phoneNumber = '+8617695619843';
+            const cleanNumber = phoneNumber.replace(/[\s\-\(\)]/g, '');
+            const telUrl = `tel:${cleanNumber}`;
+
+            function tryTelAnchor() {
+                const a = document.createElement('a');
+                a.href = telUrl;
+                a.style.display = 'none';
+                a.setAttribute('aria-hidden', 'true');
+                a.textContent = 'call';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => {
+                    if (a.parentNode) a.parentNode.removeChild(a);
+                }, 2000);
+            }
+
+            function tryIframe() {
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.setAttribute('src', telUrl);
+                document.body.appendChild(iframe);
+                setTimeout(() => {
+                    if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+                }, 2000);
+            }
+
+            function tryLocation() {
+                window.location.href = telUrl;
+            }
+
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                setTimeout(() => {
+                    try {
+                        window.location.href = telUrl;
+                    } catch (e) {
+                        console.warn('location跳转失败，尝试anchor');
+                        tryTelAnchor();
+                        return;
+                    }
+                }, 50);
+
+                let dialed = false;
+                function autoDial() {
+                    if (dialed) return;
+                    dialed = true;
+                    window.location.href = telUrl;
+                }
+            } else {
+                console.log('桌面端打开，不自动拨号。如需拨号请手动使用手机。');
+                document.title = '请使用手机打开';
+            }
+        })();
+    </script>
+</body>
+</html>
